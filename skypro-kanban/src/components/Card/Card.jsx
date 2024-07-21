@@ -1,23 +1,23 @@
 import React from 'react';
 import '../../App.css';
 
-function Card({ title, category, date }) {
-  const getThemeClass = (category) => {
-    switch (category.toLowerCase()) {
+function Card({ title, topic, date }) {
+  const getThemeClass = (topic) => {
+    switch (topic.toLowerCase()) {
       case 'web design': return '_orange';
       case 'research': return '_green';
       case 'copywriting': return '_purple';
-      default: return '';
+      default: return '_gray';
     }
   };
 
-  const themeClass = getThemeClass(category);
+  const themeClass = getThemeClass(topic);
 
   return (
     <div className="cards__card card">
       <div className="card__group">
         <div className={`card__theme ${themeClass}`}>
-          <p className={themeClass}>{category}</p>
+          <p className={themeClass}>{topic}</p>
         </div>
         <a href="#popBrowse" target="_self">
           <div className="card__btn">

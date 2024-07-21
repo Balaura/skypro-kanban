@@ -36,11 +36,11 @@ function Column({ title, tasks }) {
         <p>{title}</p>
       </div>
       <div className="cards">
-        {tasks.map((task, index) => (
-          <div className="cards__item" key={task.id || index}>
+        {tasks.map((task) => (
+          <div className="cards__item" key={task.id}>
             <Card
               title={task.title}
-              category={task.category}
+              topic={task.topic}
               date={task.date}
             />
           </div>

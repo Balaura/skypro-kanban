@@ -1,13 +1,23 @@
 import React from 'react';
 import '../../App.css';
 
-function Header() {
+function Header({ onCardAdd }) {
   const handleUserClick = (e) => {
     e.preventDefault(); // Предотвращаем действие по умолчанию
     const targetElement = document.querySelector(e.currentTarget.getAttribute('href'));
     if (targetElement) {
       targetElement.style.display = targetElement.style.display === 'block' ? 'none' : 'block';
     }
+  };
+
+  const handleCreateNewTask = () => {
+    onCardAdd({
+      id: Date.now(),
+      title: 'Новая задача',
+      date: new Date().toLocaleDateString('ru-RU'),
+      category: 'Web Design',
+      status: 'Без статуса'
+    });
   };
 
   return (
@@ -21,8 +31,8 @@ function Header() {
             <a href="/" target="_self"><img src="/images/logo_dark.png" alt="logo" /></a>
           </div>
           <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+            <button className="header__btn-main-new _hover01" id="btnMainNew" onClick={onCardAdd}>
+              Создать новую задачу
             </button>
             <a href="#user-set-target" className="header__user _hover02" onClick={handleUserClick}>Ivan Ivanov</a>
             <div className="header__pop-user-set pop-user-set" id="user-set-target">
