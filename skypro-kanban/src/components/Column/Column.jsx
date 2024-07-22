@@ -10,13 +10,12 @@ function Column({ title, tasks }) {
       </div>
       <div className="cards">
         {tasks.map((task) => (
-          <div className="cards__item" key={task.id}>
-            <Card
-              title={task.title}
-              topic={task.topic}
-              date={task.date}
-            />
-          </div>
+          <Card
+            key={task.id}
+            title={task.title}
+            topic={task.topic}
+            date={task.date}
+          />
         ))}
       </div>
     </div>
