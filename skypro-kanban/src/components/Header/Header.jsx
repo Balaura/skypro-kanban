@@ -2,24 +2,6 @@ import React from 'react';
 import '../../App.css';
 
 function Header({ onCardAdd }) {
-  const handleUserClick = (e) => {
-    e.preventDefault(); // Предотвращаем действие по умолчанию
-    const targetElement = document.querySelector(e.currentTarget.getAttribute('href'));
-    if (targetElement) {
-      targetElement.style.display = targetElement.style.display === 'block' ? 'none' : 'block';
-    }
-  };
-
-  const handleCreateNewTask = () => {
-    onCardAdd({
-      id: Date.now(),
-      title: 'Новая задача',
-      date: new Date().toLocaleDateString('ru-RU'),
-      category: 'Web Design',
-      status: 'Без статуса'
-    });
-  };
-
   return (
     <header className="header">
       <div className="container">
@@ -34,7 +16,7 @@ function Header({ onCardAdd }) {
             <button className="header__btn-main-new _hover01" id="btnMainNew" onClick={onCardAdd}>
               Создать новую задачу
             </button>
-            <a href="#user-set-target" className="header__user _hover02" onClick={handleUserClick}>Ivan Ivanov</a>
+            <a href="#" className="header__user _hover02">Ivan Ivanov</a>
             <div className="header__pop-user-set pop-user-set" id="user-set-target">
               <p className="pop-user-set__name">Ivan Ivanov</p>
               <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
