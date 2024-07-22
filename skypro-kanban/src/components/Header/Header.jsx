@@ -1,55 +1,64 @@
-import React from 'react';
-import '../../App.css';
+import React, { useState } from 'react';
+import {
+  HeaderWrapper,
+  HeaderBlock,
+  HeaderLogo,
+  HeaderNav,
+  HeaderBtnMainNew,
+  HeaderUser,
+  UserMenu,
+  UserName,
+  UserEmail,
+  ThemeToggleWrapper,
+  ThemeToggle,
+  ToggleInput,
+  ToggleSlider,
+  ExitButton
+} from './HeaderStyles';
 
-function Header({ onCardAdd }) {
+function Header({ onCardAdd, onThemeToggle }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const handleUserClick = (e) => {
-    e.preventDefault(); // Предотвращаем действие по умолчанию
-    const targetElement = document.querySelector(e.currentTarget.getAttribute('href'));
-    if (targetElement) {
-      targetElement.style.display = targetElement.style.display === 'block' ? 'none' : 'block';
-    }
-  };
-
-  const handleCreateNewTask = () => {
-    onCardAdd({
-      id: Date.now(),
-      title: 'Новая задача',
-      date: new Date().toLocaleDateString('ru-RU'),
-      category: 'Web Design',
-      status: 'Без статуса'
-    });
+    e.preventDefault();
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <header className="header">
+    <HeaderWrapper>
       <div className="container">
-        <div className="header__block">
-          <div className="header__logo _show _light">
+        <HeaderBlock>
+          <HeaderLogo className="_show _light">
             <a href="/" target="_self"><img src="/images/logo.png" alt="logo" /></a>
-          </div>
-          <div className="header__logo _dark">
+          </HeaderLogo>
+          <HeaderLogo className="_dark">
             <a href="/" target="_self"><img src="/images/logo_dark.png" alt="logo" /></a>
-          </div>
-          <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew" onClick={onCardAdd}>
+          </HeaderLogo>
+          <HeaderNav>
+            <HeaderBtnMainNew onClick={onCardAdd}>
               Создать новую задачу
-            </button>
-            <a href="#user-set-target" className="header__user _hover02" onClick={handleUserClick}>Ivan Ivanov</a>
-            <div className="header__pop-user-set pop-user-set" id="user-set-target">
-              <p className="pop-user-set__name">Ivan Ivanov</p>
-              <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-              <div className="pop-user-set__theme">
-                <p>Темная тема</p>
-                <input type="checkbox" className="checkbox" name="checkbox" />
-              </div>
-              <button type="button" className="_hover03">
-                <a href="#popExit">Выйти</a>
-              </button>
-            </div>
-          </nav>
-        </div>
+            </HeaderBtnMainNew>
+            <HeaderUser href="#" onClick={handleUserClick}>
+              Ivan Ivanov
+            </HeaderUser>
+            {isMenuOpen && (
+              <UserMenu>
+                <UserName>Ivan Ivanov</UserName>
+                <UserEmail>ivan.ivanov@gmail.com</UserEmail>
+                <ThemeToggleWrapper>
+                  <span>Темная тема</span>
+                  <ThemeToggle>
+                    <ToggleInput type="checkbox" onChange={onThemeToggle} />
+                    <ToggleSlider />
+                  </ThemeToggle>
+                </ThemeToggleWrapper>
+                <ExitButton>Выйти</ExitButton>
+              </UserMenu>
+            )}
+          </HeaderNav>
+        </HeaderBlock>
       </div>
-    </header>
+    </HeaderWrapper>
   );
 }
 

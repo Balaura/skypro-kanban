@@ -1,22 +1,25 @@
+
 import React, { useState, useEffect } from 'react';
+import { ThemeProvider } from 'styled-components';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import PopBrowse from './components/Popups/PopBrowse/PopBrowse';
 import PopNewCard from './components/Popups/PopNewCard/PopNewCard';
 import PopUser from './components/Popups/PopUser/PopUser';
 import { cardList } from '../data';
-import './App.css';
+import GlobalStyle from './styles/GlobalStyles';
+import { themeColors } from './styles/Themes';
 
 function App() {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
 
   useEffect(() => {
-    // Эмуляция загрузки данных
     setTimeout(() => {
       setCards(cardList);
       setIsLoading(false);
-    }, 2000); // 2 секунды задержки
+    }, 2000);
   }, []);
 
   function onCardAdd() {
@@ -29,20 +32,22 @@ function App() {
     };
     setCards([...cards, newCard]);
   }
-
   return (
-    <div className="wrapper">
-      <PopBrowse />
-      <PopNewCard onCardAdd={onCardAdd} />
-      <PopUser />
-      <Header onCardAdd={onCardAdd} />
-      {isLoading ? (
-        <div className="loading">Данные загружаются...</div>
-      ) : (
-        <Main cards={cards} />
-      )}
-    </div>
-  )
+    <ThemeProvider theme={themeColors}>
+      <GlobalStyle />
+      <div className='wrapper'>
+        <PopBrowse />
+        <PopNewCard onCardAdd={onCardAdd} />
+        <Header onCardAdd={onCardAdd} onUserClick={() => setIsUserPopupOpen(!isUserPopupOpen)} />
+        <PopUser isOpen={isUserPopupOpen} />
+        {isLoading ? (
+          <div className="loading">Данные загружаются...</div>
+        ) : (
+          <Main cards={cards} />
+        )}
+      </div>
+    </ThemeProvider>
+  );
 }
 
 export default App;

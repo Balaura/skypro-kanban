@@ -1,25 +1,24 @@
 import React from 'react';
 import Card from '../Card/Card';
-import '../../App.css';
+import { ColumnWrapper, ColumnTitle, CardsContainer } from './ColumnStyles';
 
 function Column({ title, tasks }) {
   return (
-    <div className="main__column column">
-      <div className="column__title">
+    <ColumnWrapper>
+      <ColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
+      </ColumnTitle>
+      <CardsContainer>
         {tasks.map((task) => (
-          <div className="cards__item" key={task.id}>
-            <Card
-              title={task.title}
-              topic={task.topic}
-              date={task.date}
-            />
-          </div>
+          <Card
+            key={task.id}
+            title={task.title}
+            topic={task.topic}
+            date={task.date}
+          />
         ))}
-      </div>
-    </div>
+      </CardsContainer>
+    </ColumnWrapper>
   );
 }
 

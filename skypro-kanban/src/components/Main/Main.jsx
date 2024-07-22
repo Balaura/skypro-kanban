@@ -1,6 +1,6 @@
 import React from 'react';
 import Column from '../Column/Column';
-import '../../App.css';
+import { MainWrapper, MainBlock, MainContent } from './MainStyles';
 
 const statusList = [
   "Без статуса",
@@ -12,10 +12,10 @@ const statusList = [
 
 function Main({ cards }) {
   return (
-    <main className="main">
+    <MainWrapper>
       <div className="container">
-        <div className="main__block">
-          <div className="main__content">
+        <MainBlock>
+          <MainContent>
             {statusList.map((status) => (
               <Column
                 key={status}
@@ -23,10 +23,10 @@ function Main({ cards }) {
                 tasks={cards.filter((card) => card.status.toLowerCase() === status.toLowerCase())}
               />
             ))}
-          </div>
-        </div>
+          </MainContent>
+        </MainBlock>
       </div>
-    </main>
+    </MainWrapper>
   );
 }
 
