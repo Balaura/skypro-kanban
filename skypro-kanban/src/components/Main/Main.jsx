@@ -10,7 +10,7 @@ const statusList = [
   "Готово",
 ];
 
-function Main({ cards }) {
+function Main({ cards, onCardEdit, onCardDelete }) {
   return (
     <MainWrapper>
       <div className="container">
@@ -20,7 +20,9 @@ function Main({ cards }) {
               <Column
                 key={status}
                 title={status}
-                tasks={cards.filter((card) => card.status.toLowerCase() === status.toLowerCase())}
+                tasks={cards.filter((card) => (card.status || '').toLowerCase() === status.toLowerCase())}
+                onCardEdit={onCardEdit}
+                onCardDelete={onCardDelete}
               />
             ))}
           </MainContent>

@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from '../../Calendar/Calendar';
 import '../../../App.css';
 
-function PopBrowse() {
+function PopBrowse({ card, onClose, onEdit, onDelete }) {
+  const [editedCard, setEditedCard] = useState(card);
+
+  useEffect(() => {
+    setEditedCard(card);
+  }, [card]);
+
+  if (!card) return null;
+
+  const handleSave = () => {
+    onEdit(editedCard);
+    onClose();
+  };
+
+  const handleDelete = () => {
+    onDelete(card.id);
+    onClose();
+  };
+
   return (
     <div className="pop-browse" id="popBrowse">
       <div className="pop-browse__container">

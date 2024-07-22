@@ -11,10 +11,11 @@ import {
   CardDate,
   DateText
 } from './CardStyles';
+import { Link } from 'react-router-dom';
 
-function Card({ title, topic, date }) {
+function Card({ id, title, topic = '', date }) {
   const getTopicClassName = (topic) => {
-    switch (topic.toLowerCase()) {
+    switch ((topic || '').toLowerCase()) {
       case 'web design': return 'web-design';
       case 'research': return 'research';
       case 'copywriting': return 'copywriting';
@@ -37,7 +38,9 @@ function Card({ title, topic, date }) {
         </CardButton>
       </CardGroup>
       <CardContent>
-        <CardTitle>{title}</CardTitle>
+        <Link to={`/card/${id}`}>
+          <CardTitle>{title}</CardTitle>
+        </Link>
         <CardDate>
           <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 13 13" fill="none">
             <g clipPath="url(#clip0_1_415)">

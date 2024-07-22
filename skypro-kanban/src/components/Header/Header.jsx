@@ -15,6 +15,7 @@ import {
   ToggleSlider,
   ExitButton
 } from './HeaderStyles';
+import { Link } from 'react-router-dom';
 
 function Header({ onCardAdd, onThemeToggle }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,7 +53,9 @@ function Header({ onCardAdd, onThemeToggle }) {
                     <ToggleSlider />
                   </ThemeToggle>
                 </ThemeToggleWrapper>
-                <ExitButton>Выйти</ExitButton>
+                <Link to="/exit">
+                  <ExitButton>Выйти</ExitButton>
+                </Link>
               </UserMenu>
             )}
           </HeaderNav>
