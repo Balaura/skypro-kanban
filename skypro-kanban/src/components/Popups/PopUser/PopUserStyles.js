@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { buttonStyles, cardContainerStyles } from '../../../styles/CommonStyles';
+import { buttonStyles, cardContainerStyles } from '../../styles/CommonStyles';
 
 export const PopUserWrapper = styled.div`
   ${cardContainerStyles}

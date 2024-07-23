@@ -1,7 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { NotFoundWrapper, Title, Message, StyledLink } from '../styles/NotFoundPageStyles';
 
-function NotFoundPage() {
-  return <h1>404 - Page Not Found</h1>;
-}
+const NotFoundPage = () => {
+  return (
+    <NotFoundWrapper>
+      <Title>404</Title>
+      <Message>Страница не найдена</Message>
+      <Link to="/" component={StyledLink}>Вернуться на главную</Link>
+    </NotFoundWrapper>
+  );
+};
 
 export default NotFoundPage;

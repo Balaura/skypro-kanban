@@ -1,110 +1,63 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import Header from './components/Header/Header';
-import Main from './components/Main/Main';
-import PopBrowse from './components/Popups/PopBrowse/PopBrowse';
-import PopNewCard from './components/Popups/PopNewCard/PopNewCard';
-import PopUser from './components/Popups/PopUser/PopUser';
-import { cardList } from '../data';
 import GlobalStyle from './styles/GlobalStyles';
 import { themeColors } from './styles/Themes';
-
+import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import MainPage from './pages/MainPage';
 import CardPage from './pages/CardPage';
 import ExitPage from './pages/ExitPage';
-
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
-  const [cards, setCards] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
-  const [isNewCardPopupOpen, setIsNewCardPopupOpen] = useState(false);
-  const [editingCard, setEditingCard] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    setTimeout(() => {
-      setCards(cardList);
-      setIsLoading(false);
-    }, 2000);
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
   }, []);
 
-  function onCardAdd(newCard) {
-    setCards([...cards, newCard]);
-  }
-
-  const onCardEdit = (editedCard) => {
-    setCards(cards.map(card => card.id === editedCard.id ? editedCard : card));
-    setEditingCard(null);
-  };
-
-  const onCardDelete = (cardId) => {
-    setCards(cards.filter(card => card.id !== cardId));
-  };
-  const ProtectedRoute = ({ children }) => {
-    if (!isAuth) {
-      return <Navigate to="/login" replace />;
-    }
-    return children;
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
   };
 
   return (
-    <ThemeProvider theme={themeColors}>
+    <ThemeProvider theme={themeColors[theme]}>
       <GlobalStyle />
       <Router>
-        <div className='wrapper'>
-          <Routes>
-            <Route path="/login" element={<LoginPage setIsAuth={setIsAuth} />} />
-            <Route path="/register" element={<RegisterPage setIsAuth={setIsAuth} />} />
-            <Route path="/" element={
-              <ProtectedRoute>
-                <MainPage cards={cards} onCardAdd={onCardAdd} isLoading={isLoading} />
-              </ProtectedRoute>
-            } />
-            <Route path="/card/:id" element={
-              <ProtectedRoute>
-                <CardPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/exit" element={
-              <ProtectedRoute>
-                <ExitPage setIsAuth={setIsAuth} />
-              </ProtectedRoute>
-            } />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-          <PopBrowse
-            card={editingCard}
-            onClose={() => setEditingCard(null)}
-            onEdit={onCardEdit}
-            onDelete={onCardDelete}
+        <Routes>
+          <Route path="/login" element={<LoginPage setIsAuth={setIsAuth} />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/"
+            element={
+              isAuth ? (
+                <MainPage toggleTheme={toggleTheme} setIsAuth={setIsAuth} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
-          <PopNewCard
-            isOpen={isNewCardPopupOpen}
-            onClose={() => setIsNewCardPopupOpen(false)}
-            onCardAdd={onCardAdd}
+          <Route
+            path="/card/:id"
+            element={
+              isAuth ? <CardPage /> : <Navigate to="/login" />
+            }
           />
-          <Header
-            onCardAdd={() => setIsNewCardPopupOpen(true)}
-            onUserClick={() => setIsUserPopupOpen(!isUserPopupOpen)}
+          <Route
+            path="/exit"
+            element={
+              isAuth ? <ExitPage setIsAuth={setIsAuth} /> : <Navigate to="/login" />
+            }
           />
-          <PopUser isOpen={isUserPopupOpen} />
-          {isLoading ? (
-            <div className="loading">Данные загружаются...</div>
-          ) : (
-            <Main
-              cards={cards}
-              onCardEdit={(card) => setEditingCard(card)}
-              onCardDelete={onCardDelete}
-            />
-          )}
-        </div>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </Router>
     </ThemeProvider>
   );

@@ -33,29 +33,28 @@ export const HeaderNav = styled.nav`
   justify-content: center;
 `;
 
-
 export const HeaderBtnMainNew = styled.button`
   ${buttonStyles}
   width: auto;
   min-width: 178px;
-  height: 30px;
+  height: 40px;
   padding: 0 20px;
   margin-right: 20px;
-  font-size: 14px; 
-  white-space: nowrap;
+  background-color: #565EEF;
+  color: #FFFFFF;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 500;
+  border-radius: 4px;
   
-  @media (max-width: 1200px) {
-    font-size: 12px; 
-    padding: 0 15px;
-  }
-  
-  @media (max-width: 992px) {
-    min-width: 150px;
-    margin-right: 10px;
+  &:hover {
+    background-color: #33399b;
   }
 `;
 
 export const HeaderUser = styled.a`
+  color: #565EEF;
+  font-weight: 500;
   height: 20px;
   display: flex;
   flex-wrap: nowrap;
@@ -75,6 +74,7 @@ export const HeaderUser = styled.a`
     border-bottom: 1.9px solid ${props => props.theme.primary};
     transform: rotate(-45deg);
     margin: -6px 0 0 5px;
+    margin-top: -2px;
     padding: 0;
   }
 `;
@@ -82,7 +82,7 @@ export const HeaderUser = styled.a`
 export const UserMenu = styled.div`
   position: absolute;
   top: 61px;
-  right: 0;
+  right: 10зч;
   width: 213px;
   background-color: ${props => props.theme.cardBackground};
   border-radius: 10px;
@@ -90,7 +90,6 @@ export const UserMenu = styled.div`
   padding: 34px;
   z-index: 10;
   text-align: center;
-  
 `;
 
 export const UserName = styled.p`

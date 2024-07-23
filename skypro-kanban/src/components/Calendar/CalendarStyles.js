@@ -20,7 +20,7 @@ export const CalendarContent = styled.div`
 `;
 
 export const CalendarMonth = styled.div`
-  color: ${themeColors.textSecondary};
+  color: ${props => props.theme.textSecondary};
   font-size: 14px;
   line-height: 25px;
   font-weight: 600;
@@ -36,7 +36,7 @@ export const CalendarDaysNames = styled.div`
 `;
 
 export const CalendarDayName = styled.div`
-  color: ${themeColors.textSecondary};
+  color: ${props => props.theme.textSecondary};
   font-size: 10px;
   font-weight: 500;
   line-height: normal;
@@ -59,7 +59,7 @@ export const CalendarCell = styled.div`
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  color: ${themeColors.textSecondary};
+  color: ${props => props.theme.textSecondary};
   font-size: 10px;
   line-height: 1;
   letter-spacing: -0.2px;
@@ -70,13 +70,13 @@ export const CalendarCell = styled.div`
   }
 
   &._cell-day:hover {
-    color: ${themeColors.textSecondary};
-    background-color: ${themeColors.background};
+    color: ${props => props.theme.textSecondary};
+    background-color: ${props => props.theme.background};
   }
 
   &._active-day {
-    background-color: ${themeColors.secondary};
-    color: ${themeColors.cardBackground};
+    background-color: ${props => props.theme.secondary};
+    color: ${props => props.theme.cardBackground};
   }
 
   &._current {
@@ -102,7 +102,7 @@ export const NavAction = styled.div`
   justify-content: center;
 
   svg {
-    fill: ${themeColors.textSecondary};
+    fill: ${props => props.theme.textSecondary};
   }
 `;
 
@@ -111,11 +111,11 @@ export const CalendarPeriod = styled.div`
 `;
 
 export const CalendarP = styled.p`
-  color: ${themeColors.textSecondary};
+  color: ${props => props.theme.textSecondary};
   font-size: 10px;
   line-height: 1;
 
   span {
-    color: ${themeColors.textPrimary};
+    color: ${props => props.theme.textPrimary};
   }
 `;

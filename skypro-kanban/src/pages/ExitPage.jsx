@@ -1,15 +1,22 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ExitPageWrapper, ExitMessage } from '../styles/ExitePageStyles';
 
 function ExitPage({ setIsAuth }) {
   const navigate = useNavigate();
 
   useEffect(() => {
     setIsAuth(false);
-    navigate('/login');
+    setTimeout(() => {
+      navigate('/login');
+    }, 2000);
   }, [setIsAuth, navigate]);
 
-  return <h1>Logging out...</h1>;
+  return (
+    <ExitPageWrapper>
+      <ExitMessage>Выход из системы...</ExitMessage>
+    </ExitPageWrapper>
+  );
 }
 
 export default ExitPage;

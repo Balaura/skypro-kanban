@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useTheme } from 'styled-components';
+import logoLight from '../../../public/logo.png';
+import logoDark from '../../../public/logo_dark.png';
 import {
   HeaderWrapper,
   HeaderBlock,
@@ -15,54 +19,43 @@ import {
   ToggleSlider,
   ExitButton
 } from './HeaderStyles';
-import { Link } from 'react-router-dom';
 
-function Header({ onCardAdd, onThemeToggle }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Header = ({ toggleTheme, setIsAuth }) => {
+  const theme = useTheme();
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-  const handleUserClick = (e) => {
-    e.preventDefault();
-    setIsMenuOpen(!isMenuOpen);
+  const handleLogout = () => {
+    setIsAuth(false);
   };
 
   return (
     <HeaderWrapper>
-      <div className="container">
-        <HeaderBlock>
-          <HeaderLogo className="_show _light">
-            <a href="/" target="_self"><img src="/images/logo.png" alt="logo" /></a>
-          </HeaderLogo>
-          <HeaderLogo className="_dark">
-            <a href="/" target="_self"><img src="/images/logo_dark.png" alt="logo" /></a>
-          </HeaderLogo>
-          <HeaderNav>
-            <HeaderBtnMainNew onClick={onCardAdd}>
-              Создать новую задачу
-            </HeaderBtnMainNew>
-            <HeaderUser href="#" onClick={handleUserClick}>
-              Ivan Ivanov
-            </HeaderUser>
-            {isMenuOpen && (
-              <UserMenu>
-                <UserName>Ivan Ivanov</UserName>
-                <UserEmail>ivan.ivanov@gmail.com</UserEmail>
-                <ThemeToggleWrapper>
-                  <span>Темная тема</span>
-                  <ThemeToggle>
-                    <ToggleInput type="checkbox" onChange={onThemeToggle} />
-                    <ToggleSlider />
-                  </ThemeToggle>
-                </ThemeToggleWrapper>
-                <Link to="/exit">
-                  <ExitButton>Выйти</ExitButton>
-                </Link>
-              </UserMenu>
-            )}
-          </HeaderNav>
-        </HeaderBlock>
-      </div>
+      <HeaderBlock>
+        <HeaderLogo>
+          <img src={theme.name === 'dark' ? logoDark : logoLight} alt="Logo" />
+          {/* <img src="/logo.png" alt="Logo" /> */}
+        </HeaderLogo>
+        <HeaderNav>
+          <HeaderBtnMainNew as={Link} to="/card/new">Создать новую задачу</HeaderBtnMainNew>
+          <HeaderUser onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}>Ivan Ivanov</HeaderUser>
+        </HeaderNav>
+      </HeaderBlock>
+      {isUserMenuOpen && (
+        <UserMenu>
+          <UserName>Ivan Ivanov</UserName>
+          <UserEmail>ivan.ivanov@example.com</UserEmail>
+          <ThemeToggleWrapper>
+            <p>Темная тема</p>
+            <ThemeToggle>
+              <ToggleInput type="checkbox" onChange={toggleTheme} />
+              <ToggleSlider />
+            </ThemeToggle>
+          </ThemeToggleWrapper>
+          <ExitButton as={Link} to="/exit" onClick={handleLogout}>Выйти</ExitButton>
+        </UserMenu>
+      )}
     </HeaderWrapper>
   );
-}
+};
 
 export default Header;

@@ -8,7 +8,13 @@ export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px 13px 19px;
-  margin-bottom: 15px;  // Добавляем отступ снизу
+  margin-bottom: 15px;
+  input, textarea, button {
+    &:focus {
+      outline: none;
+      border-color: ${props => props.theme.primary};
+    }
+  }
 `;
 
 export const CardGroup = styled.div`
@@ -81,4 +87,11 @@ export const DateText = styled.p`
   line-height: 13px;
   color: ${props => props.theme.textSecondary};
   letter-spacing: 0.2px;
+  input, textarea, button {
+    &:focus {
+      outline: none;
+      border-color: ${props => props.theme.primary};
+    }
+  }
+
 `;
