@@ -45,7 +45,7 @@ function Calendar() {
             <CalendarDayName className="calendar__day-name -weekend-">вс</CalendarDayName>
           </CalendarDaysNames>
           <CalendarCells className="calendar__cells">
-            {/* Здесь будут ячейки календаря */}
+            {/* Здесь будут ячейки календаря диначично 6 домашка */}
             {/* Пример: */}
             <CalendarCell className="_other-month">28</CalendarCell>
             <CalendarCell className="_cell-day">1</CalendarCell>

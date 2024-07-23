@@ -50,7 +50,6 @@ export const Button = styled.button`
   width: 100%;
   padding: 10px;
   margin-top: 20px;
-  /* background-color: ${props => props.theme.primary}; */
   background-color: ${props => props.error ? '#94A6BE' : props.theme.primary};
   color: ${props => props.theme.cardBackground};
   border: none;
@@ -71,12 +70,14 @@ export const ErrorMessage = styled.p`
 export const LinkWrapper = styled.div`
   margin-top: 20px;
   text-align: center;
+  color: #94A6BE66;
+  font-size: 14px;
 
   a {
-    color: ${props => props.theme.primary};
     text-decoration: none;
     line-height:21px;
     color: #94A6BE66;
+    font-size: 14px;
 
     &:hover {
       text-decoration: underline;

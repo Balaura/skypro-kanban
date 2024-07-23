@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { themeColors } from '../../styles/Themes';
 
 export const CalendarWrapper = styled.div`
   width: 182px;

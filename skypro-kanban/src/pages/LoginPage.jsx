@@ -11,7 +11,7 @@ function LoginPage({ setIsAuth }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Здесь будет проверка вход с API в 5 домашке
-    if (email === 'user@example.com' && password === 'password') {
+    if ((email === 'user@example.com' && password === 'password') || (email === '1@1' && password === '1')) {
       setIsAuth(true);
       navigate('/');
     } else {
@@ -42,7 +42,7 @@ function LoginPage({ setIsAuth }) {
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Button type="submit" error={error}> Войти </Button>
         <LinkWrapper>
-          <Link to="/register">Нужно зарегистрироваться?
+          <p>Нужно зарегистрироваться?</p><Link to="/register">
             <u>Регистрируйтесь здесь</u>
           </Link>
         </LinkWrapper>

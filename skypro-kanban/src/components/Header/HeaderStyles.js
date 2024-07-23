@@ -3,20 +3,20 @@ import { buttonStyles } from '../../styles/CommonStyles';
 
 export const HeaderWrapper = styled.header`
   width: 100%;
-  margin: 0 auto;
   background-color: ${props => props.theme.cardBackground};
+`;
+
+export const HeaderContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0px 16px 0px ;
 `;
 
 export const HeaderBlock = styled.div`
   height: 70px;
   display: flex;
-  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  top: 0;
-  left: 0;
-  padding: 0 10px;
 `;
 
 export const HeaderLogo = styled.div`
@@ -26,70 +26,72 @@ export const HeaderLogo = styled.div`
 `;
 
 export const HeaderNav = styled.nav`
-  max-width: 290px;
-  padding: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
 `;
+
 
 export const HeaderBtnMainNew = styled.button`
   ${buttonStyles}
-  width: auto;
-  min-width: 178px;
-  height: 40px;
-  padding: 0 20px;
-  margin-right: 20px;
   background-color: #565EEF;
   color: #FFFFFF;
-  font-size: 14px;
-  line-height: 1;
-  font-weight: 500;
   border-radius: 4px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 20px;
+  white-space: nowrap;
+`;
+
+export const HeaderUser = styled.div`
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: ${props => props.theme.primary};
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
   
-  &:hover {
-    background-color: #33399b;
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid ${props => props.theme.primary};
+    border-bottom: 2px solid ${props => props.theme.primary};
+    transform: rotate(45deg);
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  &.open::after {
+    transform: rotate(-135deg);
   }
 `;
 
-export const HeaderUser = styled.a`
-  color: #565EEF;
-  font-weight: 500;
-  height: 20px;
+export const HeaderUserWrapper = styled.div`
+  position: relative;
+  cursor: pointer;
   display: flex;
-  flex-wrap: nowrap;
   align-items: center;
-  justify-content: center;
+  color: ${props => props.theme.primary};
+  font-weight: 500;
   font-size: 14px;
   line-height: 20px;
-  color: ${props => props.theme.primary};
-
-  &::after {
-    content: "";
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 1px;
-    border-left: 1.9px solid ${props => props.theme.primary};
-    border-bottom: 1.9px solid ${props => props.theme.primary};
-    transform: rotate(-45deg);
-    margin: -6px 0 0 5px;
-    margin-top: -2px;
-    padding: 0;
-  }
 `;
 
 export const UserMenu = styled.div`
   position: absolute;
-  top: 61px;
-  right: 10зч;
-  width: 213px;
+  top: 36px;
+  right: 0;
   background-color: ${props => props.theme.cardBackground};
   border-radius: 10px;
   box-shadow: 0px 10px 39px rgba(26, 56, 101, 0.21);
   padding: 34px;
-  z-index: 10;
   text-align: center;
+  z-index: 10;
+  min-width: 213px;
 `;
 
 export const UserName = styled.p`
@@ -171,6 +173,8 @@ export const ExitButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 5.5px 13.46px 5.5px 13.46px;
+  box-sizing: border-box;
 
   &:hover {
     background-color: ${props => props.theme.primary || '#565EEF'};

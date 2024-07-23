@@ -5,13 +5,14 @@ export const MainWrapper = styled.main`
   background-color: ${props => props.theme.background};
 `;
 
-export const MainBlock = styled.div`
-  width: 100%;
+export const MainContainer = styled.div`
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 25px 0 49px;
+  padding: 25px 16px 49px;
 `;
 
 export const MainContent = styled.div`
   width: 100%;
   display: flex;
+  justify-content: space-between;
 `;
