@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ExitPageWrapper, ExitMessage } from '../styles/ExitePageStyles';
+import { ExitPageWrapper, ExitMessage } from './ExitePageStyles';
 
 function ExitPage({ setIsAuth }) {
   const navigate = useNavigate();

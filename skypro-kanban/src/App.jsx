@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyles';
 import { themeColors } from './styles/Themes';
-import MainPage from './pages/MainPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import CardPage from './pages/CardPage';
-import ExitPage from './pages/ExitPage';
-import NotFoundPage from './pages/NotFoundPage';
+import MainPage from './pages/MainPage/MainPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
+import CardPage from './pages/CardPage/CardPage';
+import ExitPage from './pages/ExitPage/ExitPage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);

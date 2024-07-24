@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header/Header';
-import Main from '../components/Main/Main';
-import PopBrowse from '../components/Popups/PopBrowse/PopBrowse';
-import PopNewCard from '../components/Popups/PopNewCard/PopNewCard';
-import { cardList } from '../../data';
-import { MainPageWrapper } from '../styles/MainPageStyles';
+import Header from '../../components/Header/Header';
+import Main from '../../components/Main/Main';
+import PopBrowse from '../../components/Popups/PopBrowse/PopBrowse';
+import PopNewCard from '../../components/Popups/PopNewCard/PopNewCard';
+import { cardList } from '../../../data';
+import { MainPageWrapper } from './MainPageStyles';
 
 function MainPage({ toggleTheme }) {
      const [cards, setCards] = useState([]);

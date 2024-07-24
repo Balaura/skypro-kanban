@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { RegisterWrapper, RegisterForm, Title, InputWrapper, Input, FieldErrorMessage, Button, ButtonErrorMessage, LinkWrapper } from '../styles/RegisterPageStyles';
+import './RegisterPageStyles';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { CardPageWrapper, Title, CardInfo, CardContainer } from '../styles/CardPageStyles';
+import { CardPageWrapper, Title, CardInfo, CardContainer } from './CardPageStyles';
 
 function CardPage() {
   const { id } = useParams();
