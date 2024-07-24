@@ -1,19 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from '../../Calendar/Calendar';
-import {
-  PopupWrapper,
-  PopupContent,
-  TopBlock,
-  Title,
-  StatusBlock,
-  StatusTitle,
-  StatusThemes,
-  StatusTheme,
-  Form,
-  TextArea,
-  ButtonGroup,
-  Button
-} from './PopBrowseStyles';
+import './PopBrowseStyles';
 
 function PopBrowse({ card, onClose, onEdit, onDelete }) {
   const [editedCard, setEditedCard] = useState(card);
@@ -48,7 +35,7 @@ function PopBrowse({ card, onClose, onEdit, onDelete }) {
               <StatusTheme
                 key={status}
                 isActive={editedCard.status === status}
-                onClick={() => isEditing && setEditedCard({...editedCard, status})}
+                onClick={() => isEditing && setEditedCard({ ...editedCard, status })}
               >
                 {status}
               </StatusTheme>
@@ -58,7 +45,7 @@ function PopBrowse({ card, onClose, onEdit, onDelete }) {
         <Form>
           <TextArea
             value={editedCard.description}
-            onChange={(e) => isEditing && setEditedCard({...editedCard, description: e.target.value})}
+            onChange={(e) => isEditing && setEditedCard({ ...editedCard, description: e.target.value })}
             readOnly={!isEditing}
             placeholder="Введите описание задачи..."
           />

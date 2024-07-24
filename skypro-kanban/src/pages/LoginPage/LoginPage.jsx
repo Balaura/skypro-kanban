@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoginWrapper, LoginForm, Title, Input, Button, ErrorMessage, LinkWrapper } from './LoginPageStyles';
+import './LoginPageStyles';
 
 function LoginPage({ setIsAuth }) {
   const [email, setEmail] = useState('');

@@ -4,7 +4,7 @@ import Main from '../../components/Main/Main';
 import PopBrowse from '../../components/Popups/PopBrowse/PopBrowse';
 import PopNewCard from '../../components/Popups/PopNewCard/PopNewCard';
 import { cardList } from '../../../data';
-import { MainPageWrapper } from './MainPageStyles';
+import './MainPageStyles';
 
 function MainPage({ toggleTheme }) {
      const [cards, setCards] = useState([]);
