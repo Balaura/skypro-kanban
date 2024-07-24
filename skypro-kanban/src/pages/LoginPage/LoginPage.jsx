@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './LoginPageStyles';
+import * as styles from './LoginPageStyles';
 
 function LoginPage({ setIsAuth }) {
   const [email, setEmail] = useState('');
@@ -20,10 +20,10 @@ function LoginPage({ setIsAuth }) {
   };
 
   return (
-    <LoginWrapper>
-      <LoginForm onSubmit={handleSubmit}>
-        <Title>Вход</Title>
-        <Input
+    <styles.LoginWrapper>
+      <styles.LoginForm onSubmit={handleSubmit}>
+        <styles.Title>Вход</styles.Title>
+        <styles.Input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -31,7 +31,7 @@ function LoginPage({ setIsAuth }) {
           required
           error={error}
         />
-        <Input
+        <styles.Input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -39,15 +39,15 @@ function LoginPage({ setIsAuth }) {
           required
           error={error}
         />
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-        <Button type="submit" error={error}> Войти </Button>
-        <LinkWrapper>
+        {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
+        <styles.Button type="submit" error={error}> Войти </styles.Button>
+        <styles.LinkWrapper>
           <p>Нужно зарегистрироваться?</p><Link to="/register">
             <u>Регистрируйтесь здесь</u>
           </Link>
-        </LinkWrapper>
-      </LoginForm>
-    </LoginWrapper>
+        </styles.LinkWrapper>
+      </styles.LoginForm>
+    </styles.LoginWrapper>
   );
 }
 

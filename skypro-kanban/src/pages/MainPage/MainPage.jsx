@@ -1,61 +1,50 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
-import PopBrowse from '../../components/Popups/PopBrowse/PopBrowse';
-import PopNewCard from '../../components/Popups/PopNewCard/PopNewCard';
 import { cardList } from '../../../data';
-import './MainPageStyles';
+import { themeColors } from '../../styles/Themes';
+import GlobalStyle from '../../styles/GlobalStyles';
 
-function MainPage({ toggleTheme }) {
+function MainPage({ isAuth, setIsAuth }) {
+     const [theme, setTheme] = useState('light');
      const [cards, setCards] = useState([]);
-     const [isLoading, setIsLoading] = useState(true);
-     const [isNewCardPopupOpen, setIsNewCardPopupOpen] = useState(false);
-     const [editingCard, setEditingCard] = useState(null);
+     const navigate = useNavigate();
 
      useEffect(() => {
-          setTimeout(() => {
+          if (isAuth) {
                setCards(cardList);
-               setIsLoading(false);
-          }, 2000);
-     }, []);
+          } else {
+               navigate('/login');
+          }
 
-     const onCardAdd = (newCard) => {
-          setCards([...cards, newCard]);
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+               setTheme(savedTheme);
+          }
+     }, [isAuth, navigate]);
+
+     const toggleTheme = () => {
+          const newTheme = theme === 'light' ? 'dark' : 'light';
+          setTheme(newTheme);
+          localStorage.setItem('theme', newTheme);
      };
 
-     const onCardEdit = (editedCard) => {
-          setCards(cards.map(card => card.id === editedCard.id ? editedCard : card));
-          setEditingCard(null);
-     };
-
-     const onCardDelete = (cardId) => {
-          setCards(cards.filter(card => card.id !== cardId));
+     const handleLogout = () => {
+          localStorage.removeItem('token');
+          setIsAuth(false);
+          navigate('/login');
      };
 
      return (
-          <MainPageWrapper>
-               <Header onCardAdd={() => setIsNewCardPopupOpen(true)} toggleTheme={toggleTheme} />
-               {isLoading ? (
-                    <div className="loading">Данные загружаются...</div>
-               ) : (
-                    <Main
-                         cards={cards}
-                         onCardEdit={(card) => setEditingCard(card)}
-                         onCardDelete={onCardDelete}
-                    />
-               )}
-               <PopBrowse
-                    card={editingCard}
-                    onClose={() => setEditingCard(null)}
-                    onEdit={onCardEdit}
-                    onDelete={onCardDelete}
-               />
-               <PopNewCard
-                    isOpen={isNewCardPopupOpen}
-                    onClose={() => setIsNewCardPopupOpen(false)}
-                    onCardAdd={onCardAdd}
-               />
-          </MainPageWrapper>
+          <ThemeProvider theme={themeColors[theme]}>
+               <GlobalStyle />
+               <div className="wrapper">
+                    <Header toggleTheme={toggleTheme} handleLogout={handleLogout} />
+                    <Main cards={cards} />
+               </div>
+          </ThemeProvider>
      );
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './RegisterPageStyles';
+import * as styles from './RegisterPageStyles';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
@@ -45,11 +45,11 @@ const RegisterPage = () => {
   };
 
   return (
-    <RegisterWrapper>
-      <RegisterForm onSubmit={handleSubmit}>
-        <Title>Регистрация</Title>
-        <InputWrapper>
-          <Input
+    <styles.RegisterWrapper>
+      <styles.RegisterForm onSubmit={handleSubmit}>
+        <styles.Title>Регистрация</styles.Title>
+        <styles.InputWrapper>
+          <styles.Input
             name="username"
             type="text"
             value={username}
@@ -58,9 +58,9 @@ const RegisterPage = () => {
             error={errors.username}
           />
           {errors.username && <FieldErrorMessage>{errors.username}</FieldErrorMessage>}
-        </InputWrapper>
-        <InputWrapper>
-          <Input
+        </styles.InputWrapper>
+        <styles.InputWrapper>
+          <styles.Input
             name="email"
             type="email"
             value={email}
@@ -68,10 +68,10 @@ const RegisterPage = () => {
             placeholder="Email"
             error={errors.email}
           />
-          {errors.email && <FieldErrorMessage>{errors.email}</FieldErrorMessage>}
-        </InputWrapper>
-        <InputWrapper>
-          <Input
+          {errors.email && <styles.FieldErrorMessage>{errors.email}</styles.FieldErrorMessage>}
+        </styles.InputWrapper>
+        <styles.InputWrapper>
+          <styles.Input
             name="password"
             type="password"
             value={password}
@@ -80,13 +80,13 @@ const RegisterPage = () => {
             error={errors.password}
           />
           {errors.password && <FieldErrorMessage>{errors.password}</FieldErrorMessage>}
-        </InputWrapper>
-        <Button type="submit">Зарегистрироваться</Button>
-        <LinkWrapper>
+        </styles.InputWrapper>
+        <styles.Button type="submit">Зарегистрироваться</styles.Button>
+        <styles.LinkWrapper>
           <p>Уже есть аккаунт?</p> <Link to="/login"><u>Войдите здесь</u></Link>
-        </LinkWrapper>
-      </RegisterForm>
-    </RegisterWrapper>
+        </styles.LinkWrapper>
+      </styles.RegisterForm>
+    </styles.RegisterWrapper>
   );
 }
 

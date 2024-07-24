@@ -1,18 +1,18 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import './CardPageStyles';
+import * as styles from './CardPageStyles';
 
 function CardPage() {
   const { id } = useParams();
 
   return (
-    <CardPageWrapper>
-      <CardContainer>
-        <Title>Карточка задачи</Title>
-        <CardInfo>ID задачи: {id}</CardInfo>
+    <styles.CardPageWrapper>
+      <styles.CardContainer>
+        <styles.Title>Карточка задачи</styles.Title>
+        <styles.CardInfo>ID задачи: {id}</styles.CardInfo>
         {/* В 6 домашке будет реализована */}
-      </CardContainer>
-    </CardPageWrapper>
+      </styles.CardContainer>
+    </styles.CardPageWrapper>
   );
 }
 
