@@ -831,11 +831,6 @@ body {
   z-index: 2;
 }
 
-.header__user:focus + .header__pop-user-set,
-.header__pop-user-set:hover {
-  display: block;
-}
-
 .main {
   width: 100%;
   background-color: #EAEEF6;
