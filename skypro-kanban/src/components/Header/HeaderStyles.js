@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { buttonStyles } from '../../styles/CommonStyles';
 
 export const HeaderWrapper = styled.header`
@@ -33,7 +33,6 @@ export const HeaderNav = styled.nav`
   justify-content: center;
 `;
 
-
 export const HeaderBtnMainNew = styled.button`
   ${buttonStyles}
   width: auto;
@@ -41,11 +40,11 @@ export const HeaderBtnMainNew = styled.button`
   height: 30px;
   padding: 0 20px;
   margin-right: 20px;
-  font-size: 14px; 
+  font-size: 14px;
   white-space: nowrap;
   
   @media (max-width: 1200px) {
-    font-size: 12px; 
+    font-size: 12px;
     padding: 0 15px;
   }
   
@@ -64,7 +63,7 @@ export const HeaderUser = styled.a`
   font-size: 14px;
   line-height: 20px;
   color: ${props => props.theme.primary};
-
+  
   &::after {
     content: "";
     display: block;
@@ -90,7 +89,6 @@ export const UserMenu = styled.div`
   padding: 34px;
   z-index: 10;
   text-align: center;
-  
 `;
 
 export const UserName = styled.p`
@@ -126,11 +124,11 @@ export const ToggleInput = styled.input`
   opacity: 0;
   width: 0;
   height: 0;
-
+  
   &:checked + span {
     background-color: #565EEF;
   }
-
+  
   &:checked + span:before {
     transform: translateX(12px);
   }
@@ -146,7 +144,7 @@ export const ToggleSlider = styled.span`
   background-color: #C1C1C1;
   transition: .4s;
   border-radius: 34px;
-
+  
   &:before {
     position: absolute;
     content: "";
@@ -172,9 +170,26 @@ export const ExitButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-
+  
   &:hover {
     background-color: ${props => props.theme.primary || '#565EEF'};
     color: ${props => props.theme.cardBackground || '#FFFFFF'};
+  }
+`;
+
+export const LogoLink = styled.a`
+  display: block;
+`;
+
+export const LogoImage = styled.img`
+  width: 85px;
+  display: ${props => props.$isLight ? 'block' : 'none'};
+  
+  ${props => props.$isDark && `
+    display: none;
+  `}
+  
+  @media (prefers-color-scheme: dark) {
+    display: ${props => props.$isDark ? 'block' : 'none'};
   }
 `;

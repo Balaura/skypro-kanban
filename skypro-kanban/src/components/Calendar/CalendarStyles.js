@@ -1,5 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { themeColors } from '../../styles/Themes';
+
+export const NavActions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 export const CalendarWrapper = styled.div`
   width: 182px;
@@ -64,21 +70,29 @@ export const CalendarCell = styled.div`
   line-height: 1;
   letter-spacing: -0.2px;
   cursor: pointer;
-
+  
+  ${props => props.$isOtherMonth && `
+    opacity: 0;
+  `}
+  
+  ${props => props.$isCurrent && `
+    font-weight: 700;
+  `}
+  
   &._other-month {
     opacity: 0;
   }
-
+  
   &._cell-day:hover {
     color: ${themeColors.textSecondary};
     background-color: ${themeColors.background};
   }
-
+  
   &._active-day {
     background-color: ${themeColors.secondary};
     color: ${themeColors.cardBackground};
   }
-
+  
   &._current {
     font-weight: 700;
   }
@@ -100,7 +114,7 @@ export const NavAction = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  
   svg {
     fill: ${themeColors.textSecondary};
   }
@@ -114,7 +128,7 @@ export const CalendarP = styled.p`
   color: ${themeColors.textSecondary};
   font-size: 10px;
   line-height: 1;
-
+  
   span {
     color: ${themeColors.textPrimary};
   }
@@ -123,4 +137,3 @@ export const CalendarP = styled.p`
 export const CalendarBlock = styled.div`
   display: block;
 `;
-

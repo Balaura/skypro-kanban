@@ -13,7 +13,9 @@ import {
   ThemeToggle,
   ToggleInput,
   ToggleSlider,
-  ExitButton
+  ExitButton,
+  LogoLink,
+  LogoImage
 } from './HeaderStyles';
 import styled from 'styled-components';
 import { containerStyles } from "../../styles/CommonStyles";
@@ -34,11 +36,11 @@ function Header({ onCardAdd, onThemeToggle }) {
     <HeaderWrapper>
       <Container>
         <HeaderBlock>
-          <HeaderLogo className="_show _light">
-            <a href="/" target="_self"><img src="/images/logo.png" alt="logo" /></a>
-          </HeaderLogo>
-          <HeaderLogo className="_dark">
-            <a href="/" target="_self"><img src="/images/logo_dark.png" alt="logo" /></a>
+          <HeaderLogo>
+            <LogoLink href="/" target="_self">
+              <LogoImage src="/images/logo.png" alt="logo" $isLight />
+              <LogoImage src="/images/logo_dark.png" alt="logo" $isDark />
+            </LogoLink>
           </HeaderLogo>
           <HeaderNav>
             <HeaderBtnMainNew onClick={onCardAdd}>
