@@ -12,11 +12,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Эмуляция загрузки данных
     setTimeout(() => {
       setCards(cardList);
       setIsLoading(false);
-    }, 2000); // 2 секунды задержки
+    }, 2000); 
   }, []);
 
   function onCardAdd() {
