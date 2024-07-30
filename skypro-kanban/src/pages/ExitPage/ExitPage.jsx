@@ -1,20 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ExitePageStyles';
+import { ExitPageWrapper, ExitMessage, ButtonGroup, Button } from './ExitePageStyles';
 
 function ExitPage({ setIsAuth }) {
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const handleConfirmExit = () => {
     setIsAuth(false);
-    setTimeout(() => {
-      navigate('/login');
-    }, 2000);
-  }, [setIsAuth, navigate]);
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
+  const handleCancelExit = () => {
+    navigate(-1);
+  };
 
   return (
     <ExitPageWrapper>
-      <ExitMessage>Выход из системы...</ExitMessage>
+      <ExitMessage>Вы уверены, что хотите выйти?</ExitMessage>
+      <ButtonGroup>
+        <Button onClick={handleConfirmExit}>Да, выйти</Button>
+        <Button onClick={handleCancelExit}>Отмена</Button>
+      </ButtonGroup>
     </ExitPageWrapper>
   );
 }

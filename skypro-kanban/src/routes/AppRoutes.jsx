@@ -7,7 +7,7 @@ import CardPage from '../pages/CardPage/CardPage';
 import ExitPage from '../pages/ExitPage/ExitPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
-function AppRoutes() {
+function AppRoutes({ toggleTheme }) {
      const [isAuth, setIsAuth] = useState(false);
 
      useEffect(() => {
@@ -25,7 +25,7 @@ function AppRoutes() {
                     path="/"
                     element={
                          isAuth ? (
-                              <MainPage isAuth={isAuth} setIsAuth={setIsAuth} />
+                              <MainPage isAuth={isAuth} setIsAuth={setIsAuth} toggleTheme={toggleTheme} />
                          ) : (
                               <Navigate to="/login" />
                          )

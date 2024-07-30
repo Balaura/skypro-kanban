@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 import logoLight from '../../../public/logo.png';
 import logoDark from '../../../public/logo_dark.png';
@@ -8,9 +8,10 @@ import * as styles from './HeaderStyles';
 const Header = ({ toggleTheme, setIsAuth }) => {
   const theme = useTheme();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    setIsAuth(false);
+    navigate('/exit');
   };
 
   return (
@@ -22,7 +23,10 @@ const Header = ({ toggleTheme, setIsAuth }) => {
           </styles.HeaderLogo>
           <styles.HeaderNav>
             <styles.HeaderBtnMainNew as={Link} to="/card/new">Создать новую задачу</styles.HeaderBtnMainNew>
-            <styles.HeaderUserWrapper><styles.HeaderUser onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}>Ivan Ivanov</styles.HeaderUser>
+            <styles.HeaderUserWrapper>
+              <styles.HeaderUser onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}>
+                Ivan Ivanov
+              </styles.HeaderUser>
               {isUserMenuOpen && (
                 <styles.UserMenu>
                   <styles.UserName>Ivan Ivanov</styles.UserName>
@@ -34,14 +38,13 @@ const Header = ({ toggleTheme, setIsAuth }) => {
                       <styles.ToggleSlider />
                     </styles.ThemeToggle>
                   </styles.ThemeToggleWrapper>
-                  <styles.ExitButton as={Link} to="/exit" onClick={handleLogout}>Выйти</styles.ExitButton>
+                  <styles.ExitButton onClick={handleLogout}>Выйти</styles.ExitButton>
                 </styles.UserMenu>
               )}
             </styles.HeaderUserWrapper>
           </styles.HeaderNav>
         </styles.HeaderBlock>
       </styles.HeaderContainer>
-
     </styles.HeaderWrapper>
   );
 };
