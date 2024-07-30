@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const NotFoundWrapper = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ export const Message = styled.p`
   margin-bottom: 20px;
 `;
 
-export const StyledLink = styled.a`
+export const StyledLink = styled(Link)`
   color: ${props => props.theme.primary};
   text-decoration: none;
   font-size: 18px;

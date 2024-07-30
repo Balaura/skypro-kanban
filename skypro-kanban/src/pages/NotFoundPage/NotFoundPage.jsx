@@ -7,7 +7,7 @@ const NotFoundPage = () => {
     <styles.NotFoundWrapper>
       <styles.Title>404</styles.Title>
       <styles.Message>Страница не найдена</styles.Message>
-      <styles.Link to="/" component={StyledLink}>Вернуться на главную</styles.Link>
+      <styles.StyledLink to="/">Вернуться на главную</styles.StyledLink>
     </styles.NotFoundWrapper>
   );
 };

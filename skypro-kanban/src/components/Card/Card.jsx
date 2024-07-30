@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as styles from './CardStyles';
-import { Link } from 'react-router-dom';
 
 function Card({ id, title, topic = '', date }) {
+  const navigate = useNavigate();
+
   const getTopicClassName = (topic) => {
     switch ((topic || '').toLowerCase()) {
       case 'web design': return 'web-design';
@@ -14,22 +16,24 @@ function Card({ id, title, topic = '', date }) {
 
   const topicClassName = getTopicClassName(topic);
 
+  const handleCardClick = () => {
+    navigate(`/card/${id}`);
+  };
+
   return (
     <styles.CardWrapper>
       <styles.CardGroup>
         <styles.CardTheme $topic={topicClassName}>
           <styles.ThemeText $topic={topicClassName}>{topic}</styles.ThemeText>
         </styles.CardTheme>
-        <styles.CardButton>
+        <styles.CardButton onClick={handleCardClick}>
           <styles.ButtonDot />
           <styles.ButtonDot />
           <styles.ButtonDot />
         </styles.CardButton>
       </styles.CardGroup>
       <styles.CardContent>
-        <Link to={`/card/${id}`}>
-          <styles.CardTitle>{title}</styles.CardTitle>
-        </Link>
+        <styles.CardTitle>{title}</styles.CardTitle>
         <styles.CardDate>
           <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 13 13" fill="none">
             <g clipPath="url(#clip0_1_415)">
