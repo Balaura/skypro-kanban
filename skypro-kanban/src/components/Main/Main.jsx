@@ -1,6 +1,12 @@
 import React from 'react';
 import Column from '../Column/Column';
 import { MainWrapper, MainBlock, MainContent } from './MainStyles';
+import styled from 'styled-components';
+import { containerStyles } from "../../styles/CommonStyles";
+
+const Container = styled.div`
+  ${containerStyles}
+`;
 
 const statusList = [
   "Без статуса",
@@ -13,7 +19,7 @@ const statusList = [
 function Main({ cards }) {
   return (
     <MainWrapper>
-      <div className="container">
+      <Container>
         <MainBlock>
           <MainContent>
             {statusList.map((status) => (
@@ -25,7 +31,7 @@ function Main({ cards }) {
             ))}
           </MainContent>
         </MainBlock>
-      </div>
+      </Container>
     </MainWrapper>
   );
 }

@@ -119,3 +119,8 @@ export const CalendarP = styled.p`
     color: ${themeColors.textPrimary};
   }
 `;
+
+export const CalendarBlock = styled.div`
+  display: block;
+`;
+

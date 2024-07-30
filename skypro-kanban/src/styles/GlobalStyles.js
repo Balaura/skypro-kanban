@@ -14,7 +14,16 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: "Roboto", Arial, Helvetica, sans-serif;
-    color: #000000;
+    color: ${props => props.theme.textPrimary};
+    background-color: ${props => props.theme.background};
+
+    *:focus {
+    outline: none;
+    }
+  }
+
+  input, textarea, button {
+    font-family: inherit;
   }
 
   a,
@@ -37,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     min-height: 100vh;
     overflow: hidden;
-    background-color: #F1F1F1;
+    background-color: ${props => props.theme.background};
   }
 
   .container {

@@ -11,14 +11,15 @@ import {
   CalendarNav,
   NavAction,
   CalendarPeriod,
-  CalendarP
+  CalendarP,
+  CalendarBlock
 } from './CalendarStyles';
 
 function Calendar() {
   return (
-    <CalendarWrapper className="calendar">
-      <CalendarTitle className="calendar__ttl subttl">Даты</CalendarTitle>
-      <div className="calendar__block">
+    <CalendarWrapper>
+      <CalendarTitle>Даты</CalendarTitle>
+      <CalendarBlock>
         <CalendarNav className="calendar__nav">
           <CalendarMonth className="calendar__month">Сентябрь 2023</CalendarMonth>
           <div className="nav__actions">
@@ -59,7 +60,7 @@ function Calendar() {
             Выберите срок исполнения <span className="date-control" />.
           </CalendarP>
         </CalendarPeriod>
-      </div>
+      </CalendarBlock>
     </CalendarWrapper>
   );
 }

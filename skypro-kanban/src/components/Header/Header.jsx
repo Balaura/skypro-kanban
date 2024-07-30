@@ -15,6 +15,12 @@ import {
   ToggleSlider,
   ExitButton
 } from './HeaderStyles';
+import styled from 'styled-components';
+import { containerStyles } from "../../styles/CommonStyles";
+
+const Container = styled.div`
+  ${containerStyles}
+`;
 
 function Header({ onCardAdd, onThemeToggle }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,7 +32,7 @@ function Header({ onCardAdd, onThemeToggle }) {
 
   return (
     <HeaderWrapper>
-      <div className="container">
+      <Container>
         <HeaderBlock>
           <HeaderLogo className="_show _light">
             <a href="/" target="_self"><img src="/images/logo.png" alt="logo" /></a>
@@ -57,7 +63,7 @@ function Header({ onCardAdd, onThemeToggle }) {
             )}
           </HeaderNav>
         </HeaderBlock>
-      </div>
+      </Container>
     </HeaderWrapper>
   );
 }

@@ -9,6 +9,12 @@ import PopUser from './components/Popups/PopUser/PopUser';
 import { cardList } from '../data';
 import GlobalStyle from './styles/GlobalStyles';
 import { themeColors } from './styles/Themes';
+import { LoadingWrapper, wrapperStyles } from "./styles/CommonStyles";
+import styled from 'styled-components';
+
+const AppWrapper = styled.div`
+  ${wrapperStyles}
+`;
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -35,17 +41,17 @@ function App() {
   return (
     <ThemeProvider theme={themeColors}>
       <GlobalStyle />
-      <div className='wrapper'>
+      <AppWrapper>
         <PopBrowse />
         <PopNewCard onCardAdd={onCardAdd} />
         <Header onCardAdd={onCardAdd} onUserClick={() => setIsUserPopupOpen(!isUserPopupOpen)} />
         <PopUser isOpen={isUserPopupOpen} />
         {isLoading ? (
-          <div className="loading">Данные загружаются...</div>
+          <LoadingWrapper>Данные загружаются...</LoadingWrapper>
         ) : (
           <Main cards={cards} />
         )}
-      </div>
+      </AppWrapper>
     </ThemeProvider>
   );
 }
