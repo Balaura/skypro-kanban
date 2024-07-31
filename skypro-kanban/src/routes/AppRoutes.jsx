@@ -7,6 +7,15 @@ import CardPage from '../pages/CardPage/CardPage';
 import ExitPage from '../pages/ExitPage/ExitPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
+const AppRoutesObj = {
+     HOME: "/",
+     LOGIN: "/about",
+     CARDS: "/card/:id",
+     REGISTER: "/register",
+     EXIT: "/exit",
+     NOT_FOUND: "*",
+};
+
 function AppRoutes({ toggleTheme }) {
      const [isAuth, setIsAuth] = useState(false);
 
@@ -19,31 +28,31 @@ function AppRoutes({ toggleTheme }) {
 
      return (
           <Routes>
-               <Route path="/login" element={<LoginPage setIsAuth={setIsAuth} />} />
-               <Route path="/register" element={<RegisterPage />} />
+               <Route path={AppRoutesObj.LOGIN} element={<LoginPage setIsAuth={setIsAuth} />} />
+               <Route path={AppRoutesObj.REGISTER} element={<RegisterPage />} />
                <Route
-                    path="/"
+                    path={AppRoutesObj.HOME}
                     element={
                          isAuth ? (
                               <MainPage isAuth={isAuth} setIsAuth={setIsAuth} toggleTheme={toggleTheme} />
                          ) : (
-                              <Navigate to="/login" />
+                              <Navigate to={AppRoutesObj.LOGIN} />
                          )
                     }
                />
                <Route
-                    path="/card/:id"
+                    path={AppRoutesObj.CARDS}
                     element={
-                         isAuth ? <CardPage /> : <Navigate to="/login" />
+                         isAuth ? <CardPage /> : <Navigate to={AppRoutesObj.LOGIN} />
                     }
                />
                <Route
-                    path="/exit"
+                    path={AppRoutesObj.EXIT}
                     element={
-                         isAuth ? <ExitPage setIsAuth={setIsAuth} /> : <Navigate to="/login" />
+                         isAuth ? <ExitPage setIsAuth={setIsAuth} /> : <Navigate to={AppRoutesObj.LOGIN} />
                     }
                />
-               <Route path="*" element={<NotFoundPage />} />
+               <Route path={AppRoutesObj.NOT_FOUND} element={<NotFoundPage />} />
           </Routes>
      );
 }

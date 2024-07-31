@@ -24,7 +24,7 @@ export const Title = styled.h2`
 
 export const InputWrapper = styled.div`
   position: relative;
-  margin-bottom: 24px; // Increased to accommodate error message
+  margin-bottom: 24px;
 `;
 
 export const Input = styled.input`
