@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import { cardList } from '../../../data';
-import { themeColors } from '../../styles/Themes';
-import GlobalStyle from '../../styles/GlobalStyles';
 
-function MainPage({ isAuth, setIsAuth }) {
-     const [theme, setTheme] = useState('light');
+function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
      const [cards, setCards] = useState([]);
      const navigate = useNavigate();
 
@@ -18,18 +14,7 @@ function MainPage({ isAuth, setIsAuth }) {
           } else {
                navigate('/login');
           }
-
-          const savedTheme = localStorage.getItem('theme');
-          if (savedTheme) {
-               setTheme(savedTheme);
-          }
      }, [isAuth, navigate]);
-
-     const toggleTheme = () => {
-          const newTheme = theme === 'light' ? 'dark' : 'light';
-          setTheme(newTheme);
-          localStorage.setItem('theme', newTheme);
-     };
 
      const handleLogout = () => {
           localStorage.removeItem('token');
@@ -38,13 +23,15 @@ function MainPage({ isAuth, setIsAuth }) {
      };
 
      return (
-          <ThemeProvider theme={themeColors[theme]}>
-               <GlobalStyle />
-               <div className="wrapper">
-                    <Header toggleTheme={toggleTheme} handleLogout={handleLogout} />
-                    <Main cards={cards} />
-               </div>
-          </ThemeProvider>
+          <div className="wrapper">
+               <Header
+                    toggleTheme={toggleTheme}
+                    currentTheme={currentTheme}
+                    handleLogout={handleLogout}
+                    setIsAuth={setIsAuth}
+               />
+               <Main cards={cards} />
+          </div>
      );
 }
 

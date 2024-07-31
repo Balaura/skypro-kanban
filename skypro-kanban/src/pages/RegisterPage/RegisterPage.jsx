@@ -57,7 +57,7 @@ const RegisterPage = () => {
             placeholder="Имя пользователя"
             error={errors.username}
           />
-          {errors.username && <FieldErrorMessage>{errors.username}</FieldErrorMessage>}
+          {errors.username && <styles.FieldErrorMessage>{errors.username}</styles.FieldErrorMessage>}
         </styles.InputWrapper>
         <styles.InputWrapper>
           <styles.Input

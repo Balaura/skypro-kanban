@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useTheme } from 'styled-components';
 import logoLight from '../../../public/logo.png';
 import logoDark from '../../../public/logo_dark.png';
 import * as styles from './HeaderStyles';
 
 const Header = ({ toggleTheme, setIsAuth }) => {
-  const theme = useTheme();
+  const theme = localStorage.getItem('theme') || 'light';
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -19,7 +18,7 @@ const Header = ({ toggleTheme, setIsAuth }) => {
       <styles.HeaderContainer>
         <styles.HeaderBlock>
           <styles.HeaderLogo>
-            <img src={theme.name === 'dark' ? logoDark : logoLight} alt="Logo" />
+            <img src={theme === 'dark' ? logoDark : logoLight} alt="Logo" />
           </styles.HeaderLogo>
           <styles.HeaderNav>
             <styles.HeaderBtnMainNew as={Link} to="/card/new">Создать новую задачу</styles.HeaderBtnMainNew>
@@ -34,7 +33,7 @@ const Header = ({ toggleTheme, setIsAuth }) => {
                   <styles.ThemeToggleWrapper>
                     <p>Темная тема</p>
                     <styles.ThemeToggle>
-                      <styles.ToggleInput type="checkbox" onChange={toggleTheme} />
+                      <styles.ToggleInput type="checkbox" checked={theme === 'dark'} onChange={toggleTheme} />
                       <styles.ToggleSlider />
                     </styles.ThemeToggle>
                   </styles.ThemeToggleWrapper>
