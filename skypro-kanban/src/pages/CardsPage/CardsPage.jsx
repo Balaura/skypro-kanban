@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import * as styles from './CardPageStyles';
+import * as styles from './CardsPageStyles';
 
-function CardPage() {
+function CardsPage() {
   const { id } = useParams();
 
   return (
@@ -16,4 +16,4 @@ function CardPage() {
   );
 }
 
-export default CardPage;
+export default CardsPage;

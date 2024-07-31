@@ -3,13 +3,13 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import MainPage from '../pages/MainPage/MainPage';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import RegisterPage from '../pages/RegisterPage/RegisterPage';
-import CardPage from '../pages/CardPage/CardPage';
+import CardsPage from '../pages/CardsPage/CardsPage';
 import ExitPage from '../pages/ExitPage/ExitPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
 const AppRoutesObj = {
      HOME: "/",
-     LOGIN: "/about",
+     LOGIN: "/login",
      CARDS: "/card/:id",
      REGISTER: "/register",
      EXIT: "/exit",
@@ -43,7 +43,7 @@ function AppRoutes({ toggleTheme }) {
                <Route
                     path={AppRoutesObj.CARDS}
                     element={
-                         isAuth ? <CardPage /> : <Navigate to={AppRoutesObj.LOGIN} />
+                         isAuth ? <CardsPage /> : <Navigate to={AppRoutesObj.LOGIN} />
                     }
                />
                <Route

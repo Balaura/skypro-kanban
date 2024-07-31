@@ -20,7 +20,7 @@ function LoginPage({ setIsAuth }) {
         <styles.Title>Вход</styles.Title>
         <styles.Input
           type="email"
-          value={email}
+          value= {email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Эл. почта"
           required

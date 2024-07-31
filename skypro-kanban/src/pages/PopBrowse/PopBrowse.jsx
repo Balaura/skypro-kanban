@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Calendar from '../../Calendar/Calendar';
+import Calendar from '../../components/Calendar/Calendar';
 import './PopBrowseStyles';
 
 function PopBrowse({ card, onClose, onEdit, onDelete }) {
