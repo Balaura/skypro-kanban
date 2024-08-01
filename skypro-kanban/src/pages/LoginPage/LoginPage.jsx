@@ -20,17 +20,17 @@ function LoginPage({ setIsAuth }) {
         <styles.Title>Вход</styles.Title>
         <styles.Input
           type="email"
-          value= {email}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Эл. почта"
-          required
+        // required
         />
         <styles.Input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Пароль"
-          required
+        // required
         />
         <styles.Button type="submit">
           Войти

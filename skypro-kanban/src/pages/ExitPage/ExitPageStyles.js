@@ -5,32 +5,35 @@ export const ExitPageWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: ${props => props.theme.background};
 `;
 
 export const ExitMessage = styled.h2`
   color: ${props => props.theme.textPrimary};
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
   margin-bottom: 20px;
 `;
 
 export const ButtonGroup = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 10px;
 `;
 
 export const Button = styled.button`
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
   cursor: pointer;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   background-color: ${props => props.theme.primary};
   color: ${props => props.theme.cardBackground};
-
   &:hover {
     opacity: 0.8;
+  }
+
+  &:nth-child(2) {
+    background-color: transparent;
+    border: 1px solid ${props => props.theme.primary};
+    color: ${props => props.theme.primary};
   }
 `;

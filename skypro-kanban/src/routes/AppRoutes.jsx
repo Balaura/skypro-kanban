@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import MainPage from '../pages/MainPage/MainPage';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import RegisterPage from '../pages/RegisterPage/RegisterPage';
@@ -34,23 +34,20 @@ function AppRoutes({ toggleTheme }) {
                     path={AppRoutesObj.HOME}
                     element={
                          isAuth ? (
-                              <MainPage isAuth={isAuth} setIsAuth={setIsAuth} toggleTheme={toggleTheme} />
+                              <>
+                                   <MainPage isAuth={isAuth} setIsAuth={setIsAuth} toggleTheme={toggleTheme} />
+                                   <Outlet />
+                              </>
                          ) : (
                               <Navigate to={AppRoutesObj.LOGIN} />
                          )
                     }
-               />
+               >
+                    <Route path={AppRoutesObj.EXIT} element={<ExitPage setIsAuth={setIsAuth} />} />
+               </Route>
                <Route
                     path={AppRoutesObj.CARDS}
-                    element={
-                         isAuth ? <CardsPage /> : <Navigate to={AppRoutesObj.LOGIN} />
-                    }
-               />
-               <Route
-                    path={AppRoutesObj.EXIT}
-                    element={
-                         isAuth ? <ExitPage setIsAuth={setIsAuth} /> : <Navigate to={AppRoutesObj.LOGIN} />
-                    }
+                    element={isAuth ? <CardsPage /> : <Navigate to={AppRoutesObj.LOGIN} />}
                />
                <Route path={AppRoutesObj.NOT_FOUND} element={<NotFoundPage />} />
           </Routes>
