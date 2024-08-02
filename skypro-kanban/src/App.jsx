@@ -8,7 +8,11 @@ import AppRoutes from './routes/AppRoutes';
 function App() {
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
-    return savedTheme || 'light';
+    if (savedTheme) {
+      return savedTheme;
+    }
+    localStorage.setItem('theme', 'light');
+    return 'light';
   });
 
   useEffect(() => {
@@ -22,7 +26,6 @@ function App() {
       return newTheme;
     });
   };
-
   return (
     <ThemeProvider theme={themeColors[theme]}>
       <GlobalStyle />
