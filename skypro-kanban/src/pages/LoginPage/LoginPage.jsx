@@ -1,17 +1,30 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as styles from './LoginPageStyles';
+import { loginUser } from '../../API';
 
 function LoginPage({ setIsAuth }) {
-  const [email, setEmail] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsAuth(true);
-    localStorage.setItem('token', 'dummy-token');
-    navigate('/');
+    setError('');
+    setIsLoading(true);
+    try {
+      const data = await loginUser(login, password);
+      setIsAuth(true);
+      localStorage.setItem('token', data.user.token);
+      navigate('/');
+    } catch (err) {
+      console.error('Login error:', err);
+      setError(err.message || 'Произошла ошибка при входе. Пожалуйста, попробуйте ещё раз.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -19,21 +32,22 @@ function LoginPage({ setIsAuth }) {
       <styles.LoginForm onSubmit={handleSubmit}>
         <styles.Title>Вход</styles.Title>
         <styles.Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Эл. почта"
-        // required
+          type="text"
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
+          placeholder="Логин"
+          required
         />
         <styles.Input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Пароль"
-        // required
+          required
         />
-        <styles.Button type="submit">
-          Войти
+        {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
+        <styles.Button type="submit" disabled={isLoading}>
+          {isLoading ? 'Загрузка...' : 'Войти'}
         </styles.Button>
         <styles.LinkWrapper>
           <p>Нужно зарегистрироваться?</p>

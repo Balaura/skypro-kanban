@@ -1,46 +1,34 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as styles from './RegisterPageStyles';
+import { registerUser } from '../../API';
 
 const RegisterPage = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+const [login, setLogin] = useState('');
+const [name, setName] = useState('');
+const [password, setPassword] = useState('');
+const [error, setError] = useState('');
+const [isLoading, setIsLoading] = useState(false);
+const navigate = useNavigate();
 
-  const validateField = (name, value) => {
-    if (!value.trim()) {
-      return 'Заполните это поле.';
-    }
-    if (name === 'email' && !/\S+@\S+\.\S+/.test(value)) {
-      return 'Введите корректный email.';
-    }
-    return '';
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'username') setUsername(value);
-    if (name === 'email') setEmail(value);
-    if (name === 'password') setPassword(value);
-
-    setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newErrors = {
-      username: validateField('username', username),
-      email: validateField('email', email),
-      password: validateField('password', password)
-    };
-    setErrors(newErrors);
+    setError('');
 
-    if (Object.values(newErrors).every(error => !error)) {
-      // Здесь будет логика регистрации пользователя в 5 домашке
-      console.log('Registration:', username, email, password);
+    if (login.length < 3) {
+      setError('Логин должен содержать хотя бы 3 символа');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await registerUser(login, name, password);
       navigate('/login');
+    } catch (err) {
+      console.error('Registration error:', err);
+      setError(err.message || 'Ошибка при регистрации. Попробуйте другой логин.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -50,44 +38,46 @@ const RegisterPage = () => {
         <styles.Title>Регистрация</styles.Title>
         <styles.InputWrapper>
           <styles.Input
-            name="username"
+            name="login"
             type="text"
-            value={username}
-            onChange={handleInputChange}
-            placeholder="Имя пользователя"
-            error={errors.username}
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
+            placeholder="Логин"
+            required
+            minLength={3}
           />
-          {errors.username && <styles.FieldErrorMessage>{errors.username}</styles.FieldErrorMessage>}
         </styles.InputWrapper>
         <styles.InputWrapper>
           <styles.Input
-            name="email"
-            type="email"
-            value={email}
-            onChange={handleInputChange}
-            placeholder="Email"
-            error={errors.email}
+            name="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Имя"
+            required
           />
-          {errors.email && <styles.FieldErrorMessage>{errors.email}</styles.FieldErrorMessage>}
         </styles.InputWrapper>
         <styles.InputWrapper>
           <styles.Input
             name="password"
             type="password"
             value={password}
-            onChange={handleInputChange}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Пароль"
-            error={errors.password}
+            required
           />
-          {errors.password && <FieldErrorMessage>{errors.password}</FieldErrorMessage>}
         </styles.InputWrapper>
-        <styles.Button type="submit">Зарегистрироваться</styles.Button>
+        {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
+        <styles.Button type="submit" disabled={isLoading}>
+          {isLoading ? 'Загрузка...' : 'Зарегистрироваться'}
+        </styles.Button>
         <styles.LinkWrapper>
-          <p>Уже есть аккаунт?</p> <Link to="/login"><u>Войдите здесь</u></Link>
+          <p>Уже есть аккаунт?</p>
+          <Link to="/login"><u>Войдите здесь</u></Link>
         </styles.LinkWrapper>
       </styles.RegisterForm>
     </styles.RegisterWrapper>
   );
-}
+};
 
 export default RegisterPage;

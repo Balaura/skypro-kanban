@@ -41,7 +41,7 @@ export const Input = styled.input`
   }
 `;
 
-export const FieldErrorMessage = styled.div`
+export const ErrorMessage = styled.div`
   position: absolute;
   top: 100%;
   left: 0;

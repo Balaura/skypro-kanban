@@ -16,7 +16,7 @@ const AppRoutesObj = {
      NOT_FOUND: "*",
 };
 
-function AppRoutes({ toggleTheme }) {
+function AppRoutes({ toggleTheme, currentTheme }) {
      const [isAuth, setIsAuth] = useState(false);
 
      useEffect(() => {
@@ -35,7 +35,12 @@ function AppRoutes({ toggleTheme }) {
                     element={
                          isAuth ? (
                               <>
-                                   <MainPage isAuth={isAuth} setIsAuth={setIsAuth} toggleTheme={toggleTheme} />
+                                   <MainPage
+                                        isAuth={isAuth}
+                                        setIsAuth={setIsAuth}
+                                        toggleTheme={toggleTheme}
+                                        currentTheme={currentTheme}
+                                   />
                                    <Outlet />
                               </>
                          ) : (

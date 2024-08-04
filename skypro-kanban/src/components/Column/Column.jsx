@@ -1,3 +1,5 @@
+// src/components/Column/Column.jsx
+
 import React from 'react';
 import Card from '../Card/Card';
 import { ColumnWrapper, ColumnTitle, CardsContainer } from './ColumnStyles';
@@ -11,8 +13,8 @@ function Column({ title, tasks }) {
       <CardsContainer>
         {tasks.map((task) => (
           <Card
-            key={task.id}
-            id={task.id}
+            key={task._id}
+            id={task._id}
             title={task.title}
             topic={task.topic}
             date={task.date}
