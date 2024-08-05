@@ -4,6 +4,7 @@ import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import { getTasks } from '../../API';
 import * as styles from './MainPageStyles';
+import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
 
 function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
   const [cards, setCards] = useState([]);
@@ -46,7 +47,7 @@ function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
         setIsAuth={setIsAuth}
       />
       {isLoading ? (
-        <styles.LoadingWrapper>Загрузка...</styles.LoadingWrapper>
+        <LoadingAnimation />
       ) : error ? (
         <styles.ErrorWrapper>{error}</styles.ErrorWrapper>
       ) : (
