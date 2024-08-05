@@ -1,47 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Calendar from '../../Calendar/Calendar';
-import '../../../App.css';
+import {
+  PopupWrapper,
+  PopupContent,
+  Title,
+  Form,
+  InputGroup,
+  Label,
+  Input,
+  TextArea,
+  Button
+} from '../PopNewCard/PopNewCardStyles';
 
-function PopNewCard() {
+function PopNewCard({ isOpen, onClose, onCardAdd }) {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+
+  if (!isOpen) return null;
+
+  const handleCreateNewTask = (e) => {
+    e.preventDefault();
+    onCardAdd({
+      id: Date.now(),
+      title: title,
+      description: description,
+      date: new Date().toLocaleDateString('ru-RU'),
+      status: "Без статуса"
+    });
+    setTitle('');
+    setDescription('');
+    onClose();
+  };
+
   return (
-    <div className="pop-new-card" id="popNewCard">
-      <div className="pop-new-card__container">
-        <div className="pop-new-card__block">
-          <div className="pop-new-card__content">
-            <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <a href="#" className="pop-new-card__close">✖</a>
-            <div className="pop-new-card__wrap">
-              <form className="pop-new-card__form form-new" id="formNewCard" action="#">
-                <div className="form-new__block">
-                  <label htmlFor="formTitle" className="subttl">Название задачи</label>
-                  <input className="form-new__input" type="text" name="name" id="formTitle" placeholder="Введите название задачи..." autoFocus />
-                </div>
-                <div className="form-new__block">
-                  <label htmlFor="textArea" className="subttl">Описание задачи</label>
-                  <textarea className="form-new__area" name="text" id="textArea" placeholder="Введите описание задачи..." defaultValue={""} />
-                </div>
-              </form>
-              <Calendar />
-            </div>
-            <div className="pop-new-card__categories categories">
-              <p className="categories__p subttl">Категория</p>
-              <div className="categories__themes">
-                <div className="categories__theme _orange _active-category">
-                  <p className="_orange">Web Design</p>
-                </div>
-                <div className="categories__theme _green">
-                  <p className="_green">Research</p>
-                </div>
-                <div className="categories__theme _purple">
-                  <p className="_purple">Copywriting</p>
-                </div>
-              </div>
-            </div>
-            <button className="form-new__create _hover01" id="btnCreate">Создать задачу</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <PopupWrapper>
+      <PopupContent>
+        <Title>Создание задачи</Title>
+        <Form onSubmit={handleCreateNewTask}>
+          <InputGroup>
+            <Label htmlFor="taskTitle">Название задачи</Label>
+            <Input
+              id="taskTitle"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Введите название задачи..."
+              required
+            />
+          </InputGroup>
+          <InputGroup>
+            <Label htmlFor="taskDescription">Описание задачи</Label>
+            <TextArea
+              id="taskDescription"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Введите описание задачи..."
+            />
+          </InputGroup>
+          <Calendar />
+          <Button type="submit">Создать задачу</Button>
+        </Form>
+      </PopupContent>
+    </PopupWrapper>
   );
 }
 
