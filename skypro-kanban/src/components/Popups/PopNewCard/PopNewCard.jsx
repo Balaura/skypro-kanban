@@ -1,45 +1,44 @@
-import React, { useState } from 'react';
-import Calendar from '../../Calendar/Calendar';
-import {
-  PopupWrapper,
-  PopupContent,
-  Title,
-  Form,
-  InputGroup,
-  Label,
-  Input,
-  TextArea,
-  Button
-} from '../PopNewCard/PopNewCardStyles';
+import React, { useState, useContext } from 'react';
+import { DayPicker } from 'react-day-picker';
+import { format } from 'date-fns';
+import ru from 'date-fns/locale/ru';
+import { TaskContext } from '../../contexts/TaskContext';
+import { addTask } from '../../API';
+import * as styles from './PopNewCardStyles';
 
-function PopNewCard({ isOpen, onClose, onCardAdd }) {
+function PopNewCard({ isOpen, onClose }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const { tasks, setTasks } = useContext(TaskContext);
 
   if (!isOpen) return null;
 
-  const handleCreateNewTask = (e) => {
+  const handleCreateNewTask = async (e) => {
     e.preventDefault();
-    onCardAdd({
-      id: Date.now(),
-      title: title,
-      description: description,
-      date: new Date().toLocaleDateString('ru-RU'),
-      status: "Без статуса"
-    });
-    setTitle('');
-    setDescription('');
-    onClose();
+    try {
+      const newTask = {
+        title,
+        description,
+        date: format(selectedDate, 'yyyy-MM-dd'),
+        status: "Без статуса"
+      };
+      const response = await addTask(newTask);
+      setTasks([...tasks, response.task]);
+      onClose();
+    } catch (error) {
+      console.error('Error adding task:', error);
+    }
   };
 
   return (
-    <PopupWrapper>
-      <PopupContent>
-        <Title>Создание задачи</Title>
-        <Form onSubmit={handleCreateNewTask}>
-          <InputGroup>
-            <Label htmlFor="taskTitle">Название задачи</Label>
-            <Input
+    <styles.PopupWrapper>
+      <styles.PopupContent>
+        <styles.Title>Создание задачи</styles.Title>
+        <styles.Form onSubmit={handleCreateNewTask}>
+          <styles.InputGroup>
+            <styles.Label htmlFor="taskTitle">Название задачи</styles.Label>
+            <styles.Input
               id="taskTitle"
               type="text"
               value={title}
@@ -47,21 +46,29 @@ function PopNewCard({ isOpen, onClose, onCardAdd }) {
               placeholder="Введите название задачи..."
               required
             />
-          </InputGroup>
-          <InputGroup>
-            <Label htmlFor="taskDescription">Описание задачи</Label>
-            <TextArea
+          </styles.InputGroup>
+          <styles.InputGroup>
+            <styles.Label htmlFor="taskDescription">Описание задачи</styles.Label>
+            <styles.TextArea
               id="taskDescription"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Введите описание задачи..."
             />
-          </InputGroup>
-          <Calendar />
-          <Button type="submit">Создать задачу</Button>
-        </Form>
-      </PopupContent>
-    </PopupWrapper>
+          </styles.InputGroup>
+          <DayPicker
+            mode="single"
+            selected={selectedDate}
+            onSelect={setSelectedDate}
+            locale={ru}
+          />
+          <styles.SelectedDate>
+            Выбранная дата: {format(selectedDate, 'dd.MM.yyyy', { locale: ru })}
+          </styles.SelectedDate>
+          <styles.Button type="submit">Создать задачу</styles.Button>
+        </styles.Form>
+      </styles.PopupContent>
+    </styles.PopupWrapper>
   );
 }
 

@@ -4,15 +4,13 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyles';
 import { themeColors } from './styles/Themes';
 import AppRoutes from './routes/AppRoutes';
+import { UserProvider } from './contexts/UserContext';
+import { TaskProvider } from './contexts/TaskContext';
 
 function App() {
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme;
-    }
-    localStorage.setItem('theme', 'light');
-    return 'light';
+    return savedTheme || 'light';
   });
 
   useEffect(() => {
@@ -20,18 +18,19 @@ function App() {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', newTheme);
-      return newTheme;
-    });
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
   };
+
   return (
     <ThemeProvider theme={themeColors[theme]}>
       <GlobalStyle />
-      <Router>
-        <AppRoutes toggleTheme={toggleTheme} currentTheme={theme} />
-      </Router>
+      <UserProvider>
+        <TaskProvider>
+          <Router>
+            <AppRoutes toggleTheme={toggleTheme} currentTheme={theme} />
+          </Router>
+        </TaskProvider>
+      </UserProvider>
     </ThemeProvider>
   );
 }

@@ -95,3 +95,9 @@ export const DateText = styled.p`
   }
 
 `;
+export const CalendarIcon = styled.svg`
+  width: 13px;
+  height: 13px;
+  fill: ${props => props.theme.textSecondary};
+  margin-right: 6px;
+`;

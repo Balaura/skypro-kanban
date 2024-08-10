@@ -13,25 +13,42 @@ export async function getTasks(token) {
 }
 
 export async function loginUser(login, password) {
-     const response = await fetch(`${API_BASE_URL}/user/login`, {
-       method: 'POST',
-       body: JSON.stringify({ login, password }),
-     });
-     if (!response.ok) {
-       const errorData = await response.json();
-       throw new Error(errorData.error || 'Ошибка при входе');
-     }
-     return response.json();
-   }
-   
-   export async function registerUser(login, name, password) {
-     const response = await fetch(`${API_BASE_URL}/user`, {
-       method: 'POST',
-       body: JSON.stringify({ login, name, password }),
-     });
-     if (!response.ok) {
-       const errorData = await response.json();
-       throw new Error(errorData.error || 'Ошибка при регистрации');
-     }
-     return response.json();
-   }
+  const response = await fetch(`${API_BASE_URL}/user/login`, {
+    method: 'POST',
+    body: JSON.stringify({ login, password }),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || 'Ошибка при входе');
+  }
+  return response.json();
+}
+
+export async function registerUser(login, name, password) {
+  const response = await fetch(`${API_BASE_URL}/user`, {
+    method: 'POST',
+    body: JSON.stringify({ login, name, password }),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || 'Ошибка при регистрации');
+  }
+  return response.json();
+}
+
+export async function addTask(taskData) {
+  const response = await fetch(`${API_BASE_URL}/kanban`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(taskData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Ошибка при добавлении задачи');
+  }
+
+  return response.json();
+}
