@@ -88,12 +88,15 @@ export async function updateTask(id, taskData) {
     }
   }
 
+  const formDataObj = Object.fromEntries(formData);
+  const formDataJson = JSON.stringify(formDataObj);
+
   const response = await fetch(`${API_BASE_URL}/kanban/${id}`, {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
     },
-    body: formData,
+    body: formDataJson,
   });
 
   if (!response.ok) {

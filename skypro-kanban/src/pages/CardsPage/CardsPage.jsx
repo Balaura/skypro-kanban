@@ -40,9 +40,10 @@ function CardsPage() {
   const handleEdit = () => {
     setIsEditing(true);
   };
-
   const handleSave = async () => {
     try {
+      console.log('task 0', task);
+      let updatedTasks;
       let updatedTask;
       if (id === 'new') {
         const newTaskData = {
@@ -61,8 +62,10 @@ function CardsPage() {
           ...task,
           date: task.date ? new Date(task.date).toISOString() : null,
         };
-        updatedTask = await updateTask(id, updatedTaskData);
+        updatedTask = updatedTaskData;
+        updatedTasks = await updateTask(id, updatedTaskData);
       }
+      console.log('updatedTask', updatedTask);
       setIsEditing(false);
       setTask(updatedTask);
     } catch (err) {
