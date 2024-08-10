@@ -26,7 +26,6 @@ function LoginPage({ setIsAuth }) {
       setIsLoading(false);
     }
   };
-
   return (
     <styles.LoginWrapper>
       <styles.LoginForm onSubmit={handleSubmit}>

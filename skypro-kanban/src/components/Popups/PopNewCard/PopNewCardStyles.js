@@ -39,12 +39,6 @@ export const InputGroup = styled.div`
   flex-direction: column;
 `;
 
-export const Label = styled.label`
-  font-size: 14px;
-  color: ${props => props.theme.textSecondary};
-  margin-bottom: 10px;
-`;
-
 export const Input = styled.input`
   padding: 10px;
   border: 1px solid ${props => props.theme.secondary};
@@ -64,12 +58,44 @@ export const TextArea = styled.textarea`
   resize: vertical;
 `;
 
+export const CategoryContainer = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const CategoryButton = styled.button`
+  padding: 5px 10px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: ${props => props.isSelected ? props.color : 'transparent'};
+  color: ${props => props.isSelected ? 'white' : props.color};
+  border: 1px solid ${props => props.color};
+`;
+
+export const SelectedDate = styled.p`
+  color: ${props => props.theme.textSecondary};
+  font-size: 14px;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+`;
+
 export const Button = styled.button`
   padding: 8px 20px;
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
-  background-color: ${props => props.theme.primary};
-  color: ${props => props.theme.cardBackground};
-  border: none;
+  background-color: ${props => props.primary ? props.theme.primary : 'transparent'};
+  color: ${props => props.primary ? props.theme.cardBackground : props.theme.primary};
+  border: 1px solid ${props => props.theme.primary};
+`;
+
+export const Label = styled.label`
+  font-size: 14px;
+  color: ${props => props.theme.textSecondary};
+  margin-bottom: 10px;
 `;
