@@ -183,26 +183,3 @@ export const Button = styled.button`
   margin-bottom: 10px;
   padding: 0 14px;
 `;
-
-export const ModalOverlay = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Затемнение фона */
-    z-index: 999; /* Оверлей выше других элементов */
-`;
-
-export const ModalContent = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white; /* Фон окна редактирования */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Окно редактирования выше оверлея */
-    width: 400px; /* Ширина окна редактирования */
-`;
