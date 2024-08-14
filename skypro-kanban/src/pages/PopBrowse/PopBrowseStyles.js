@@ -7,7 +7,7 @@ export const PopBrowse = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 1000; // Достаточно большое значение
+  z-index: 1000; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +18,7 @@ export const Container = styled.div`
   background: #fff;
   padding: 40px 30px 38px;
   border-radius: 10px;
-  z-index: 1001; // Должен быть выше оверлея
+  z-index: 1001;
   width: 630px;
   max-width: 90%;
 `;
@@ -31,7 +31,6 @@ export const Block = styled.div`
   width: 100%;
   padding: 40px 30px 38px;
   border-radius: 10px;
-  border: 0.7px solid #D4DBE5;
   position: relative;
 `;
 
