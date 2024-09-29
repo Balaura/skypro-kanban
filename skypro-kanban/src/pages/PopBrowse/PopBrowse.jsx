@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
 import { getTasks, editTask, deleteTask } from '../../API';
 import * as styles from './PopBrowseStyles';
+import { CalendarWrapper } from './PopBrowseStyles';
 
 function PopBrowse() {
   const { id } = useParams();
@@ -58,15 +59,15 @@ const handleSave = async () => {
   }
 };
 
-  const handleDelete = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      await deleteTask(token, id);
-      navigate('/');
-    } catch (error) {
-      console.error('Error deleting card:', error);
-    }
-  };
+const handleDelete = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    await deleteTask(token, id);
+    navigate('/', { state: { shouldRefetch: true } });
+  } catch (error) {
+    console.error('Error deleting card:', error);
+  }
+};
 
   if (!card) {
     return <div>Loading...</div>;
@@ -119,14 +120,14 @@ const handleSave = async () => {
                   />
                 </styles.FormBlock>
               </styles.Form>
-              <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+              <CalendarWrapper>
+                <Calendar
+                  selectedDate={selectedDate}
+                  setSelectedDate={isEditing ? setSelectedDate : undefined}
+                  readOnly={!isEditing}
+                />
+              </CalendarWrapper>
             </styles.Wrapper>
-            {/* <styles.ThemeDownCategories className="theme-down">
-              <styles.CategoriesTitle>Категория</styles.CategoriesTitle>
-              <styles.CategoryTheme className={`_orange ${card.theme === 'Web Design' ? '_active-category' : ''}`}>
-                <p className="_orange">{card.theme}</p>
-              </styles.CategoryTheme>
-            </styles.ThemeDownCategories> */}
             {isEditing ? (
               <styles.ButtonEdit>
                 <styles.ButtonGroup>

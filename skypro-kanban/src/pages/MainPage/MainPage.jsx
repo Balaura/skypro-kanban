@@ -30,7 +30,7 @@ function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
     } else {
       navigate('/login');
     }
-  }, [isAuth, navigate]);
+  }, [isAuth, navigate, location.state?.shouldRefetch]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');

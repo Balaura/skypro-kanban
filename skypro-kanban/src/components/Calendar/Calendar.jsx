@@ -5,23 +5,27 @@ import { format } from 'date-fns';
 import ru from 'date-fns/locale/ru';
 import * as styles from './CalendarStyles';
 
-function Calendar({ selectedDate, setSelectedDate }) {
+export default function Calendar({ selectedDate, setSelectedDate, readOnly }) {
   return (
     <styles.CalendarWrapper className="calendar">
       <styles.CalendarTitle className="calendar__ttl subttl">Даты</styles.CalendarTitle>
       <DayPicker
         mode="single"
         selected={selectedDate}
-        onSelect={setSelectedDate}
+        onSelect={readOnly ? undefined : setSelectedDate}
+        disabled={readOnly}
         locale={ru}
+        modifiers={{ booked: selectedDate }}
+        modifiersStyles={{
+          booked: { backgroundColor: '#94A6BE', color: 'white' }
+        }}
       />
       <styles.CalendarPeriod className="calendar__period">
         <styles.CalendarP className="calendar__p date-end">
-          Срок исполнения: <span className="date-control">{format(selectedDate, 'dd.MM.yyyy', { locale: ru })}</span>
+          Срок исполнения:{' '}
+          <span className="date-control">{format(selectedDate, 'dd.MM.yyyy', { locale: ru })}</span>
         </styles.CalendarP>
       </styles.CalendarPeriod>
     </styles.CalendarWrapper>
   );
 }
-
-export default Calendar;

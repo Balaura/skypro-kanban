@@ -100,14 +100,43 @@ export const StatusTheme = styled.div`
 
 export const Wrapper = styled.div`
   display: flex;
+  width: 100%;
   align-items: flex-start;
   justify-content: space-between;
 `;
 
-export const Form = styled.form`
-  max-width: 370px;
+export const CalendarWrapper = styled.div`
   width: 100%;
-  display: block;
+  font-size: 12px;
+  max-width: 300px;
+  height: auto; 
+
+  .rdp {
+    --rdp-cell-size: 10px;
+    --rdp-accent-color: #94A6BE;
+    --rdp-background-color: #e7edff;
+    margin: 0;
+  }
+
+  .rdp-day {
+    padding: 0; 
+    margin: 2px; 
+    border-radius: 32px;
+    line-height: 0.1px;
+  }
+
+  .rdp-month {
+    width: 100%;
+  }
+
+  .rdp-table {
+    width: 100%;
+    max-width: 100%;
+  }
+`;
+
+export const Form = styled.form`
+  width: 100%;
   margin-bottom: 20px;
 `;
 
