@@ -10,6 +10,7 @@ function PopBrowse() {
   const [card, setCard] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedCard, setEditedCard] = useState({});
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
     const fetchCard = async () => {
@@ -17,19 +18,16 @@ function PopBrowse() {
         const token = localStorage.getItem('token');
         const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${id}`, {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` }
         });
-
         if (!response.ok) {
           throw new Error(`Error fetching card: ${response.statusText}`);
         }
-
         const data = await response.json();
         if (data.task) {
           setCard(data.task);
           setEditedCard(data.task);
+          setSelectedDate(new Date(data.task.date)); // Установка даты здесь
         } else {
           console.error("Нет задачи с таким ID");
         }
@@ -37,7 +35,6 @@ function PopBrowse() {
         console.error('Error fetching card:', error);
       }
     };
-
     fetchCard();
   }, [id]);
 
@@ -45,17 +42,21 @@ function PopBrowse() {
     navigate('/');
   };
 
-  const handleSave = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await editTask(token, id, editedCard);
-      console.log('Updated Task Response:', response);
-      setCard(editedCard);
-      setIsEditing(false);
-    } catch (error) {
-      console.error('Error saving card:', error);
-    }
-  };
+const handleSave = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const updatedCard = {
+      ...editedCard,
+      date: selectedDate.toISOString()
+    };
+    const response = await editTask(token, id, updatedCard);
+    console.log('Updated Task Response:', response);
+    setCard(updatedCard);
+    setIsEditing(false);
+  } catch (error) {
+    console.error('Error saving card:', error);
+  }
+};
 
   const handleDelete = async () => {
     try {
@@ -71,6 +72,15 @@ function PopBrowse() {
     return <div>Loading...</div>;
   }
 
+  const getTopicClassName = (topic) => {
+    switch ((topic || '').toLowerCase()) {
+      case 'web design': return '_orange';
+      case 'research': return '_green';
+      case 'copywriting': return '_purple';
+      default: return '_gray';
+    }
+  };
+
   return (
     <styles.PopBrowse id="popBrowse">
       <styles.Container>
@@ -78,8 +88,8 @@ function PopBrowse() {
           <styles.Content>
             <styles.TopBlock>
               <styles.Title>{isEditing ? 'Редактирование задачи' : card.title}</styles.Title>
-              <styles.Theme className={`theme-top _orange ${card.theme === 'Web Design' ? '_active-category' : ''}`}>
-                <p className="_orange">{card.theme}</p>
+              <styles.Theme className={`theme-top ${getTopicClassName(card.topic)}`}>
+                <p>{card.topic}</p>
               </styles.Theme>
             </styles.TopBlock>
             <styles.Status>
@@ -109,14 +119,14 @@ function PopBrowse() {
                   />
                 </styles.FormBlock>
               </styles.Form>
-              <Calendar />
+              <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
             </styles.Wrapper>
-            <styles.ThemeDownCategories className="theme-down">
+            {/* <styles.ThemeDownCategories className="theme-down">
               <styles.CategoriesTitle>Категория</styles.CategoriesTitle>
               <styles.CategoryTheme className={`_orange ${card.theme === 'Web Design' ? '_active-category' : ''}`}>
                 <p className="_orange">{card.theme}</p>
               </styles.CategoryTheme>
-            </styles.ThemeDownCategories>
+            </styles.ThemeDownCategories> */}
             {isEditing ? (
               <styles.ButtonEdit>
                 <styles.ButtonGroup>
