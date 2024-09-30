@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import { getTasks } from '../../API';
 import * as styles from './MainPageStyles';
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
+import { TaskContext } from '../../contexts/TaskContext';
 
 function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
-  const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { tasks, setTasks } = useContext(TaskContext);
 
   useEffect(() => {
     if (isAuth) {
@@ -19,7 +21,7 @@ function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
           setIsLoading(true);
           const token = localStorage.getItem('token');
           const data = await getTasks(token);
-          setCards(data.tasks);
+          setTasks(data.tasks);
         } catch (err) {
           setError('Не удалось загрузить данные, попробуйте позже');
         } finally {
@@ -51,7 +53,7 @@ function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
       ) : error ? (
         <styles.ErrorWrapper>{error}</styles.ErrorWrapper>
       ) : (
-        <Main cards={cards} />
+        <Main cards={tasks} />
       )}
     </styles.MainPageWrapper>
   );
