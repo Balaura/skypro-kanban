@@ -6,6 +6,7 @@ import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import PopBrowse from '../pages/PopBrowse/PopBrowse';
 import ExitPage from '../pages/ExitPage/ExitPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
+import PopNewCard from '../components/Popups/PopNewCard/PopNewCard';
 
 const AppRoutesObj = {
   HOME: "/",
@@ -50,6 +51,8 @@ function AppRoutes({ toggleTheme, currentTheme }) {
         />
         <Route path={AppRoutesObj.EXIT} element={<ExitPage setIsAuth={setIsAuth} />} />
         <Route path={AppRoutesObj.NOT_FOUND} element={<NotFoundPage />} />
+        <Route path="/card/new" element={<PopNewCard />} />
+        <Route path={AppRoutesObj.CARDS} element={<PopBrowse />} />
       </Routes>
 
       {background && (

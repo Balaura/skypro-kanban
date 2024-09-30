@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react';
 import { DayPicker } from 'react-day-picker';
 import { format } from 'date-fns';
 import ru from 'date-fns/locale/ru';
-import { TaskContext } from '../../contexts/TaskContext';
-import { addTask } from '../../API';
+import { TaskContext } from '../../../contexts/TaskContext';
+import { addTask } from '../../../API';
 import * as styles from './PopNewCardStyles';
 
 function PopNewCard({ isOpen, onClose }) {

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
-import { getTasks, editTask, deleteTask } from '../../API';
+import { editTask, deleteTask } from '../../API';
 import * as styles from './PopBrowseStyles';
 import { CalendarWrapper } from './PopBrowseStyles';
+import { useContext } from 'react';
+import { TaskContext } from '../../contexts/TaskContext';
 
 function PopBrowse() {
   const { id } = useParams();
@@ -43,31 +45,37 @@ function PopBrowse() {
     navigate('/');
   };
 
-const handleSave = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    const updatedCard = {
-      ...editedCard,
-      date: selectedDate.toISOString()
-    };
-    const response = await editTask(token, id, updatedCard);
-    console.log('Updated Task Response:', response);
-    setCard(updatedCard);
-    setIsEditing(false);
-  } catch (error) {
-    console.error('Error saving card:', error);
-  }
-};
+  const { tasks, setTasks } = useContext(TaskContext);
 
-const handleDelete = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    await deleteTask(token, id);
-    navigate('/', { state: { shouldRefetch: true } });
-  } catch (error) {
-    console.error('Error deleting card:', error);
-  }
-};
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const updatedCard = { ...editedCard, date: selectedDate.toISOString() };
+      const response = await editTask(token, id, updatedCard);
+      console.log('Updated Task Response:', response);
+      setCard(updatedCard);
+      setIsEditing(false);
+  
+      // Обновляем состояние tasks в контексте
+      setTasks(tasks.map(task => task._id === id ? updatedCard : task));
+    } catch (error) {
+      console.error('Error saving card:', error);
+    }
+  };
+  
+  const handleDelete = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      await deleteTask(token, id);
+  
+      // Обновляем состояние tasks в контексте
+      setTasks(tasks.filter(task => task._id !== id));
+  
+      navigate('/', { state: { shouldRefetch: true } });
+    } catch (error) {
+      console.error('Error deleting card:', error);
+    }
+  };
 
   if (!card) {
     return <div>Loading...</div>;
