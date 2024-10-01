@@ -16,7 +16,6 @@ export const PopBrowse = styled.div`
 export const Container = styled.div`
   position: relative;
   background: #fff;
-  padding: 40px 30px 38px;
   border-radius: 10px;
   z-index: 1001;
   width: 630px;
@@ -103,7 +102,7 @@ export const Wrapper = styled.div`
   width: 100%;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 40px;  
+  gap: 20px;  
 `;
 
 export const CalendarWrapper = styled.div`
@@ -154,7 +153,7 @@ export const Label = styled.label`
 `;
 
 export const TextArea = styled.textarea`
-  width: 310px;
+  width: 370px;
   /* width: 100%; */
   outline: none;
   padding: 14px;

@@ -26,6 +26,11 @@ export const CalendarWrapper = styled.div`
     background: transparent;
   }
 
+  .rdp-month_caption {
+    height: 25px;
+    padding-left: 5px;
+  }
+
   .rdp-table {
     width: 100%;
     max-width: 100%;
@@ -46,8 +51,15 @@ export const CalendarWrapper = styled.div`
     color: ${props => props.theme.textPrimary};
   }
 
+  .rdp-chevron {
+    display: inline-block;
+    fill: var(--rdp-accent-color);
+    height: 16px;
+  }
+
   .rdp-nav {
     white-space: nowrap;
+    height: 25px;
   }
 
   .rdp-head_cell {
@@ -65,6 +77,7 @@ export const CalendarWrapper = styled.div`
     height: 24px;
     padding: 0;
   }
+
 
   .rdp-day {
     /* display: flex; */
@@ -127,6 +140,7 @@ export const CalendarP = styled.p`
   color: ${props => props.theme.textSecondary};
   font-size: 10px;
   line-height: 1;
+  padding-top: 10px;
 
   span {
     color: ${props => props.theme.textPrimary};
