@@ -48,12 +48,12 @@ export const CalendarWrapper = styled.div`
     font-weight: 600;
     font-size: 14px;
     line-height: 18px;
-    color: ${props => props.theme.textPrimary};
+    color: #94A6BE;
   }
 
   .rdp-chevron {
     display: inline-block;
-    fill: var(--rdp-accent-color);
+    fill: #94A6BE;
     height: 16px;
   }
 
