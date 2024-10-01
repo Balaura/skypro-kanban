@@ -45,72 +45,88 @@ function PopNewCard({ isOpen, onClose }) {
   };
 
   return (
-    <styles.PopupWrapper>
-      <styles.PopupContent>
-        <styles.Title>Создание задачи</styles.Title>
-        <styles.Form onSubmit={handleCreateNewTask}>
-          <styles.InputGroup>
-            <styles.Label htmlFor="taskTitle">Название задачи</styles.Label>
-            <styles.Input
-              id="taskTitle"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Введите название задачи..."
-              required
-            />
-          </styles.InputGroup>
-          <styles.InputGroup>
-            <styles.Label htmlFor="taskDescription">Описание задачи</styles.Label>
-            <styles.TextArea
-              id="taskDescription"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Введите описание задачи..."
-            />
-          </styles.InputGroup>
-          <styles.InputGroup>
-            <styles.Label htmlFor="taskStatus">Статус</styles.Label>
-            <styles.Select
-              id="taskStatus"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
-              <option value="Без статуса">Без статуса</option>
-              <option value="Нужно сделать">Нужно сделать</option>
-              <option value="В работе">В работе</option>
-              <option value="Тестирование">Тестирование</option>
-              <option value="Готово">Готово</option>
-            </styles.Select>
-          </styles.InputGroup>
-          <styles.InputGroup>
-            <styles.Label htmlFor="taskTopic">Тема</styles.Label>
-            <styles.Select
-              id="taskTopic"
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-            >
-              <option value="">Без темы</option>
-              <option value="Web Design">Web Design</option>
-              <option value="Research">Research</option>
-              <option value="Copywriting">Copywriting</option>
-            </styles.Select>
-          </styles.InputGroup>
-          <DayPicker
-            mode="single"
-            selected={selectedDate}
-            onSelect={setSelectedDate}
-            locale={ru}
-          />
-          <styles.SelectedDate>
-            Выбранная дата: {format(selectedDate, 'dd.MM.yyyy', { locale: ru })}
-          </styles.SelectedDate>
-          {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
-          <styles.Button type="submit">Создать задачу</styles.Button>
-        </styles.Form>
-        <styles.CloseButton onClick={onClose}>×</styles.CloseButton>
-      </styles.PopupContent>
-    </styles.PopupWrapper>
+    <styles.PopBrowse>
+      <styles.Container>
+        <styles.Block>
+          <styles.Content>
+            <styles.TopBlock>
+              <styles.Title>Создание задачи</styles.Title>
+            </styles.TopBlock>
+            <styles.Form onSubmit={handleCreateNewTask}>
+              <styles.HorizontalLayout>
+                <styles.LeftColumn>
+                  <styles.FormBlock>
+                    <styles.Label htmlFor="taskTitle">Название задачи</styles.Label>
+                    <styles.Input
+                      id="taskTitle"
+                      type="text"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder="Введите название задачи..."
+                      required
+                    />
+                  </styles.FormBlock>
+                  <styles.FormBlock>
+                    <styles.Label htmlFor="taskDescription">Описание задачи</styles.Label>
+                    <styles.TextArea
+                      id="taskDescription"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      placeholder="Введите описание задачи..."
+                    />
+                  </styles.FormBlock>
+                </styles.LeftColumn>
+                <styles.RightColumn>
+                  <styles.FormBlock>
+                    <styles.Label htmlFor="taskStatus">Статус</styles.Label>
+                    <styles.StatusThemes>
+                      {['Без статуса', 'Нужно сделать', 'В работе', 'Тестирование', 'Готово'].map(statusOption => (
+                        <styles.StatusTheme
+                          key={statusOption}
+                          className={status === statusOption ? '_gray' : ''}
+                          onClick={() => setStatus(statusOption)}
+                        >
+                          <p>{statusOption}</p>
+                        </styles.StatusTheme>
+                      ))}
+                    </styles.StatusThemes>
+                  </styles.FormBlock>
+                  <styles.FormBlock>
+                    <styles.Label htmlFor="taskTopic">Тема</styles.Label>
+                    <styles.Select
+                      id="taskTopic"
+                      value={topic}
+                      onChange={(e) => setTopic(e.target.value)}
+                    >
+                      <option value="">Без темы</option>
+                      <option value="Web Design">Web Design</option>
+                      <option value="Research">Research</option>
+                      <option value="Copywriting">Copywriting</option>
+                    </styles.Select>
+                  </styles.FormBlock>
+                  <styles.CalendarWrapper>
+                    <DayPicker
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={setSelectedDate}
+                      locale={ru}
+                    />
+                    <styles.SelectedDate>
+                      Выбранная дата: {format(selectedDate, 'dd.MM.yyyy', { locale: ru })}
+                    </styles.SelectedDate>
+                  </styles.CalendarWrapper>
+                </styles.RightColumn>
+              </styles.HorizontalLayout>
+              {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
+              <styles.ButtonGroup>
+                <styles.Button type="submit" className="_btn-bg _hover01">Создать задачу</styles.Button>
+                <styles.Button type="button" className="_btn-bor _hover03" onClick={onClose}>Отменить</styles.Button>
+              </styles.ButtonGroup>
+            </styles.Form>
+          </styles.Content>
+        </styles.Block>
+      </styles.Container>
+    </styles.PopBrowse>
   );
 }
 
