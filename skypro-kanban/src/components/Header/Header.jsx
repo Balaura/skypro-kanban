@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logoLight from '../../../public/logo.png';
 import logoDark from '../../../public/logo_dark.png';
 import * as styles from './HeaderStyles';
+import PopNewCard from '../Popups/PopNewCard/PopNewCard'; // Добавьте этот импорт
 
 const Header = ({ toggleTheme, setIsAuth }) => {
   const theme = localStorage.getItem('theme') || 'light';
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false); // Добавьте это состояние
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -21,7 +23,9 @@ const Header = ({ toggleTheme, setIsAuth }) => {
             <img src={theme === 'dark' ? logoDark : logoLight} alt="Logo" />
           </styles.HeaderLogo>
           <styles.HeaderNav>
-            <styles.HeaderBtnMainNew as={Link} to="/card/new">Создать новую задачу</styles.HeaderBtnMainNew>
+            <styles.HeaderBtnMainNew onClick={() => setIsNewCardModalOpen(true)}>
+              Создать новую задачу
+            </styles.HeaderBtnMainNew>
             <styles.HeaderUserWrapper>
               <styles.HeaderUser onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}>
                 Ivan Ivanov
@@ -44,6 +48,12 @@ const Header = ({ toggleTheme, setIsAuth }) => {
           </styles.HeaderNav>
         </styles.HeaderBlock>
       </styles.HeaderContainer>
+      {isNewCardModalOpen && (
+        <PopNewCard 
+          isOpen={isNewCardModalOpen} 
+          onClose={() => setIsNewCardModalOpen(false)}
+        />
+      )}
     </styles.HeaderWrapper>
   );
 };

@@ -103,6 +103,7 @@ export const Wrapper = styled.div`
   width: 100%;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 40px;  
 `;
 
 export const CalendarWrapper = styled.div`
@@ -153,8 +154,8 @@ export const Label = styled.label`
 `;
 
 export const TextArea = styled.textarea`
-  max-width: 370px;
-  width: 100%;
+  width: 310px;
+  /* width: 100%; */
   outline: none;
   padding: 14px;
   background: #EAEEF6;
@@ -165,6 +166,7 @@ export const TextArea = styled.textarea`
   letter-spacing: -0.14px;
   margin-top: 14px;
   height: 200px;
+  resize: none;
 `;
 
 export const ThemeDownCategories = styled.div`

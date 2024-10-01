@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
 import { editTask, deleteTask } from '../../API';
 import * as styles from './PopBrowseStyles';
 import { CalendarWrapper } from './PopBrowseStyles';
+import { useContext } from 'react';
 import { TaskContext } from '../../contexts/TaskContext';
 
 function PopBrowse() {
@@ -13,7 +14,6 @@ function PopBrowse() {
   const [isEditing, setIsEditing] = useState(false);
   const [editedCard, setEditedCard] = useState({});
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const { tasks, setTasks } = useContext(TaskContext);
 
   useEffect(() => {
     const fetchCard = async () => {
@@ -30,7 +30,7 @@ function PopBrowse() {
         if (data.task) {
           setCard(data.task);
           setEditedCard(data.task);
-          setSelectedDate(new Date(data.task.date));
+          setSelectedDate(new Date(data.task.date)); // Установка даты здесь
         } else {
           console.error("Нет задачи с таким ID");
         }
@@ -45,6 +45,8 @@ function PopBrowse() {
     navigate('/');
   };
 
+  const { tasks, setTasks } = useContext(TaskContext);
+
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -53,12 +55,9 @@ function PopBrowse() {
       console.log('Updated Task Response:', response);
       setCard(updatedCard);
       setIsEditing(false);
-      
-      // Обновляем состояние задач
-      setTasks(prevTasks => prevTasks.map(task => task._id === id ? updatedCard : task));
-      
-      // Перенаправляем на главную страницу с флагом обновления
-      navigate('/', { state: { shouldRefetch: true } });
+
+      // Обновляем состояние tasks в контексте
+      setTasks(tasks.map(task => task._id === id ? updatedCard : task));
     } catch (error) {
       console.error('Error saving card:', error);
     }
@@ -68,11 +67,10 @@ function PopBrowse() {
     try {
       const token = localStorage.getItem('token');
       await deleteTask(token, id);
-      
-      // Обновляем состояние задач
-      setTasks(prevTasks => prevTasks.filter(task => task._id !== id));
-      
-      // Перенаправляем на главную страницу с флагом обновления
+
+      // Обновляем состояние tasks в контексте
+      setTasks(tasks.filter(task => task._id !== id));
+
       navigate('/', { state: { shouldRefetch: true } });
     } catch (error) {
       console.error('Error deleting card:', error);
@@ -80,7 +78,7 @@ function PopBrowse() {
   };
 
   if (!card) {
-    return <div>Loading...</div>;
+    return <div>Загрзука...</div>;
   }
 
   const getTopicClassName = (topic) => {

@@ -51,7 +51,6 @@ function AppRoutes({ toggleTheme, currentTheme }) {
         />
         <Route path={AppRoutesObj.EXIT} element={<ExitPage setIsAuth={setIsAuth} />} />
         <Route path={AppRoutesObj.NOT_FOUND} element={<NotFoundPage />} />
-        <Route path="/card/new" element={<PopNewCard />} />
         <Route path={AppRoutesObj.CARDS} element={<PopBrowse />} />
       </Routes>
 

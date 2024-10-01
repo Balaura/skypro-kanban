@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DayPicker } from 'react-day-picker';
 import { format } from 'date-fns';
 import ru from 'date-fns/locale/ru';
@@ -10,24 +11,36 @@ function PopNewCard({ isOpen, onClose }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const { tasks, setTasks } = useContext(TaskContext);
+  const [status, setStatus] = useState('Без статуса');
+  const [topic, setTopic] = useState('');
+  const [error, setError] = useState('');
+  const { setTasks } = useContext(TaskContext);
+  const navigate = useNavigate();
 
   if (!isOpen) return null;
 
   const handleCreateNewTask = async (e) => {
     e.preventDefault();
+    setError('');
+    if (!title.trim()) {
+      setError('Название задачи обязательно');
+      return;
+    }
     try {
       const newTask = {
         title,
         description,
         date: format(selectedDate, 'yyyy-MM-dd'),
-        status: "Без статуса"
+        status,
+        topic
       };
       const response = await addTask(newTask);
-      setTasks([...tasks, response.task]);
+      setTasks(prevTasks => [...prevTasks, response.tasks]);
       onClose();
+      navigate('/', { state: { shouldRefetch: true } });
     } catch (error) {
       console.error('Error adding task:', error);
+      setError('Не удалось создать задачу. Попробуйте еще раз.');
     }
   };
 
@@ -56,6 +69,33 @@ function PopNewCard({ isOpen, onClose }) {
               placeholder="Введите описание задачи..."
             />
           </styles.InputGroup>
+          <styles.InputGroup>
+            <styles.Label htmlFor="taskStatus">Статус</styles.Label>
+            <styles.Select
+              id="taskStatus"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <option value="Без статуса">Без статуса</option>
+              <option value="Нужно сделать">Нужно сделать</option>
+              <option value="В работе">В работе</option>
+              <option value="Тестирование">Тестирование</option>
+              <option value="Готово">Готово</option>
+            </styles.Select>
+          </styles.InputGroup>
+          <styles.InputGroup>
+            <styles.Label htmlFor="taskTopic">Тема</styles.Label>
+            <styles.Select
+              id="taskTopic"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+            >
+              <option value="">Без темы</option>
+              <option value="Web Design">Web Design</option>
+              <option value="Research">Research</option>
+              <option value="Copywriting">Copywriting</option>
+            </styles.Select>
+          </styles.InputGroup>
           <DayPicker
             mode="single"
             selected={selectedDate}
@@ -65,8 +105,10 @@ function PopNewCard({ isOpen, onClose }) {
           <styles.SelectedDate>
             Выбранная дата: {format(selectedDate, 'dd.MM.yyyy', { locale: ru })}
           </styles.SelectedDate>
+          {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
           <styles.Button type="submit">Создать задачу</styles.Button>
         </styles.Form>
+        <styles.CloseButton onClick={onClose}>×</styles.CloseButton>
       </styles.PopupContent>
     </styles.PopupWrapper>
   );

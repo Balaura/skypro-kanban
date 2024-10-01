@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
@@ -14,25 +14,47 @@ function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
   const location = useLocation();
   const { tasks, setTasks } = useContext(TaskContext);
 
-  useEffect(() => {
-    if (isAuth) {
-      const fetchTasks = async () => {
-        try {
-          setIsLoading(true);
-          const token = localStorage.getItem('token');
-          const data = await getTasks(token);
-          setTasks(data.tasks);
-        } catch (err) {
-          setError('Не удалось загрузить данные, попробуйте позже');
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      fetchTasks();
-    } else {
-      navigate('/login');
+  const fetchTasks = async () => {
+    try {
+      setIsLoading(true);
+      const token = localStorage.getItem('token');
+      const data = await getTasks(token);
+      setTasks(data.tasks);
+    } catch (err) {
+      setError('Не удалось загрузить данные, попробуйте позже');
+    } finally {
+      setIsLoading(false);
     }
-  }, [isAuth, navigate, location.state?.shouldRefetch]);
+  };
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      if (!isAuth) {
+        navigate('/login');
+        return;
+      }
+
+      try {
+        setIsLoading(true);
+        const token = localStorage.getItem('token');
+        const data = await getTasks(token);
+        setTasks(data.tasks);
+      } catch (err) {
+        setError('Не удалось загрузить данные, попробуйте позже');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (isAuth || location.state?.shouldRefetch) {
+      fetchTasks();
+    }
+
+    // Очистка флага shouldRefetch, если он был установлен
+    if (location.state?.shouldRefetch) {
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [isAuth, navigate, location.state, setTasks]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');

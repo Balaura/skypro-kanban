@@ -73,3 +73,35 @@ export const Button = styled.button`
   color: ${props => props.theme.cardBackground};
   border: none;
 `;
+
+export const Select = styled.select`
+  width: 100%;
+  padding: 10px;
+  border: 1px solid ${props => props.theme.secondary};
+  border-radius: 5px;
+  background-color: ${props => props.theme.cardBackground};
+  color: ${props => props.theme.textPrimary};
+`;
+
+export const ErrorMessage = styled.p`
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: ${props => props.theme.textSecondary};
+`;
+
+export const SelectedDate = styled.p`
+  font-size: 14px;
+  color: ${props => props.theme.textSecondary};
+  margin-top: 10px;
+`;
