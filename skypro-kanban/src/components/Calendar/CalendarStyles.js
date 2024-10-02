@@ -92,6 +92,11 @@ export const CalendarWrapper = styled.div`
     padding: 0;
   }
 
+  .rdp-day_today {
+    background-color: gray; /* Цвет фона для текущей даты */
+    color: red; /* Цвет текста */
+  }
+
   .rdp-day_selected {
     background-color: ${props => props.theme.accent};
     color: #FFFFFF;

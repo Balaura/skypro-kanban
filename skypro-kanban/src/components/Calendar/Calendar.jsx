@@ -6,6 +6,8 @@ import ru from 'date-fns/locale/ru';
 import * as styles from './CalendarStyles';
 
 export default function Calendar({ selectedDate, setSelectedDate, readOnly }) {
+  const today = new Date();
+
   return (
     <styles.CalendarWrapper className="calendar">
       <styles.CalendarTitle className="calendar__ttl subttl">Даты</styles.CalendarTitle>
@@ -15,8 +17,9 @@ export default function Calendar({ selectedDate, setSelectedDate, readOnly }) {
         onSelect={readOnly ? undefined : setSelectedDate}
         disabled={readOnly}
         locale={ru}
-        modifiers={{ booked: selectedDate }}
+        modifiers={{ today, booked: selectedDate }}
         modifiersStyles={{
+          today: { backgroundColor: ' #EAEEF6', color: '#94A6BE' },
           booked: { backgroundColor: '#94A6BE', color: 'white' }
         }}
       />

@@ -6,6 +6,7 @@ import * as styles from './PopBrowseStyles';
 import { CalendarWrapper } from './PopBrowseStyles';
 import { useContext } from 'react';
 import { TaskContext } from '../../contexts/TaskContext';
+import { is } from 'react-day-picker/locale';
 
 function PopBrowse() {
   const { id } = useParams();
@@ -96,7 +97,13 @@ function PopBrowse() {
         <styles.Block>
           <styles.Content>
             <styles.TopBlock>
-              <styles.Title>{isEditing ? 'Редактирование задачи' : card.title}</styles.Title>
+              <styles.Title>{isEditing ? <styles.Input
+                id="textTitle"
+                value={editedCard.title || ''}
+                onChange={(e) => isEditing && setEditedCard({ ...editedCard, title: e.target.value })}
+                readOnly={!isEditing}
+                placeholder="Введите описание задачи..."
+              /> : card.title}</styles.Title>
               <styles.Theme className={`theme-top ${getTopicClassName(card.topic)}`}>
                 <p>{card.topic}</p>
               </styles.Theme>
@@ -107,10 +114,10 @@ function PopBrowse() {
                 {['Без статуса', 'Нужно сделать', 'В работе', 'Тестирование', 'Готово'].map(status => (
                   <styles.StatusTheme
                     key={status}
-                    className={card.status === status ? '_gray' : '_hide'}
+                    className={editedCard.status === status ? '_gray' : isEditing ? '' : '_hide'}
                     onClick={() => isEditing && setEditedCard({ ...editedCard, status })}
                   >
-                    <p className={card.status === status ? '_gray' : ''}>{status}</p>
+                    <p className={editedCard.status === status ? '_gray' : ''}>{status}</p>
                   </styles.StatusTheme>
                 ))}
               </styles.StatusThemes>
@@ -130,6 +137,7 @@ function PopBrowse() {
               </styles.Form>
               <CalendarWrapper>
                 <Calendar
+                  mode="single"
                   selectedDate={selectedDate}
                   setSelectedDate={isEditing ? setSelectedDate : undefined}
                   readOnly={!isEditing}

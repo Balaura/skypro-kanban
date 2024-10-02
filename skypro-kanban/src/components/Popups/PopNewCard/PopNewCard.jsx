@@ -77,33 +77,6 @@ function PopNewCard({ isOpen, onClose }) {
                   </styles.FormBlock>
                 </styles.LeftColumn>
                 <styles.RightColumn>
-                  <styles.FormBlock>
-                    <styles.Label htmlFor="taskStatus">Статус</styles.Label>
-                    <styles.StatusThemes>
-                      {['Без статуса', 'Нужно сделать', 'В работе', 'Тестирование', 'Готово'].map(statusOption => (
-                        <styles.StatusTheme
-                          key={statusOption}
-                          className={status === statusOption ? '_gray' : ''}
-                          onClick={() => setStatus(statusOption)}
-                        >
-                          <p>{statusOption}</p>
-                        </styles.StatusTheme>
-                      ))}
-                    </styles.StatusThemes>
-                  </styles.FormBlock>
-                  <styles.FormBlock>
-                    <styles.Label htmlFor="taskTopic">Тема</styles.Label>
-                    <styles.Select
-                      id="taskTopic"
-                      value={topic}
-                      onChange={(e) => setTopic(e.target.value)}
-                    >
-                      <option value="">Без темы</option>
-                      <option value="Web Design">Web Design</option>
-                      <option value="Research">Research</option>
-                      <option value="Copywriting">Copywriting</option>
-                    </styles.Select>
-                  </styles.FormBlock>
                   <styles.CalendarWrapper>
                     <DayPicker
                       mode="single"
@@ -117,6 +90,26 @@ function PopNewCard({ isOpen, onClose }) {
                   </styles.CalendarWrapper>
                 </styles.RightColumn>
               </styles.HorizontalLayout>
+              <styles.FormBlock>
+                <styles.Label htmlFor="taskTopic">Тема</styles.Label>
+                <styles.TopicThemes>
+                  {[
+                    { value: "", label: "Без темы", color: "#808080" },
+                    { value: "Web Design", label: "Web Design", color: "#4CAF50" },
+                    { value: "Research", label: "Research", color: "#2196F3" },
+                    { value: "Copywriting", label: "Copywriting", color: "#FFC107" }
+                  ].map(topicOption => (
+                    <styles.TopicTheme
+                      key={topicOption.value}
+                      className={topic === topicOption.value ? '_gray' : ''}
+                      onClick={() => setTopic(topicOption.value)}
+                      style={{ backgroundColor: topicOption.color, color: '#fff' }}
+                    >
+                      <p>{topicOption.label}</p>
+                    </styles.TopicTheme>
+                  ))}
+                </styles.TopicThemes>
+              </styles.FormBlock>
               {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
               <styles.ButtonGroup>
                 <styles.Button type="submit" className="_btn-bg _hover01">Создать задачу</styles.Button>

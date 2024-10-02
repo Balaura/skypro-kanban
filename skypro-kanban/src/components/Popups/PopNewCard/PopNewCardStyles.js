@@ -192,6 +192,25 @@ export const StatusTheme = styled.div`
     color: #FFFFFF;
   }
 `;
+export const TopicThemes = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+`;
+
+export const TopicTheme = styled.div`
+  border-radius: 24px;
+  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  color: #94A6BE;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &._gray {
+    background-color: #94A6BE;
+    color: #FFFFFF;
+  }
+`;
 
 export const Select = styled.select`
   width: 100%;
