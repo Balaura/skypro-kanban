@@ -89,7 +89,7 @@ function PopBrowse() {
             <styles.TopBlock>
               <styles.Title>{card.title}</styles.Title>
               <styles.Theme
-                topic={card.topic}
+                $topic={card.topic}
                 className={`theme-top`}
               >
                 <p>{card.topic || "Без темы"}</p>
@@ -101,10 +101,10 @@ function PopBrowse() {
                 {['Без статуса', 'Нужно сделать', 'В работе', 'Тестирование', 'Готово'].map(status => (
                   <styles.StatusTheme
                     key={status}
-                    className={card.status === status ? '_gray' : '_hide'}
+                    className={editedCard.status === status ? '_gray' : isEditing ? '' : '_hide'}
                     onClick={() => isEditing && setEditedCard({ ...editedCard, status })}
                   >
-                    <p className={card.status === status ? '_gray' : ''}>{status}</p>
+                    <p className={editedCard.status === status ? '_gray' : ''}>{status}</p>
                   </styles.StatusTheme>
                 ))}
               </styles.StatusThemes>

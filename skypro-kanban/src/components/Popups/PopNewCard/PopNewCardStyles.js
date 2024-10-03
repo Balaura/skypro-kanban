@@ -248,9 +248,9 @@ export const TopicThemes = styled.div`
 export const TopicTheme = styled.div`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
-  background-color: ${props => props.theme.topicStyles[props.themeKey].backgroundColor};
-  color: ${props => props.theme.topicStyles[props.themeKey].color};
-  opacity: ${props => props.isActive ? 1 : 0.5};
+  background-color: ${props => props.theme.topicStyles[props.$themekey].backgroundColor};
+  color: ${props => props.theme.topicStyles[props.$themekey].color};
+  opacity: ${props => props.$isActive ? 1 : 0.5};
   padding: 8px 20px;
   cursor: pointer;
   font-size: 14px;

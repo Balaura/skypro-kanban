@@ -72,10 +72,10 @@ export const Theme = styled.div`
   border-radius: 24px;
   margin-right: 7px;
   background-color: ${props => 
-    props.theme.topicStyles[getThemeKey(props.topic)]?.backgroundColor || 'rgba(0, 0, 0, 0.7)'
+    props.theme.topicStyles[getThemeKey(props.$topic)]?.backgroundColor || 'rgba(0, 0, 0, 0.7)'
   };
   color: ${props => 
-    props.theme.topicStyles[getThemeKey(props.topic)]?.color || props.theme.textPrimary
+    props.theme.topicStyles[getThemeKey(props.$topic)]?.color || props.theme.textPrimary
   };
 
   p {

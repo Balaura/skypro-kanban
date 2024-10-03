@@ -89,15 +89,14 @@ function PopNewCard({ isOpen, onClose }) {
                 <styles.Label htmlFor="taskTopic">Тема</styles.Label>
                 <styles.TopicThemes>
                   {[
-                    { value: "", label: "Без темы", themeKey: "default" },
                     { value: "Web Design", label: "Web Design", themeKey: "web-design" },
                     { value: "Research", label: "Research", themeKey: "research" },
                     { value: "Copywriting", label: "Copywriting", themeKey: "copywriting" },
                   ].map(topicOption => (
                     <styles.TopicTheme
                       key={topicOption.value}
-                      themeKey={topicOption.themeKey}
-                      isActive={topic === topicOption.value}
+                      $themekey={topicOption.themeKey}
+                      $isActive={topic === topicOption.value}
                       onClick={() => setTopic(topicOption.value)}
                     >
                       <p>{topicOption.label}</p>
