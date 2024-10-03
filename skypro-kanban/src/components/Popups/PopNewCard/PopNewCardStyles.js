@@ -11,6 +11,7 @@ export const PopBrowse = styled.div`
   z-index: 1000;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 export const Container = styled.div`
@@ -244,27 +245,41 @@ export const Select = styled.select`
 export const CalendarWrapper = styled.div`
   width: 100%;
   font-size: 12px;
-  
+  width: 100%;
+  font-size: 12px;
+  max-width: 300px;
+  height: auto; 
+
   .rdp {
-    --rdp-cell-size: 30px;
+    --rdp-cell-size: 10px;
     --rdp-accent-color: ${props => props.theme.primary};
     --rdp-background-color: ${props => props.theme.calendarBackground};
     margin: 0;
   }
 
   .rdp-day {
-    border-radius: 0;
-    padding: 0;
-    margin: 0;
+    padding: 0; 
+    margin: 2px; 
+    border-radius: 32px;
+    line-height: 0.1px;
+    color: ${props => props.theme.text};
   }
 
+  .rdp-month {
+    width: 100%;
+  }
+
+  .rdp-table {
+    width: 100%;
+    max-width: 100%;
+  }
   .rdp-button:hover:not(.rdp-day_selected) {
     background-color: ${props => props.theme.calendarHoverBackground};
   }
 
   .rdp-day_selected {
     background-color: ${props => props.theme.primary};
-    color: white;
+    color: ${props => props.theme.textPrimary};
   }
 `;
 

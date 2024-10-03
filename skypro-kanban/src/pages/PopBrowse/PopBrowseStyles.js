@@ -15,7 +15,7 @@ export const PopBrowse = styled.div`
 
 export const Container = styled.div`
   position: relative;
-  background: #fff;
+  background: ${props => props.theme.cardBackground};
   border-radius: 10px;
   z-index: 1001;
   width: 630px;
