@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const PopBrowse = styled.div`
   position: fixed;
   top: 0;
@@ -14,17 +15,18 @@ export const PopBrowse = styled.div`
 
 export const Container = styled.div`
   position: relative;
-  background: #fff;
+  background: ${props => props.theme.cardBackground};
   border-radius: 10px;
   z-index: 1001;
   width: 630px;
   max-width: 90%;
+  
 `;
 
 export const Block = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #FFFFFF;
+  background: ${props => props.theme.cardBackground};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 38px;
@@ -45,7 +47,7 @@ export const TopBlock = styled.div`
 `;
 
 export const Title = styled.h3`
-  color: #000;
+  color: ${props => props.theme.textPrimary};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -57,7 +59,7 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-  color: #000;
+  color: ${props => props.theme.textPrimary};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -65,12 +67,13 @@ export const Label = styled.label`
 `;
 
 export const Status = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 11px;
 `;
 
 export const StatusTitle = styled.p`
   margin-bottom: 14px;
-  font-weight: 600;
+  /* font-weight: 600; */
+  color: ${props => props.theme.text};
 `;
 
 export const Wrapper = styled.div`
@@ -89,8 +92,10 @@ export const ErrorMessage = styled.p`
 
 export const ButtonGroup = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  gap: 8px;
 `;
 
 export const Button = styled.button`
@@ -103,26 +108,27 @@ export const Button = styled.button`
   cursor: pointer;
 
   &._btn-bg {
-    background-color: #565EEF;
+    background-color: ${props => props.theme.primary};
     color: #FFFFFF;
     border: none;
   }
 
   &._btn-bor {
     background-color: transparent;
-    border: 1px solid #565EEF;
-    color: #565EEF;
+    border: 1px solid ${props => props.theme.primary};
+    color: ${props => props.theme.primary};
   }
 
   &._hover01:hover {
-    background-color: #33399b;
+    background-color: ${props => props.theme.primaryHover};
   }
 
   &._hover03:hover {
-    background-color: #33399b;
+    background-color: ${props => props.theme.primaryHover};
     color: #FFFFFF;
   }
 `;
+
 export const HorizontalLayout = styled.div`
   display: flex;
   justify-content: space-between;
@@ -151,47 +157,60 @@ export const Input = styled.input`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #EAEEF6;
+  background: ${props => props.theme.cardBackground};
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  color: ${props => props.theme.textPrimary};
+
+  &::placeholder {
+    color: ${props => props.theme.textSecondary};
+  }
 `;
 
 export const TextArea = styled.textarea`
-  width: 100%;
+  width: 370px;
   outline: none;
   padding: 14px;
-  background: #EAEEF6;
+  background: ${props => props.theme.cardBackground};
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  color: ${props => props.theme.textPrimary};
   height: 200px;
   resize: none;
+
+  &::placeholder {
+    color: ${props => props.theme.textSecondary};
+  }
 `;
 
 export const StatusThemes = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  align-items: flex-start;
+  justify-content: flex-start;
 `;
 
 export const StatusTheme = styled.div`
   border-radius: 24px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
-  color: #94A6BE;
-  padding: 8px 20px;
-  cursor: pointer;
-  font-size: 14px;
+  border: 0.7px solid ${props => props.theme.borderColor};
+  color: ${props => props.theme.statusThemeColor};
+  padding: 11px 14px 10px;
+  margin-right: 7px;
+  margin-bottom: 7px;
 
-  &._gray {
-    background-color: #94A6BE;
-    color: #FFFFFF;
+  p {
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: -0.14px;
   }
 `;
+
 export const TopicThemes = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -228,8 +247,8 @@ export const CalendarWrapper = styled.div`
   
   .rdp {
     --rdp-cell-size: 30px;
-    --rdp-accent-color: #94A6BE;
-    --rdp-background-color: #e7edff;
+    --rdp-accent-color: ${props => props.theme.primary};
+    --rdp-background-color: ${props => props.theme.calendarBackground};
     margin: 0;
   }
 
@@ -240,17 +259,17 @@ export const CalendarWrapper = styled.div`
   }
 
   .rdp-button:hover:not(.rdp-day_selected) {
-    background-color: #e7edff;
+    background-color: ${props => props.theme.calendarHoverBackground};
   }
 
   .rdp-day_selected {
-    background-color: #94A6BE;
+    background-color: ${props => props.theme.primary};
     color: white;
   }
 `;
 
 export const SelectedDate = styled.p`
   font-size: 14px;
-  color: #000000;
+  color: ${props => props.theme.textPrimary};
   margin-top: 10px;
 `;

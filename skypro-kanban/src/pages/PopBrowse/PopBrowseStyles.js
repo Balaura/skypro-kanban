@@ -25,7 +25,7 @@ export const Container = styled.div`
 export const Block = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #FFFFFF;
+  background: ${props => props.theme.cardBackground};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 38px;
@@ -46,7 +46,7 @@ export const TopBlock = styled.div`
 `;
 
 export const Title = styled.h3`
-  color: #000;
+  color: ${props => props.theme.textPrimary};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -58,12 +58,14 @@ export const Theme = styled.div`
   padding: 8px 20px;
   border-radius: 24px;
   margin-right: 7px;
+  background-color: ${props => props.theme.inputBackground};
 
   p {
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
+    color: ${props => props.theme.text};
   }
 `;
 
@@ -73,6 +75,7 @@ export const Status = styled.div`
 
 export const StatusTitle = styled.p`
   margin-bottom: 14px;
+  color: ${props => props.theme.text};
 `;
 
 export const StatusThemes = styled.div`
@@ -84,8 +87,8 @@ export const StatusThemes = styled.div`
 
 export const StatusTheme = styled.div`
   border-radius: 24px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
-  color: #94A6BE;
+  border: 0.7px solid ${props => props.theme.borderColor};
+  color: ${props => props.theme.statusThemeColor};
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;
@@ -113,8 +116,8 @@ export const CalendarWrapper = styled.div`
 
   .rdp {
     --rdp-cell-size: 10px;
-    --rdp-accent-color: #94A6BE;
-    --rdp-background-color: #e7edff;
+    --rdp-accent-color: ${props => props.theme.calendarAccentColor};
+    --rdp-background-color: ${props => props.theme.calendarBackgroundColor};
     margin: 0;
   }
 
@@ -123,6 +126,7 @@ export const CalendarWrapper = styled.div`
     margin: 2px; 
     border-radius: 32px;
     line-height: 0.1px;
+    color: ${props => props.theme.text};
   }
 
   .rdp-month {
@@ -146,7 +150,7 @@ export const FormBlock = styled.div`
 `;
 
 export const Label = styled.label`
-  color: #000;
+  color: ${props => props.theme.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -154,22 +158,28 @@ export const Label = styled.label`
 
 export const TextArea = styled.textarea`
   width: 370px;
-  /* width: 100%; */
   outline: none;
   padding: 14px;
-  background: #EAEEF6;
+  background: ${props => props.theme.cardBackground};
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  color: ${props => props.theme.textPrimary};
   margin-top: 14px;
   height: 200px;
   resize: none;
+
+  
+  &::placeholder {
+    color: ${props => props.theme.textSecondary};
+  }
 `;
 
 export const ThemeDownCategories = styled.div`
   margin-bottom: 20px;
+  color: ${props => props.theme.text};
 `;
 
 export const CategoriesTitle = styled.p`
@@ -183,12 +193,14 @@ export const CategoryTheme = styled.div`
   border-radius: 24px;
   margin-right: 7px;
   opacity: 0.4;
+  background-color: ${props => props.theme.inputBackground};
 
   p {
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
+    color: ${props => props.theme.text};
   }
 `;
 
@@ -212,4 +224,13 @@ export const Button = styled.button`
   height: 30px;
   margin-bottom: 10px;
   padding: 0 14px;
+  background-color: ${props => props.theme.inputBackground};
+  color: ${props => props.theme.text};
+  border: 1px solid ${props => props.theme.borderColor};
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;

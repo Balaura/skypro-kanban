@@ -5,8 +5,8 @@ import logoDark from '../../../public/logo_dark.png';
 import * as styles from './HeaderStyles';
 import PopNewCard from '../Popups/PopNewCard/PopNewCard'; // Добавьте этот импорт
 
-const Header = ({ toggleTheme, setIsAuth }) => {
-  const theme = localStorage.getItem('theme') || 'light';
+const Header = ({ toggleTheme, currentTheme, setIsAuth }) => {
+  // const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false); // Добавьте это состояние
   const navigate = useNavigate();
@@ -15,12 +15,13 @@ const Header = ({ toggleTheme, setIsAuth }) => {
     navigate('/exit');
   };
 
+
   return (
     <styles.HeaderWrapper>
       <styles.HeaderContainer>
         <styles.HeaderBlock>
           <styles.HeaderLogo>
-            <img src={theme === 'dark' ? logoDark : logoLight} alt="Logo" />
+            <img src={currentTheme === 'dark' ? logoDark : logoLight} alt="Logo" />
           </styles.HeaderLogo>
           <styles.HeaderNav>
             <styles.HeaderBtnMainNew onClick={() => setIsNewCardModalOpen(true)}>
@@ -37,7 +38,7 @@ const Header = ({ toggleTheme, setIsAuth }) => {
                   <styles.ThemeToggleWrapper>
                     <p>Темная тема</p>
                     <styles.ThemeToggle>
-                      <styles.ToggleInput type="checkbox" checked={theme === 'dark'} onChange={toggleTheme} />
+                      <styles.ToggleInput type="checkbox" checked={currentTheme === 'dark'} onChange={toggleTheme} />
                       <styles.ToggleSlider />
                     </styles.ThemeToggle>
                   </styles.ThemeToggleWrapper>
@@ -49,8 +50,8 @@ const Header = ({ toggleTheme, setIsAuth }) => {
         </styles.HeaderBlock>
       </styles.HeaderContainer>
       {isNewCardModalOpen && (
-        <PopNewCard 
-          isOpen={isNewCardModalOpen} 
+        <PopNewCard
+          isOpen={isNewCardModalOpen}
           onClose={() => setIsNewCardModalOpen(false)}
         />
       )}
