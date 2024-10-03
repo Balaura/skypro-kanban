@@ -1,4 +1,3 @@
-import React from 'react';
 import { LoadingWrapper, SkeletonCard, SkeletonLine } from './LoadingAnimationStyle';
 
 const LoadingAnimation = () => {

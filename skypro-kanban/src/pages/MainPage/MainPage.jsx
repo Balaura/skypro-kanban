@@ -14,19 +14,6 @@ function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
   const location = useLocation();
   const { tasks, setTasks } = useContext(TaskContext);
 
-  const fetchTasks = async () => {
-    try {
-      setIsLoading(true);
-      const token = localStorage.getItem('token');
-      const data = await getTasks(token);
-      setTasks(data.tasks);
-    } catch (err) {
-      setError('Не удалось загрузить данные, попробуйте позже');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
     const fetchTasks = async () => {
       if (!isAuth) {

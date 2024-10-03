@@ -1,8 +1,6 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DayPicker } from 'react-day-picker';
 import { format } from 'date-fns';
-import ru from 'date-fns/locale/ru';
 import { TaskContext } from '../../../contexts/TaskContext';
 import { addTask } from '../../../API';
 import * as styles from './PopNewCardStyles';
@@ -12,7 +10,7 @@ function PopNewCard({ isOpen, onClose }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [status, setStatus] = useState('Без статуса');
+  const [status] = useState('Без статуса');
   const [topic, setTopic] = useState('');
   const [error, setError] = useState('');
   const { setTasks } = useContext(TaskContext);

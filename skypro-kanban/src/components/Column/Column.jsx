@@ -1,6 +1,3 @@
-// src/components/Column/Column.jsx
-
-import React from 'react';
 import Card from '../Card/Card';
 import { ColumnWrapper, ColumnTitle, CardsContainer } from './ColumnStyles';
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
 import { editTask, deleteTask } from '../../API';
@@ -80,28 +80,6 @@ function PopBrowse() {
   if (!card) {
     return <div>Загрузка...</div>;
   }
-
-  const getTopicClassName = (topic) => {
-    switch ((topic || '').toLowerCase()) {
-      case 'web design': return '_orange';
-      case 'research': return '_green';
-      case 'copywriting': return '_purple';
-      default: return '_gray';
-    }
-  };
-
-  const getThemeKey = (topic) => {
-    switch (topic) {
-      case "Web Design":
-        return "web-design";
-      case "Research":
-        return "research";
-      case "Copywriting":
-        return "copywriting";
-      default:
-        return "default";
-    }
-  };
 
   return (
     <styles.PopBrowse id="popBrowse">

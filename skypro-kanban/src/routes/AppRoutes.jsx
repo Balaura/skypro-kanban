@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import MainPage from '../pages/MainPage/MainPage';
 import LoginPage from '../pages/LoginPage/LoginPage';
@@ -6,7 +6,6 @@ import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import PopBrowse from '../pages/PopBrowse/PopBrowse';
 import ExitPage from '../pages/ExitPage/ExitPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
-import PopNewCard from '../components/Popups/PopNewCard/PopNewCard';
 
 const AppRoutesObj = {
   HOME: "/",

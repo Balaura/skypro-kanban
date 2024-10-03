@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logoLight from '../../../public/logo.png';
 import logoDark from '../../../public/logo_dark.png';
 import * as styles from './HeaderStyles';
-import PopNewCard from '../Popups/PopNewCard/PopNewCard'; // Добавьте этот импорт
+import PopNewCard from '../Popups/PopNewCard/PopNewCard';
 
-const Header = ({ toggleTheme, currentTheme, setIsAuth }) => {
-  // const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+const Header = ({ toggleTheme, currentTheme }) => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false); // Добавьте это состояние
+  const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {

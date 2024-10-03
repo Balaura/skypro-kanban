@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const PopBrowse = styled.div`
   position: fixed;
   top: 0;
@@ -103,7 +102,6 @@ export const Status = styled.div`
 
 export const StatusTitle = styled.p`
   margin-bottom: 14px;
-  /* font-weight: 600; */
   color: ${props => props.theme.text};
 `;
 
@@ -125,7 +123,6 @@ export const ButtonGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* margin-top: 20px; */
   gap: 8px;
 `;
 
