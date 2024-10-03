@@ -6,6 +6,7 @@ import ru from 'date-fns/locale/ru';
 import { TaskContext } from '../../../contexts/TaskContext';
 import { addTask } from '../../../API';
 import * as styles from './PopNewCardStyles';
+import Calendar from '../../Calendar/Calendar';
 
 function PopNewCard({ isOpen, onClose }) {
   const [title, setTitle] = useState('');
@@ -78,15 +79,11 @@ function PopNewCard({ isOpen, onClose }) {
                 </styles.LeftColumn>
                 <styles.RightColumn>
                   <styles.CalendarWrapper>
-                    <DayPicker
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={setSelectedDate}
-                      locale={ru}
+                    <Calendar
+                      selectedDate={selectedDate}
+                      setSelectedDate={setSelectedDate}
+                      readOnly={false}
                     />
-                    <styles.SelectedDate>
-                      Выбранная дата: {format(selectedDate, 'dd.MM.yyyy', { locale: ru })}
-                    </styles.SelectedDate>
                   </styles.CalendarWrapper>
                 </styles.RightColumn>
               </styles.HorizontalLayout>
@@ -94,16 +91,16 @@ function PopNewCard({ isOpen, onClose }) {
                 <styles.Label htmlFor="taskTopic">Тема</styles.Label>
                 <styles.TopicThemes>
                   {[
-                    { value: "", label: "Без темы", color: "#808080" },
-                    { value: "Web Design", label: "Web Design", color: "#4CAF50" },
-                    { value: "Research", label: "Research", color: "#2196F3" },
-                    { value: "Copywriting", label: "Copywriting", color: "#FFC107" }
+                    { value: "", label: "Без темы", themeKey: "default" },
+                    { value: "Web Design", label: "Web Design", themeKey: "web-design" },
+                    { value: "Research", label: "Research", themeKey: "research" },
+                    { value: "Copywriting", label: "Copywriting", themeKey: "copywriting" },
                   ].map(topicOption => (
                     <styles.TopicTheme
                       key={topicOption.value}
-                      className={topic === topicOption.value ? '_gray' : ''}
+                      themeKey={topicOption.themeKey}
+                      isActive={topic === topicOption.value}
                       onClick={() => setTopic(topicOption.value)}
-                      style={{ backgroundColor: topicOption.color, color: '#fff' }}
                     >
                       <p>{topicOption.label}</p>
                     </styles.TopicTheme>
@@ -113,7 +110,7 @@ function PopNewCard({ isOpen, onClose }) {
               {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
               <styles.ButtonGroup>
                 <styles.Button type="submit" className="_btn-bg _hover01">Создать задачу</styles.Button>
-                <styles.Button type="button" className="_btn-bor _hover03" onClick={onClose}>Отменить</styles.Button>
+                <styles.Button type="button" className="_btn-bor" onClick={onClose}>Отменить</styles.Button>
               </styles.ButtonGroup>
             </styles.Form>
           </styles.Content>

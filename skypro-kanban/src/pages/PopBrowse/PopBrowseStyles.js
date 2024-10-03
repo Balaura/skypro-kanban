@@ -6,7 +6,7 @@ export const PopBrowse = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 1000; 
   display: flex;
   justify-content: center;
@@ -52,20 +52,37 @@ export const Title = styled.h3`
   line-height: 24px;
 `;
 
+const getThemeKey = (topic) => {
+  switch (topic) {
+    case "Web Design":
+      return "web-design";
+    case "Research":
+      return "research";
+    case "Copywriting":
+      return "copywriting";
+    default:
+      return "default";
+  }
+};
+
 export const Theme = styled.div`
   width: auto;
   height: 30px;
   padding: 8px 20px;
   border-radius: 24px;
   margin-right: 7px;
-  background-color: ${props => props.theme.inputBackground};
+  background-color: ${props => 
+    props.theme.topicStyles[getThemeKey(props.topic)]?.backgroundColor || 'rgba(0, 0, 0, 0.7)'
+  };
+  color: ${props => 
+    props.theme.topicStyles[getThemeKey(props.topic)]?.color || props.theme.textPrimary
+  };
 
   p {
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
-    color: ${props => props.theme.text};
   }
 `;
 

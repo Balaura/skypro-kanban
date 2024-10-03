@@ -78,7 +78,7 @@ function PopBrowse() {
   };
 
   if (!card) {
-    return <div>Загрзука...</div>;
+    return <div>Загрузка...</div>;
   }
 
   const getTopicClassName = (topic) => {
@@ -90,6 +90,19 @@ function PopBrowse() {
     }
   };
 
+  const getThemeKey = (topic) => {
+    switch (topic) {
+      case "Web Design":
+        return "web-design";
+      case "Research":
+        return "research";
+      case "Copywriting":
+        return "copywriting";
+      default:
+        return "default";
+    }
+  };
+
   return (
     <styles.PopBrowse id="popBrowse">
       <styles.Container>
@@ -97,8 +110,11 @@ function PopBrowse() {
           <styles.Content>
             <styles.TopBlock>
               <styles.Title>{card.title}</styles.Title>
-              <styles.Theme className={`theme-top ${getTopicClassName(card.topic)}`}>
-                <p>{card.topic}</p>
+              <styles.Theme
+                topic={card.topic}
+                className={`theme-top`}
+              >
+                <p>{card.topic || "Без темы"}</p>
               </styles.Theme>
             </styles.TopBlock>
             <styles.Status>

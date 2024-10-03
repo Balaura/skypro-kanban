@@ -32,7 +32,7 @@ export const themeColors = {
     cardBackground: "#2D2D3A",
     textPrimary: "#FFFFFF",
     textSecondary: "#94A6BE",
-    shadowColor: "rgba(0, 0, 0, 0.3)",
+    shadowColor: "rgba(0, 0, 0, 0.5)",
     topicStyles: {
       'web-design': {
         backgroundColor: "#FF6D00",

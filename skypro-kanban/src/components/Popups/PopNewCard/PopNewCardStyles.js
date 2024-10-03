@@ -7,11 +7,42 @@ export const PopBrowse = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const CalendarWrapper = styled.div`
+  width: 100%;
+  font-size: 12px;
+  max-width: 300px;
+  height: auto; 
+
+  .rdp {
+    --rdp-cell-size: 10px;
+    --rdp-accent-color: ${props => props.theme.calendarAccentColor};
+    --rdp-background-color: ${props => props.theme.calendarBackgroundColor};
+    margin: 0;
+  }
+
+  .rdp-day {
+    padding: 0; 
+    margin: 2px; 
+    border-radius: 32px;
+    line-height: 0.1px;
+    color: ${props => props.theme.text};
+  }
+
+  .rdp-month {
+    width: 100%;
+  }
+
+  .rdp-table {
+    width: 100%;
+    max-width: 100%;
+  }
 `;
 
 export const Container = styled.div`
@@ -21,7 +52,6 @@ export const Container = styled.div`
   z-index: 1001;
   width: 630px;
   max-width: 90%;
-  
 `;
 
 export const Block = styled.div`
@@ -221,7 +251,9 @@ export const TopicThemes = styled.div`
 export const TopicTheme = styled.div`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
-  color: #94A6BE;
+  background-color: ${props => props.theme.topicStyles[props.themeKey].backgroundColor};
+  color: ${props => props.theme.topicStyles[props.themeKey].color};
+  opacity: ${props => props.isActive ? 1 : 0.5};
   padding: 8px 20px;
   cursor: pointer;
   font-size: 14px;
@@ -240,47 +272,6 @@ export const Select = styled.select`
   background-color: #EAEEF6;
   color: #000000;
   font-size: 14px;
-`;
-
-export const CalendarWrapper = styled.div`
-  width: 100%;
-  font-size: 12px;
-  width: 100%;
-  font-size: 12px;
-  max-width: 300px;
-  height: auto; 
-
-  .rdp {
-    --rdp-cell-size: 10px;
-    --rdp-accent-color: ${props => props.theme.primary};
-    --rdp-background-color: ${props => props.theme.calendarBackground};
-    margin: 0;
-  }
-
-  .rdp-day {
-    padding: 0; 
-    margin: 2px; 
-    border-radius: 32px;
-    line-height: 0.1px;
-    color: ${props => props.theme.text};
-  }
-
-  .rdp-month {
-    width: 100%;
-  }
-
-  .rdp-table {
-    width: 100%;
-    max-width: 100%;
-  }
-  .rdp-button:hover:not(.rdp-day_selected) {
-    background-color: ${props => props.theme.calendarHoverBackground};
-  }
-
-  .rdp-day_selected {
-    background-color: ${props => props.theme.primary};
-    color: ${props => props.theme.textPrimary};
-  }
 `;
 
 export const SelectedDate = styled.p`
