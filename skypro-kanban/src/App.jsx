@@ -1,20 +1,37 @@
-import React from 'react';
-import Header from './components/Header/Header';
-import Main from './components/Main/Main';
-import PopBrowse from './components/Popups/PopBrowse/PopBrowse';
-import PopNewCard from './components/Popups/PopNewCard/PopNewCard';
-import PopUser from './components/Popups/PopUser/PopUser';
-import './App.css';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle from './styles/GlobalStyles';
+import { themeColors } from './styles/Themes';
+import AppRoutes from './routes/AppRoutes';
+import { UserProvider } from './contexts/UserContext';
+import { TaskProvider } from './contexts/TaskContext';
 
 function App() {
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme || 'light';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+  };
+
   return (
-    <div className="wrapper">
-      <PopBrowse />
-      <PopNewCard />
-      <PopUser />
-      <Header />
-      <Main />
-    </div>
+    <ThemeProvider theme={themeColors[theme]}>
+      <GlobalStyle />
+      <UserProvider>
+        <TaskProvider>
+          <Router>
+            <AppRoutes toggleTheme={toggleTheme} currentTheme={theme} />
+          </Router>
+        </TaskProvider>
+      </UserProvider>
+    </ThemeProvider>
   );
 }
 

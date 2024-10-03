@@ -1,47 +1,120 @@
-import React from 'react';
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
+import { TaskContext } from '../../../contexts/TaskContext';
+import { addTask } from '../../../API';
+import * as styles from './PopNewCardStyles';
 import Calendar from '../../Calendar/Calendar';
-import '../../../App.css';
 
-function PopNewCard() {
+function PopNewCard({ isOpen, onClose }) {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [status] = useState('Без статуса');
+  const [topic, setTopic] = useState('');
+  const [error, setError] = useState('');
+  const { setTasks } = useContext(TaskContext);
+  const navigate = useNavigate();
+
+  if (!isOpen) return null;
+
+  const handleCreateNewTask = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (!title.trim()) {
+      setError('Название задачи обязательно');
+      return;
+    }
+    try {
+      const newTask = {
+        title,
+        description,
+        date: format(selectedDate, 'yyyy-MM-dd'),
+        status,
+        topic
+      };
+      const response = await addTask(newTask);
+      setTasks(prevTasks => [...prevTasks, response.tasks]);
+      onClose();
+      navigate('/', { state: { shouldRefetch: true } });
+    } catch (error) {
+      console.error('Error adding task:', error);
+      setError('Не удалось создать задачу. Попробуйте еще раз.');
+    }
+  };
+
   return (
-    <div className="pop-new-card" id="popNewCard">
-      <div className="pop-new-card__container">
-        <div className="pop-new-card__block">
-          <div className="pop-new-card__content">
-            <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <a href="#" className="pop-new-card__close">✖</a>
-            <div className="pop-new-card__wrap">
-              <form className="pop-new-card__form form-new" id="formNewCard" action="#">
-                <div className="form-new__block">
-                  <label htmlFor="formTitle" className="subttl">Название задачи</label>
-                  <input className="form-new__input" type="text" name="name" id="formTitle" placeholder="Введите название задачи..." autoFocus />
-                </div>
-                <div className="form-new__block">
-                  <label htmlFor="textArea" className="subttl">Описание задачи</label>
-                  <textarea className="form-new__area" name="text" id="textArea" placeholder="Введите описание задачи..." defaultValue={""} />
-                </div>
-              </form>
-              <Calendar />
-            </div>
-            <div className="pop-new-card__categories categories">
-              <p className="categories__p subttl">Категория</p>
-              <div className="categories__themes">
-                <div className="categories__theme _orange _active-category">
-                  <p className="_orange">Web Design</p>
-                </div>
-                <div className="categories__theme _green">
-                  <p className="_green">Research</p>
-                </div>
-                <div className="categories__theme _purple">
-                  <p className="_purple">Copywriting</p>
-                </div>
-              </div>
-            </div>
-            <button className="form-new__create _hover01" id="btnCreate">Создать задачу</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <styles.PopBrowse>
+      <styles.Container>
+        <styles.Block>
+          <styles.Content>
+            <styles.TopBlock>
+              <styles.Title>Создание задачи</styles.Title>
+            </styles.TopBlock>
+            <styles.Form onSubmit={handleCreateNewTask}>
+              <styles.HorizontalLayout>
+                <styles.LeftColumn>
+                  <styles.FormBlock>
+                    <styles.Label htmlFor="taskTitle">Название задачи</styles.Label>
+                    <styles.Input
+                      id="taskTitle"
+                      type="text"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder="Введите название задачи..."
+                      required
+                    />
+                  </styles.FormBlock>
+                  <styles.FormBlock>
+                    <styles.Label htmlFor="taskDescription">Описание задачи</styles.Label>
+                    <styles.TextArea
+                      id="taskDescription"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      placeholder="Введите описание задачи..."
+                    />
+                  </styles.FormBlock>
+                </styles.LeftColumn>
+                <styles.RightColumn>
+                  <styles.CalendarWrapper>
+                    <Calendar
+                      selectedDate={selectedDate}
+                      setSelectedDate={setSelectedDate}
+                      readOnly={false}
+                    />
+                  </styles.CalendarWrapper>
+                </styles.RightColumn>
+              </styles.HorizontalLayout>
+              <styles.FormBlock>
+                <styles.Label htmlFor="taskTopic">Тема</styles.Label>
+                <styles.TopicThemes>
+                  {[
+                    { value: "", label: "Без темы", themeKey: "default" },
+                    { value: "Web Design", label: "Web Design", themeKey: "web-design" },
+                    { value: "Research", label: "Research", themeKey: "research" },
+                    { value: "Copywriting", label: "Copywriting", themeKey: "copywriting" },
+                  ].map(topicOption => (
+                    <styles.TopicTheme
+                      key={topicOption.value}
+                      themeKey={topicOption.themeKey}
+                      isActive={topic === topicOption.value}
+                      onClick={() => setTopic(topicOption.value)}
+                    >
+                      <p>{topicOption.label}</p>
+                    </styles.TopicTheme>
+                  ))}
+                </styles.TopicThemes>
+              </styles.FormBlock>
+              {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
+              <styles.ButtonGroup>
+                <styles.Button type="submit" className="_btn-bg _hover01">Создать задачу</styles.Button>
+                <styles.Button type="button" className="_btn-bor" onClick={onClose}>Отменить</styles.Button>
+              </styles.ButtonGroup>
+            </styles.Form>
+          </styles.Content>
+        </styles.Block>
+      </styles.Container>
+    </styles.PopBrowse>
   );
 }
 
