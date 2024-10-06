@@ -7,6 +7,11 @@ import * as styles from './CalendarStyles';
 export default function Calendar({ selectedDate, setSelectedDate, readOnly }) {
   const today = new Date();
 
+  const formatMonthCapitalized = (month, options) => {
+    const monthName = ru.localize.month(month.getMonth(), { width: 'wide' });
+    return monthName.charAt(0).toUpperCase() + monthName.slice(1);
+  };
+
   return (
     <styles.CalendarWrapper className="calendar">
       <styles.CalendarTitle className="calendar__ttl subttl">Даты</styles.CalendarTitle>
@@ -20,6 +25,10 @@ export default function Calendar({ selectedDate, setSelectedDate, readOnly }) {
         modifiersStyles={{
           today: { backgroundColor: ' #EAEEF6', color: '#94A6BE' },
           booked: { backgroundColor: '#94A6BE', color: 'white' }
+        }}
+        formatters={{
+          formatMonth: formatMonthCapitalized,
+          formatCaption: formatMonthCapitalized
         }}
       />
       <styles.CalendarPeriod className="calendar__period">

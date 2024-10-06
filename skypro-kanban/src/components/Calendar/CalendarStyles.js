@@ -141,9 +141,11 @@ export const CalendarPeriod = styled.div`
 `;
 
 export const CalendarP = styled.p`
+  font-family: Roboto;
   color: ${props => props.theme.textSecondary};
   font-size: 10px;
-  line-height: 1;
+  font-weight: 400;
+  line-height: 11.72px;
   padding-top: 10px;
 
   span {
