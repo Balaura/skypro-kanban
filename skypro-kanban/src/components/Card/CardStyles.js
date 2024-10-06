@@ -68,9 +68,10 @@ export const CardContent = styled.div`
 `;
 
 export const CardTitle = styled.h3`
+  font-family: Roboto;
   font-size: 14px;
   font-weight: 500;
-  line-height: 18px;
+  line-height: 16.41px;
   color: ${props => props.theme.textPrimary};
   margin-bottom: 10px;
 `;
@@ -84,7 +85,8 @@ export const CardDate = styled.div`
 export const DateText = styled.p`
   margin-left: 6px;
   font-size: 10px;
-  line-height: 13px;
+  font-weight: 400;
+  line-height: 11.72px;
   color: ${props => props.theme.textSecondary};
   letter-spacing: 0.2px;
   input, textarea, button {

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const PopBrowse = styled.div`
+  font-family: Roboto;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,7 +16,6 @@ export const PopBrowse = styled.div`
 
 export const CalendarWrapper = styled.div`
   width: 100%;
-  font-size: 12px;
   max-width: 300px;
   height: auto; 
 
@@ -27,6 +27,9 @@ export const CalendarWrapper = styled.div`
   }
 
   .rdp-day {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 11.72px;
     padding: 0; 
     margin: 2px; 
     border-radius: 32px;
@@ -35,6 +38,10 @@ export const CalendarWrapper = styled.div`
   }
 
   .rdp-month {
+    color: #94A6BE;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 11.72px;
     width: 100%;
   }
 
@@ -77,10 +84,11 @@ export const TopBlock = styled.div`
 `;
 
 export const Title = styled.h3`
+
   color: ${props => props.theme.textPrimary};
   font-size: 20px;
   font-weight: 600;
-  line-height: 24px;
+  line-height: 23.44px;
 `;
 
 export const Form = styled.form`
@@ -92,16 +100,16 @@ export const Label = styled.label`
   color: ${props => props.theme.textPrimary};
   font-size: 14px;
   font-weight: 600;
-  line-height: 1;
+  line-height: 16.41px;
   margin-bottom: 10px;
 `;
 
 export const Status = styled.div`
-  margin-bottom: 11px;
+  margin-bottom: 1px;
 `;
 
 export const StatusTitle = styled.p`
-  margin-bottom: 14px;
+  margin-bottom: 4px;
   color: ${props => props.theme.text};
 `;
 
@@ -189,7 +197,8 @@ export const Input = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
-  line-height: 1;
+  font-weight: 400;
+  line-height: 21px;
   letter-spacing: -0.14px;
   color: ${props => props.theme.textPrimary};
 
@@ -206,7 +215,8 @@ export const TextArea = styled.textarea`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
-  line-height: 1;
+  line-height: 16.41px;
+  font-weight: 400;
   letter-spacing: -0.14px;
   color: ${props => props.theme.textPrimary};
   height: 200px;
@@ -254,6 +264,8 @@ export const TopicTheme = styled.div`
   padding: 8px 20px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 700;
+  line-height: 14.21px;
 
   &._gray {
     background-color: #94A6BE;

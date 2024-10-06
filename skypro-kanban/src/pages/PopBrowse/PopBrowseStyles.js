@@ -91,11 +91,19 @@ export const Status = styled.div`
 `;
 
 export const StatusTitle = styled.p`
-  margin-bottom: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 10px;
+  margin-bottom: 16.41px;
   color: ${props => props.theme.text};
 `;
 
 export const StatusThemes = styled.div`
+font-family: Roboto;
+color: ${props => props.theme.textSecondary};
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -104,7 +112,7 @@ export const StatusThemes = styled.div`
 
 export const StatusTheme = styled.div`
   border-radius: 24px;
-  border: 0.7px solid ${props => props.theme.borderColor};
+  border: 0.7px solid #94A6BE;
   color: ${props => props.theme.statusThemeColor};
   padding: 11px 14px 10px;
   margin-right: 7px;

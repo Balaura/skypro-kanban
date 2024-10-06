@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
 import { editTask, deleteTask } from '../../API';
 import * as styles from './PopBrowseStyles';
 import { CalendarWrapper } from './PopBrowseStyles';
-import { useContext } from 'react';
 import { TaskContext } from '../../contexts/TaskContext';
 
 function PopBrowse() {
@@ -71,7 +70,8 @@ function PopBrowse() {
       // Обновляем состояние tasks в контексте
       setTasks(tasks.filter(task => task._id !== id));
 
-      navigate('/', { state: { shouldRefetch: true } });
+      // navigate('/', { state: { shouldRefetch: true } });
+      
     } catch (error) {
       console.error('Error deleting card:', error);
     }

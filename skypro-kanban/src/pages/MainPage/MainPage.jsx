@@ -33,15 +33,10 @@ function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
       }
     };
 
-    if (isAuth || location.state?.shouldRefetch) {
+    if (isAuth) {
       fetchTasks();
     }
-
-    // Очистка флага shouldRefetch, если он был установлен
-    if (location.state?.shouldRefetch) {
-      navigate(location.pathname, { replace: true, state: {} });
-    }
-  }, [isAuth, navigate, location.state, setTasks]);
+  }, [isAuth, navigate, setTasks]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
