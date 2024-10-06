@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
     color: ${props => props.theme.textPrimary};
     background-color: ${props => props.theme.background};
 

@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
 import { editTask, deleteTask } from '../../API';
 import * as styles from './PopBrowseStyles';
 import { CalendarWrapper } from './PopBrowseStyles';
-import { useContext } from 'react';
 import { TaskContext } from '../../contexts/TaskContext';
 
 function PopBrowse() {
@@ -71,7 +70,8 @@ function PopBrowse() {
       // Обновляем состояние tasks в контексте
       setTasks(tasks.filter(task => task._id !== id));
 
-      navigate('/', { state: { shouldRefetch: true } });
+      // navigate('/', { state: { shouldRefetch: true } });
+
     } catch (error) {
       console.error('Error deleting card:', error);
     }
@@ -133,19 +133,19 @@ function PopBrowse() {
             {isEditing ? (
               <styles.ButtonEdit>
                 <styles.ButtonGroup>
-                  <styles.Button className="_btn-bg _hover01" onClick={handleSave}>Сохранить</styles.Button>
-                  <styles.Button className="_btn-bor _hover03" onClick={() => setIsEditing(false)}>Отменить</styles.Button>
-                  <styles.Button className="_btn-bor _hover03" onClick={handleDelete}>Удалить задачу</styles.Button>
+                  <styles.PrimaryButton onClick={handleSave}>Сохранить</styles.PrimaryButton>
+                  <styles.SecondaryButton onClick={() => setIsEditing(false)}>Отменить</styles.SecondaryButton>
+                  <styles.SecondaryButton onClick={handleDelete}>Удалить задачу</styles.SecondaryButton>
                 </styles.ButtonGroup>
-                <styles.Button className="_btn-bg _hover01" onClick={handleClose}>Закрыть</styles.Button>
+                <styles.PrimaryButton onClick={handleClose}>Закрыть</styles.PrimaryButton>
               </styles.ButtonEdit>
             ) : (
               <styles.ButtonBrowse>
                 <styles.ButtonGroup>
-                  <styles.Button className="_btn-bor _hover03" onClick={() => setIsEditing(true)}>Редактировать задачу</styles.Button>
-                  <styles.Button className="_btn-bor _hover03" onClick={handleDelete}>Удалить задачу</styles.Button>
+                  <styles.SecondaryButton onClick={() => setIsEditing(true)}>Редактировать задачу</styles.SecondaryButton>
+                  <styles.SecondaryButton onClick={handleDelete}>Удалить задачу</styles.SecondaryButton>
                 </styles.ButtonGroup>
-                <styles.Button className="_btn-bg _hover01" onClick={handleClose}>Закрыть</styles.Button>
+                <styles.PrimaryButton onClick={handleClose}>Закрыть</styles.PrimaryButton>
               </styles.ButtonBrowse>
             )}
           </styles.Content>

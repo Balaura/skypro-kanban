@@ -13,7 +13,7 @@ function PopNewCard({ isOpen, onClose }) {
   const [status] = useState('Без статуса');
   const [topic, setTopic] = useState('');
   const [error, setError] = useState('');
-  const { setTasks } = useContext(TaskContext);
+  const { tasks, setTasks } = useContext(TaskContext);
   const navigate = useNavigate();
 
   if (!isOpen) return null;
@@ -34,9 +34,8 @@ function PopNewCard({ isOpen, onClose }) {
         topic
       };
       const response = await addTask(newTask);
-      setTasks(prevTasks => [...prevTasks, response.tasks]);
+      setTasks(response.tasks);
       onClose();
-      navigate('/', { state: { shouldRefetch: true } });
     } catch (error) {
       console.error('Error adding task:', error);
       setError('Не удалось создать задачу. Попробуйте еще раз.');
@@ -86,7 +85,7 @@ function PopNewCard({ isOpen, onClose }) {
                 </styles.RightColumn>
               </styles.HorizontalLayout>
               <styles.FormBlock>
-                <styles.Label htmlFor="taskTopic">Тема</styles.Label>
+                <styles.Label htmlFor="taskTopic">Категория</styles.Label>
                 <styles.TopicThemes>
                   {[
                     { value: "Web Design", label: "Web Design", themeKey: "web-design" },
@@ -106,8 +105,8 @@ function PopNewCard({ isOpen, onClose }) {
               </styles.FormBlock>
               {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
               <styles.ButtonGroup>
-                <styles.Button type="submit" className="_btn-bg _hover01">Создать задачу</styles.Button>
-                <styles.Button type="button" className="_btn-bor" onClick={onClose}>Отменить</styles.Button>
+                <styles.SubmitButton type="submit">Создать задачу</styles.SubmitButton>
+                <styles.CancelButton type="button" onClick={onClose}>Отменить</styles.CancelButton>
               </styles.ButtonGroup>
             </styles.Form>
           </styles.Content>

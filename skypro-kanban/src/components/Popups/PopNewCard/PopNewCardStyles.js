@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const PopBrowse = styled.div`
+  font-family: Roboto;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,7 +16,6 @@ export const PopBrowse = styled.div`
 
 export const CalendarWrapper = styled.div`
   width: 100%;
-  font-size: 12px;
   max-width: 300px;
   height: auto; 
 
@@ -27,6 +27,9 @@ export const CalendarWrapper = styled.div`
   }
 
   .rdp-day {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 11.72px;
     padding: 0; 
     margin: 2px; 
     border-radius: 32px;
@@ -35,6 +38,10 @@ export const CalendarWrapper = styled.div`
   }
 
   .rdp-month {
+    color: #94A6BE;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 11.72px;
     width: 100%;
   }
 
@@ -77,10 +84,11 @@ export const TopBlock = styled.div`
 `;
 
 export const Title = styled.h3`
+
   color: ${props => props.theme.textPrimary};
   font-size: 20px;
   font-weight: 600;
-  line-height: 24px;
+  line-height: 23.44px;
 `;
 
 export const Form = styled.form`
@@ -92,16 +100,16 @@ export const Label = styled.label`
   color: ${props => props.theme.textPrimary};
   font-size: 14px;
   font-weight: 600;
-  line-height: 1;
+  line-height: 16.41px;
   margin-bottom: 10px;
 `;
 
 export const Status = styled.div`
-  margin-bottom: 11px;
+  margin-bottom: 1px;
 `;
 
 export const StatusTitle = styled.p`
-  margin-bottom: 14px;
+  margin-bottom: 4px;
   color: ${props => props.theme.text};
 `;
 
@@ -126,6 +134,37 @@ export const ButtonGroup = styled.div`
   gap: 8px;
 `;
 
+// export const Button = styled.button`
+//   height: 30px;
+//   padding: 0 14px;
+//   border-radius: 4px;
+//   font-size: 14px;
+//   font-weight: 500;
+//   line-height: 1;
+//   cursor: pointer;
+
+//   &._btn-bg {
+//     background-color: ${props => props.theme.primary};
+//     color: #FFFFFF;
+//     border: none;
+//   }
+
+//   &._btn-bor {
+//     background-color: transparent;
+//     border: 1px solid ${props => props.theme.primary};
+//     color: ${props => props.theme.primary};
+//   }
+
+//   &._hover01:hover {
+//     background-color: ${props => props.theme.primaryHover};
+//   }
+
+//   &._hover03:hover {
+//     background-color: ${props => props.theme.primaryHover};
+//     color: #FFFFFF;
+//   }
+// `;
+
 export const Button = styled.button`
   height: 30px;
   padding: 0 14px;
@@ -134,26 +173,40 @@ export const Button = styled.button`
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
+`;
 
-  &._btn-bg {
-    background-color: ${props => props.theme.primary};
+export const SubmitButton = styled(Button)`
+  background: #565EEF;
+  border: none;
+  outline: none;
+  color: #FFFFFF;
+
+  a {
     color: #FFFFFF;
-    border: none;
   }
 
-  &._btn-bor {
-    background-color: transparent;
-    border: 1px solid ${props => props.theme.primary};
-    color: ${props => props.theme.primary};
+  &:hover {
+    background-color: #33399b;
+  }
+`;
+
+export const CancelButton = styled(Button)`
+  border: 0.7px solid var(--palette-navy-60, #565EEF);
+  outline: none;
+  background: transparent;
+  color: #565EEF;
+
+  a {
+    color: #565EEF;
   }
 
-  &._hover01:hover {
-    background-color: ${props => props.theme.primaryHover};
-  }
-
-  &._hover03:hover {
-    background-color: ${props => props.theme.primaryHover};
+  &:hover {
+    background-color: #33399b;
     color: #FFFFFF;
+
+    a {
+      color: #FFFFFF;
+    }
   }
 `;
 
@@ -189,7 +242,8 @@ export const Input = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
-  line-height: 1;
+  font-weight: 400;
+  line-height: 21px;
   letter-spacing: -0.14px;
   color: ${props => props.theme.textPrimary};
 
@@ -206,7 +260,8 @@ export const TextArea = styled.textarea`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
-  line-height: 1;
+  line-height: 16.41px;
+  font-weight: 400;
   letter-spacing: -0.14px;
   color: ${props => props.theme.textPrimary};
   height: 200px;
@@ -254,6 +309,8 @@ export const TopicTheme = styled.div`
   padding: 8px 20px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 700;
+  line-height: 14.21px;
 
   &._gray {
     background-color: #94A6BE;
