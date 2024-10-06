@@ -134,6 +134,37 @@ export const ButtonGroup = styled.div`
   gap: 8px;
 `;
 
+// export const Button = styled.button`
+//   height: 30px;
+//   padding: 0 14px;
+//   border-radius: 4px;
+//   font-size: 14px;
+//   font-weight: 500;
+//   line-height: 1;
+//   cursor: pointer;
+
+//   &._btn-bg {
+//     background-color: ${props => props.theme.primary};
+//     color: #FFFFFF;
+//     border: none;
+//   }
+
+//   &._btn-bor {
+//     background-color: transparent;
+//     border: 1px solid ${props => props.theme.primary};
+//     color: ${props => props.theme.primary};
+//   }
+
+//   &._hover01:hover {
+//     background-color: ${props => props.theme.primaryHover};
+//   }
+
+//   &._hover03:hover {
+//     background-color: ${props => props.theme.primaryHover};
+//     color: #FFFFFF;
+//   }
+// `;
+
 export const Button = styled.button`
   height: 30px;
   padding: 0 14px;
@@ -142,26 +173,40 @@ export const Button = styled.button`
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
+`;
 
-  &._btn-bg {
-    background-color: ${props => props.theme.primary};
+export const SubmitButton = styled(Button)`
+  background: #565EEF;
+  border: none;
+  outline: none;
+  color: #FFFFFF;
+
+  a {
     color: #FFFFFF;
-    border: none;
   }
 
-  &._btn-bor {
-    background-color: transparent;
-    border: 1px solid ${props => props.theme.primary};
-    color: ${props => props.theme.primary};
+  &:hover {
+    background-color: #33399b;
+  }
+`;
+
+export const CancelButton = styled(Button)`
+  border: 0.7px solid var(--palette-navy-60, #565EEF);
+  outline: none;
+  background: transparent;
+  color: #565EEF;
+
+  a {
+    color: #565EEF;
   }
 
-  &._hover01:hover {
-    background-color: ${props => props.theme.primaryHover};
-  }
-
-  &._hover03:hover {
-    background-color: ${props => props.theme.primaryHover};
+  &:hover {
+    background-color: #33399b;
     color: #FFFFFF;
+
+    a {
+      color: #FFFFFF;
+    }
   }
 `;
 

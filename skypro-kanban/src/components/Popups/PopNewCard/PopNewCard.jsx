@@ -105,8 +105,8 @@ function PopNewCard({ isOpen, onClose }) {
               </styles.FormBlock>
               {error && <styles.ErrorMessage>{error}</styles.ErrorMessage>}
               <styles.ButtonGroup>
-                <styles.Button type="submit" className="_btn-bg _hover01">Создать задачу</styles.Button>
-                <styles.Button type="button" className="_btn-bor" onClick={onClose}>Отменить</styles.Button>
+                <styles.SubmitButton type="submit">Создать задачу</styles.SubmitButton>
+                <styles.CancelButton type="button" onClick={onClose}>Отменить</styles.CancelButton>
               </styles.ButtonGroup>
             </styles.Form>
           </styles.Content>

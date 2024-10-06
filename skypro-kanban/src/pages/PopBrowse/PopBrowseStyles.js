@@ -71,10 +71,10 @@ export const Theme = styled.div`
   padding: 8px 20px;
   border-radius: 24px;
   margin-right: 7px;
-  background-color: ${props => 
+  background-color: ${props =>
     props.theme.topicStyles[getThemeKey(props.$topic)]?.backgroundColor || 'rgba(0, 0, 0, 0.7)'
   };
-  color: ${props => 
+  color: ${props =>
     props.theme.topicStyles[getThemeKey(props.$topic)]?.color || props.theme.textPrimary
   };
 
@@ -229,6 +229,65 @@ export const CategoryTheme = styled.div`
   }
 `;
 
+export const Button = styled.button`
+  height: 30px;
+  margin-bottom: 10px;
+  padding: 0 14px;
+  background-color: ${props => props.theme.inputBackground};
+  color: ${props => props.theme.text};
+  border: 1px solid ${props => props.theme.borderColor};
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+export const BaseButton = styled.button`
+  height: 30px;
+  margin-bottom: 10px;
+  padding: 0 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+`;
+
+export const PrimaryButton = styled(BaseButton)`
+  background: #565EEF;
+  color: #FFFFFF;
+  border: none;
+
+  a {
+    color: #FFFFFF;
+  }
+
+  &:hover {
+    background-color: #33399b;
+  }
+`;
+
+export const SecondaryButton = styled(BaseButton)`
+  background: transparent;
+  border: 0.7px solid var(--palette-navy-60, #565EEF);
+  color: #565EEF;
+
+  a {
+    color: #565EEF;
+  }
+
+  &:hover {
+    background-color: #33399b;
+    color: #FFFFFF;
+
+    a {
+      color: #FFFFFF;
+    }
+  }
+`;
+
 export const ButtonBrowse = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -243,19 +302,4 @@ export const ButtonGroup = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-`;
-
-export const Button = styled.button`
-  height: 30px;
-  margin-bottom: 10px;
-  padding: 0 14px;
-  background-color: ${props => props.theme.inputBackground};
-  color: ${props => props.theme.text};
-  border: 1px solid ${props => props.theme.borderColor};
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.8;
-  }
 `;

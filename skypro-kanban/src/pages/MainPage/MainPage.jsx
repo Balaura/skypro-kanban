@@ -1,46 +1,46 @@
 import { useState, useEffect, useContext } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import { getTasks } from '../../API';
 import * as styles from './MainPageStyles';
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
 import { TaskContext } from '../../contexts/TaskContext';
+import { useUser } from '../../contexts/UserContext';
 
-function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
+function MainPage({ toggleTheme, currentTheme }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
   const { tasks, setTasks } = useContext(TaskContext);
+  const { user, updateUser } = useUser();
 
   useEffect(() => {
     const fetchTasks = async () => {
-      if (!isAuth) {
+      if (!user || !user.token) {
         navigate('/login');
         return;
       }
 
       try {
         setIsLoading(true);
-        const token = localStorage.getItem('token');
-        const data = await getTasks(token);
+        const data = await getTasks(user.token);
         setTasks(data.tasks);
       } catch (err) {
-        setError('Не удалось загрузить данные, попробуйте позже');
+        console.error('Error fetching tasks:', err);
+        setError('Не удалось загрузить данные. Пожалуйста, попробуйте позже или обратитесь в службу поддержки.');
       } finally {
         setIsLoading(false);
       }
     };
 
-    if (isAuth) {
+    if (user) {
       fetchTasks();
     }
-  }, [isAuth, navigate, setTasks]);
+  }, [user, navigate, setTasks]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsAuth(false);
+    updateUser(null);
     navigate('/login');
   };
 
@@ -50,7 +50,7 @@ function MainPage({ isAuth, setIsAuth, toggleTheme, currentTheme }) {
         toggleTheme={toggleTheme}
         currentTheme={currentTheme}
         handleLogout={handleLogout}
-        setIsAuth={setIsAuth}
+        isAuth={!!user}
       />
       {isLoading ? (
         <LoadingAnimation />
