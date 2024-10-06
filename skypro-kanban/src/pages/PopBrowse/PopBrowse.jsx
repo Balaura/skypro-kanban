@@ -51,7 +51,6 @@ function PopBrowse() {
       const token = localStorage.getItem('token');
       const updatedCard = { ...editedCard, date: selectedDate.toISOString() };
       const response = await editTask(token, id, updatedCard);
-      console.log('Updated Task Response:', response);
       setCard(updatedCard);
       setIsEditing(false);
 
