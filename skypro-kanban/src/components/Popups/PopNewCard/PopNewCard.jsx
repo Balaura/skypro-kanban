@@ -5,6 +5,7 @@ import { TaskContext } from '../../../contexts/TaskContext';
 import { addTask } from '../../../API';
 import * as styles from './PopNewCardStyles';
 import Calendar from '../../Calendar/Calendar';
+import { useUser } from '../../../contexts/UserContext';
 
 function PopNewCard({ isOpen, onClose }) {
   const [title, setTitle] = useState('');
@@ -13,8 +14,8 @@ function PopNewCard({ isOpen, onClose }) {
   const [status] = useState('Без статуса');
   const [topic, setTopic] = useState('');
   const [error, setError] = useState('');
-  const { tasks, setTasks } = useContext(TaskContext);
-  const navigate = useNavigate();
+  const { setTasks } = useContext(TaskContext);
+  const { user } = useUser();
 
   if (!isOpen) return null;
 
@@ -33,7 +34,8 @@ function PopNewCard({ isOpen, onClose }) {
         status,
         topic
       };
-      const response = await addTask(newTask);
+      const token = user.token;
+      const response = await addTask(token, newTask);
       setTasks(response.tasks);
       onClose();
     } catch (error) {

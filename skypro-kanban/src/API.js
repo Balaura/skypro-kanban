@@ -1,13 +1,5 @@
 const API_BASE_URL = 'https://wedev-api.sky.pro/api';
 
-export const getToken = () => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    throw new Error('Токен отсутствует. Пожалуйста, выполните вход.');
-  }
-  return token;
-};
-
 export async function getTasks(token) {
   const response = await fetch(`${API_BASE_URL}/kanban`, {
     headers: {
@@ -44,11 +36,11 @@ export async function registerUser(login, name, password) {
   return response.json();
 }
 
-export async function addTask(taskData) {
+export async function addTask(token, taskData) {
   const response = await fetch(`${API_BASE_URL}/kanban`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify(taskData),
   });

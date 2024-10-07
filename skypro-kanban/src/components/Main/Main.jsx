@@ -10,7 +10,6 @@ const statusList = [
 ];
 
 function Main({ cards, onCardEdit, onCardDelete }) {
-  console.log(cards);
   return (
     <MainWrapper>
       <MainContainer>

@@ -13,8 +13,8 @@ export default function Calendar({ selectedDate, setSelectedDate, readOnly }) {
   };
 
   return (
-    <styles.CalendarWrapper className="calendar">
-      <styles.CalendarTitle className="calendar__ttl subttl">Даты</styles.CalendarTitle>
+    <styles.CalendarWrapper>
+      <styles.CalendarTitle>Даты</styles.CalendarTitle>
       <DayPicker
         mode="single"
         selected={selectedDate}
@@ -25,16 +25,16 @@ export default function Calendar({ selectedDate, setSelectedDate, readOnly }) {
         modifiersStyles={{
           today: { backgroundColor: ' #EAEEF6', color: '#94A6BE' },
           booked: { backgroundColor: '#94A6BE', color: 'white' }
-        }}
+        }} 
         formatters={{
           formatMonth: formatMonthCapitalized,
           formatCaption: formatMonthCapitalized
         }}
       />
-      <styles.CalendarPeriod className="calendar__period">
-        <styles.CalendarP className="calendar__p date-end">
+      <styles.CalendarPeriod>
+        <styles.CalendarP>
           Срок исполнения:{' '}
-          <span className="date-control">{format(selectedDate, 'dd.MM.yyyy', { locale: ru })}</span>
+          <span>{format(selectedDate, 'dd.MM.yyyy', { locale: ru })}</span>
         </styles.CalendarP>
       </styles.CalendarPeriod>
     </styles.CalendarWrapper>
