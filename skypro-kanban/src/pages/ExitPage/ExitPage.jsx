@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { ExitPageWrapper, ExitMessage, ButtonGroup, Button, ModalOverlay, ModalContent } from './ExitPageStyles';
+import { useUser } from '../../contexts/UserContext';
 
 
 function ExitPage({ setIsAuth }) {
   const navigate = useNavigate();
+  const { updateUser } = useUser();
 
   const handleConfirmExit = () => {
     setIsAuth(false);
-    localStorage.removeItem('token');
+    updateUser(null);
     navigate('/login');
   };
 

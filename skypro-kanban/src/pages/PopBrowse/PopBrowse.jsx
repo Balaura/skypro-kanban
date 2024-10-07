@@ -5,6 +5,7 @@ import { editTask, deleteTask } from '../../API';
 import * as styles from './PopBrowseStyles';
 import { CalendarWrapper } from './PopBrowseStyles';
 import { TaskContext } from '../../contexts/TaskContext';
+import { useUser } from '../../contexts/UserContext';
 
 function PopBrowse() {
   const { id } = useParams();
@@ -14,10 +15,12 @@ function PopBrowse() {
   const [editedCard, setEditedCard] = useState({});
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  const { user } = useUser();
+
   useEffect(() => {
     const fetchCard = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = user.token;
         const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${id}`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` }
@@ -29,7 +32,7 @@ function PopBrowse() {
         if (data.task) {
           setCard(data.task);
           setEditedCard(data.task);
-          setSelectedDate(new Date(data.task.date)); // Установка даты здесь
+          setSelectedDate(new Date(data.task.date));
         } else {
           console.error("Нет задачи с таким ID");
         }
@@ -48,7 +51,7 @@ function PopBrowse() {
 
   const handleSave = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = user.token;
       const updatedCard = { ...editedCard, date: selectedDate.toISOString() };
       const response = await editTask(token, id, updatedCard);
       setCard(updatedCard);
@@ -63,13 +66,14 @@ function PopBrowse() {
 
   const handleDelete = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = user.token;
       await deleteTask(token, id);
 
       // Обновляем состояние tasks в контексте
       setTasks(tasks.filter(task => task._id !== id));
 
       // navigate('/', { state: { shouldRefetch: true } });
+      handleClose();
 
     } catch (error) {
       console.error('Error deleting card:', error);

@@ -6,6 +6,7 @@ export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -15,6 +16,8 @@ export const UserProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Error loading user from localStorage:', error);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -32,7 +35,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, updateUser }}>
+    <UserContext.Provider value={{ user, updateUser, isLoading }}>
       {children}
     </UserContext.Provider>
   );

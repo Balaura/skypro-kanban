@@ -6,6 +6,8 @@ import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import PopBrowse from '../pages/PopBrowse/PopBrowse';
 import ExitPage from '../pages/ExitPage/ExitPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
+import { useUser } from '../contexts/UserContext';
+import ProtectedRoute from './ProtectedRoute';
 
 const AppRoutesObj = {
   HOME: "/",
@@ -17,16 +19,21 @@ const AppRoutesObj = {
 };
 
 function AppRoutes({ toggleTheme, currentTheme }) {
+  const { user, isLoading } = useUser();
   const [isAuth, setIsAuth] = useState(false);
   const location = useLocation();
   const background = location.state?.background;
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsAuth(true);
+    if (!isLoading) {
+      setIsAuth(!!user);
     }
-  }, []);
+  }, [user, isLoading]);
+
+  if (isLoading) {
+    return null;
+  }
+
 
   return (
     <>
@@ -36,26 +43,45 @@ function AppRoutes({ toggleTheme, currentTheme }) {
         <Route
           path={AppRoutesObj.HOME}
           element={
-            isAuth ? (
+            <ProtectedRoute>
               <MainPage
                 isAuth={isAuth}
                 setIsAuth={setIsAuth}
                 toggleTheme={toggleTheme}
                 currentTheme={currentTheme}
               />
-            ) : (
-              <Navigate to={AppRoutesObj.LOGIN} />
-            )
+            </ProtectedRoute>
           }
         />
-        <Route path={AppRoutesObj.EXIT} element={<ExitPage setIsAuth={setIsAuth} />} />
+        <Route
+          path={AppRoutesObj.EXIT}
+          element={
+            <ProtectedRoute>
+              <ExitPage setIsAuth={setIsAuth} />
+            </ProtectedRoute>
+          }
+        />
         <Route path={AppRoutesObj.NOT_FOUND} element={<NotFoundPage />} />
-        <Route path={AppRoutesObj.CARDS} element={<PopBrowse />} />
+        <Route
+          path={AppRoutesObj.CARDS}
+          element={
+            <ProtectedRoute>
+              <PopBrowse />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {background && (
         <Routes>
-          <Route path={AppRoutesObj.CARDS} element={<PopBrowse />} />
+          <Route
+            path={AppRoutesObj.CARDS}
+            element={
+              <ProtectedRoute>
+                <PopBrowse />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       )}
     </>

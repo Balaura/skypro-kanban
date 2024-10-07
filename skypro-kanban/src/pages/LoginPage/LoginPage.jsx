@@ -21,7 +21,6 @@ function LoginPage({ setIsAuth }) {
     try {
       const data = await loginUser(login, password);
       setIsAuth(true);
-      // localStorage.setItem('token', data.user.token);
       updateUser({
         name: data.user.name,
         login: data.user.login,
