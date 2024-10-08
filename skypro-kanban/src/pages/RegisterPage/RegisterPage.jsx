@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as styles from './RegisterPageStyles';
 import { registerUser } from '../../API';
+import { AppRoutesObj } from '../../routes/routes';
 
 const RegisterPage = () => {
 const [login, setLogin] = useState('');
@@ -23,7 +24,7 @@ const navigate = useNavigate();
     setIsLoading(true);
     try {
       await registerUser(login, name, password);
-      navigate('/login');
+      navigate(AppRoutesObj.LOGIN);
     } catch (err) {
       console.error('Registration error:', err);
       setError(err.message || 'Ошибка при регистрации. Попробуйте другой логин.');

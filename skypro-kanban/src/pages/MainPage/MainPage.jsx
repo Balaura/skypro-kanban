@@ -7,8 +7,9 @@ import * as styles from './MainPageStyles';
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
 import { TaskContext } from '../../contexts/TaskContext';
 import { useUser } from '../../contexts/UserContext';
+import { AppRoutesObj } from '../../routes/routes';
 
-function MainPage({ toggleTheme, currentTheme }) {
+function MainPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function MainPage({ toggleTheme, currentTheme }) {
   useEffect(() => {
     const fetchTasks = async () => {
       if (!user || !user.token) {
-        navigate('/login');
+        navigate(AppRoutesObj.LOGIN);
         return;
       }
 
@@ -41,17 +42,12 @@ function MainPage({ toggleTheme, currentTheme }) {
 
   const handleLogout = () => {
     updateUser(null);
-    navigate('/login');
+    navigate(AppRoutesObj.LOGIN);
   };
 
   return (
     <styles.MainPageWrapper>
-      <Header
-        toggleTheme={toggleTheme}
-        currentTheme={currentTheme}
-        handleLogout={handleLogout}
-        isAuth={!!user}
-      />
+      <Header />
       {isLoading ? (
         <LoadingAnimation />
       ) : error ? (

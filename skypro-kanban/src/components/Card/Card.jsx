@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { format } from 'date-fns';
 import ru from 'date-fns/locale/ru';
 import * as styles from './CardStyles';
+import { AppRoutesObj } from '../../routes/routes';
 
 const getTopicClassName = (topic) => {
   switch ((topic || '').toLowerCase()) {
@@ -18,7 +19,7 @@ function Card({ id, title, topic = '', date }) {
   const topicClassName = getTopicClassName(topic);
 
   const handleCardClick = () => {
-    navigate(`/card/${id}`, { state: { background: location } });
+    navigate(AppRoutesObj.CARDS.replace(':id', id), { state: { background: location } });
   };
 
   const formattedDate = format(new Date(date), 'dd.MM.yyyy', { locale: ru });

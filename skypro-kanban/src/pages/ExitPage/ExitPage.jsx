@@ -1,16 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { ExitPageWrapper, ExitMessage, ButtonGroup, Button, ModalOverlay, ModalContent } from './ExitPageStyles';
 import { useUser } from '../../contexts/UserContext';
+import { AppRoutesObj } from '../../routes/routes';
 
-
-function ExitPage({ setIsAuth }) {
+function ExitPage() {
   const navigate = useNavigate();
   const { updateUser } = useUser();
 
   const handleConfirmExit = () => {
-    setIsAuth(false);
     updateUser(null);
-    navigate('/login');
+    navigate(AppRoutesObj.LOGIN);
   };
 
   const handleCancelExit = () => {

@@ -5,15 +5,17 @@ import logoLight from '../../../public/logo.png';
 import logoDark from '../../../public/logo_dark.png';
 import * as styles from './HeaderStyles';
 import PopNewCard from '../Popups/PopNewCard/PopNewCard';
+import { useTheme } from '../../contexts/ThemeContext';
+import { AppRoutesObj } from '../../routes/routes';
 
-const Header = ({ toggleTheme, currentTheme }) => {
+const Header = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
-
+  const { theme, toggleTheme } = useTheme();
   const handleLogout = () => {
-    navigate('/exit');
+    navigate(AppRoutesObj.EXIT);
   };
 
   return (
@@ -21,7 +23,7 @@ const Header = ({ toggleTheme, currentTheme }) => {
       <styles.HeaderContainer>
         <styles.HeaderBlock>
           <styles.HeaderLogo>
-            <img src={currentTheme === 'dark' ? logoDark : logoLight} alt="Logo" />
+            <img src={theme === 'dark' ? logoDark : logoLight} alt="Logo" />
           </styles.HeaderLogo>
           <styles.HeaderNav>
             <styles.HeaderBtnMainNew onClick={() => setIsNewCardModalOpen(true)}>
@@ -40,7 +42,7 @@ const Header = ({ toggleTheme, currentTheme }) => {
                     <styles.ThemeToggle>
                       <styles.ToggleInput
                         type="checkbox"
-                        checked={currentTheme === 'dark'}
+                        checked={theme === 'dark'}
                         onChange={toggleTheme}
                       />
                       <styles.ToggleSlider />

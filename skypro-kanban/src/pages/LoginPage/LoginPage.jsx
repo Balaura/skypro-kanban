@@ -2,17 +2,16 @@ import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as styles from './LoginPageStyles';
 import { loginUser } from '../../API';
-import { UserContext } from '../../contexts/UserContext';
 import { useUser } from '../../contexts/UserContext';
+import { AppRoutesObj } from '../../routes/routes';
 
-function LoginPage({ setIsAuth }) {
+function LoginPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
-  const { user, updateUser } = useUser();
+  const { setUser } = useUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,13 +19,12 @@ function LoginPage({ setIsAuth }) {
     setIsLoading(true);
     try {
       const data = await loginUser(login, password);
-      setIsAuth(true);
-      updateUser({
+      setUser({
         name: data.user.name,
         login: data.user.login,
         token: data.user.token,
       });
-      navigate('/');
+      navigate(AppRoutesObj.HOME);
     } catch (err) {
       console.error('Login error:', err);
       setError(err.message || 'Произошла ошибка при входе. Пожалуйста, попробуйте ещё раз.');

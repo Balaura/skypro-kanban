@@ -7,12 +7,15 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem('user');
       if (storedUser) {
-        setUser(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        setIsAuth(!!parsedUser);
       }
     } catch (error) {
       console.error('Error loading user from localStorage:', error);
@@ -23,6 +26,8 @@ export const UserProvider = ({ children }) => {
 
   const updateUser = (newUser) => {
     setUser(newUser);
+    setIsAuth(!!newUser);
+
     try {
       if (newUser) {
         localStorage.setItem('user', JSON.stringify(newUser));
@@ -35,7 +40,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, updateUser, isLoading }}>
+    <UserContext.Provider value={{ user, updateUser, isLoading, isAuth }}>
       {children}
     </UserContext.Provider>
   );

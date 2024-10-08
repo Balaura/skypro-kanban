@@ -6,6 +6,7 @@ import * as styles from './PopBrowseStyles';
 import { CalendarWrapper } from './PopBrowseStyles';
 import { TaskContext } from '../../contexts/TaskContext';
 import { useUser } from '../../contexts/UserContext';
+import { AppRoutesObj } from '../../routes/routes';
 
 function PopBrowse() {
   const { id } = useParams();
@@ -44,7 +45,7 @@ function PopBrowse() {
   }, [id]);
 
   const handleClose = () => {
-    navigate('/');
+    navigate(AppRoutesObj.HOME);
   };
 
   const { tasks, setTasks } = useContext(TaskContext);
@@ -72,7 +73,6 @@ function PopBrowse() {
       // Обновляем состояние tasks в контексте
       setTasks(tasks.filter(task => task._id !== id));
 
-      // navigate('/', { state: { shouldRefetch: true } });
       handleClose();
 
     } catch (error) {

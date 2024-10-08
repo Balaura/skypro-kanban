@@ -6,20 +6,10 @@ import { themeColors } from './styles/Themes';
 import AppRoutes from './routes/AppRoutes';
 import { UserProvider } from './contexts/UserContext';
 import { TaskProvider } from './contexts/TaskContext';
+import { ThemeContextProvider, useTheme } from './contexts/ThemeContext'; 
 
 function App() {
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme || 'light';
-  });
-
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
+  const { theme } = useTheme();
 
   return (
     <ThemeProvider theme={themeColors[theme]}>
@@ -27,7 +17,7 @@ function App() {
       <UserProvider>
         <TaskProvider>
           <Router>
-            <AppRoutes toggleTheme={toggleTheme} currentTheme={theme} />
+            <AppRoutes />
           </Router>
         </TaskProvider>
       </UserProvider>
@@ -35,4 +25,10 @@ function App() {
   );
 }
 
-export default App;
+export default function WrappedApp() {
+  return (
+    <ThemeContextProvider>
+      <App />
+    </ThemeContextProvider>
+  );
+}
