@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
-import { editTask, deleteTask } from '../../API';
+import { deleteTask } from '../../API';
 import * as styles from './PopBrowseStyles';
 import { CalendarWrapper } from './PopBrowseStyles';
 import { TaskContext } from '../../contexts/TaskContext';
@@ -52,9 +52,7 @@ function PopBrowse() {
 
   const handleSave = async () => {
     try {
-      const token = user.token;
       const updatedCard = { ...editedCard, date: selectedDate.toISOString() };
-      const response = await editTask(token, id, updatedCard);
       setCard(updatedCard);
       setIsEditing(false);
 

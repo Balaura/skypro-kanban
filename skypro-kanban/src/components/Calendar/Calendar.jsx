@@ -7,7 +7,7 @@ import * as styles from './CalendarStyles';
 export default function Calendar({ selectedDate, setSelectedDate, readOnly }) {
   const today = new Date();
 
-  const formatMonthCapitalized = (month, options) => {
+  const formatMonthCapitalized = (month) => {
     const monthName = ru.localize.month(month.getMonth(), { width: 'wide' });
     return monthName.charAt(0).toUpperCase() + monthName.slice(1);
   };

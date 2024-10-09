@@ -14,7 +14,7 @@ function MainPage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { tasks, setTasks } = useContext(TaskContext);
-  const { user, updateUser } = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -40,10 +40,6 @@ function MainPage() {
     }
   }, [user, navigate, setTasks]);
 
-  const handleLogout = () => {
-    updateUser(null);
-    navigate(AppRoutesObj.LOGIN);
-  };
 
   return (
     <styles.MainPageWrapper>

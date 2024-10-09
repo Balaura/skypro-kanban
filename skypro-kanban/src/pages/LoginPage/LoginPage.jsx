@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as styles from './LoginPageStyles';
 import { loginUser } from '../../API';
@@ -11,7 +11,7 @@ function LoginPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { setUser } = useUser();
+  const { updateUser } = useUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ function LoginPage() {
     setIsLoading(true);
     try {
       const data = await loginUser(login, password);
-      setUser({
+      updateUser({
         name: data.user.name,
         login: data.user.login,
         token: data.user.token,
